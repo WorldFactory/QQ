@@ -1,0 +1,1 @@
+alias qq=./qq.sh

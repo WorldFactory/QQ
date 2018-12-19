@@ -1,0 +1,49 @@
+parameters:
+    docker_images_prefix: ~
+    docker_image_folder: ./docker/images/
+
+commands:
+    "docker:bash":
+        script: exec://docker-compose exec -T %1% bash %_left%
+        shortDescription: Run bash in target container.
+        longDescription: Need a target environment name.
+        aliases: [bash]
+
+    "docker:log":
+        script: docker-compose logs -f %_all%
+        shortDescription : Display logs.
+        aliases: [log]
+
+    "docker:reboot":
+        script: docker-compose halt && docker-compose up -d %_all%
+        shortDescription: Relance tous les containers.
+        aliases: [reboot]
+
+    "docker:up":
+        script: docker-compose up -d %_all%
+        shortDescription: Lance docker sous forme de démon.
+        aliases: [up]
+
+    "docker:build":
+        script:
+            - docker build %docker_image_folder%%1% --tag %docker_images_prefix%%1%:latest %_left%
+            - docker-compose up -d %1%
+        aliases: [build]
+        shortDescription: Reconstruit localement un container.
+
+    "docker:clean":
+        script:
+            - docker-compose down --remove-orphans
+            - exec://docker system prune -a --volumes
+        shortDescription: Nettoyage des images et volumes Docker non-utilisés.
+        aliases: [clean]
+
+    "docker:down":
+        script: docker-compose down --remove-orphans %_all%
+        shortDescription: Désactive les containers Docker.
+        aliases: [down]
+
+    "docker:restart":
+        script: docker stop %1% && docker start %1%
+        shortDescription: Relance un container.
+        aliases: [restart]

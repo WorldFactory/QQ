@@ -1,0 +1,22 @@
+parameters:
+    model_bundle: ModelBundle
+    symfony_container: php
+    symfony_user: www-data
+commands:
+    sf:
+        script: docker-compose exec -T --user %symfony_user% %symfony_container% php bin/console %_all%
+        shortDescription: Lance la console Symfony avec les paramètres fournis.
+    "entity:map":
+        script: docker-compose exec -T --user %symfony_user% %symfony_container% php bin/console doctrine:mapping:import %model_bundle% yml --force --filter %_all%
+        shortDescription: Génère le mapping de la ou des tables spécifiées. Le nom de la table doit être indiqué en CamelCase. Ne prends en compte que les entités du Bundle %model_bundle%.
+    "entity:generate":
+        script: docker-compose exec -T --user %symfony_user% %symfony_container% php bin/console doctrine:generate:entities --path=src/ --no-backup %_all%
+        shortDescription: "Génère l'entité spécifiée. Necessite le nom court de l'entité. ex : ModelBundle:MyEntity"
+    "cache:clear":
+        script: docker-compose exec -T --user %symfony_user% %symfony_container% rm -rf var/cache %_all%
+        shortDescription: Vide le cache de symfony.
+        aliases: ["cc"]
+    "cache:reset":
+        script: docker-compose exec -T --user %symfony_user% %symfony_container% php bin/console cache:clear %_all%
+        shortDescription: Réinitialise le cache de symfony.
+        aliases: ["cr"]

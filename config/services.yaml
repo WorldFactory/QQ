@@ -1,0 +1,62 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: false      # Automatically injects dependencies in your services.
+        autoconfigure: false # Automatically registers your services as commands, event subscribers, etc.
+        public: true         # Allows optimizing the container by removing unused services; this also means
+                             # fetching services directly from the container via $container->get() won't work.
+                             # The best practice is to be explicit about your dependencies anyway.
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    qq.factory.runners:
+        class: WorldFactory\QQ\Services\RunnerFactory
+        arguments: ["@service_container"]
+
+    qq.runner.bash:
+        class: WorldFactory\QQ\Services\Runners\BashRunner
+        tags:
+            - { name: qq.runner, type: bash, alias: sh }
+
+    qq.runner.command:
+        class: WorldFactory\QQ\Services\Runners\CommandRunner
+        tags:
+            - { name: qq.runner, type: qq, alias: command }
+
+    qq.runner.exec:
+        class: WorldFactory\QQ\Services\Runners\ExecRunner
+        tags:
+            - { name: qq.runner, type: exec }
+
+    qq.runner.php:
+        class: WorldFactory\QQ\Services\Runners\PhpRunner
+        tags:
+            - { name: qq.runner, type: php }
+
+    qq.runner.include:
+        class: WorldFactory\QQ\Services\Runners\IncludeRunner
+        tags:
+            - { name: qq.runner, type: inc }
+
+    qq.runner.persistent_bash:
+        class: WorldFactory\QQ\Services\Runners\PersistentBashRunner
+        tags:
+            - { name: qq.runner, type: pbash }
+
+    qq.runner.child:
+        class: WorldFactory\QQ\Services\Runners\ChildRunner
+        tags:
+            - { name: qq.runner, type: child }
+
+    qq.command.about:
+        class: WorldFactory\QQ\Services\Commands\AboutCommand
+        tags:
+            - { name: console.command, command: 'about' }

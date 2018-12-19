@@ -1,0 +1,9 @@
+libs:
+    - { src: vendor/worldfactory/qq/src/resources/libs/docker.yml }
+    - { src: vendor/worldfactory/qq/src/resources/libs/composer.yml }
+    - { src: vendor/worldfactory/qq/src/resources/libs/symfony.yml }
+
+commands:
+    phpv:
+        script: php -v
+        shortDescription: Display PHP version.

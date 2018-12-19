@@ -1,0 +1,38 @@
+{
+  "actions": [
+    {
+      "type": "copy-file",
+      "source": "recipe/qq.bat",
+      "target": "qq.bat"
+    },
+    {
+      "type": "copy-file",
+      "source": "recipe/qq.sh",
+      "target": "qq.sh"
+    },
+    {
+      "type": "chmod-file",
+      "target": "qq.sh",
+      "mode": 775
+    },
+    {
+      "type": "create-folder",
+      "target": "config"
+    },
+    {
+      "type": "copy-file",
+      "source": "recipe/config/bundles.php",
+      "target": "config/bundles.php"
+    },
+    {
+      "type": "copy-file",
+      "source": "recipe/config/commands.yml",
+      "target": "config/commands.yml"
+    },
+    {
+      "type": "copy-file",
+      "source": "recipe/config/services.yaml",
+      "target": "config/services.yaml"
+    }
+  ]
+}
