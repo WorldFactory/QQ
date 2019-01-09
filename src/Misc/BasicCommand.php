@@ -20,6 +20,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use WorldFactory\QQ\Services\VarFormatter;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
@@ -154,19 +155,23 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var RunnerInterface */
         $runner = $this->findRunner($script);
 
+        /** @var VarFormatter $varFormatter */
+        $varFormatter = $this->container->get('qq.formatter.var');
+
+        $varFormatter->init($this->input);
+
         if ($this->output->isVerbose()) {
             $class = get_class($runner);
             $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
         }
 
-        $script = $this->removeProtocol($script, $runner);
-        $script = $this->injectEnvVars($script);
-        $script = $this->injectParameters($script);
-        $script = $this->injectArguments($script);
-
-        $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
+        $script = $varFormatter->sanitize($script);
+        $script = $varFormatter->format($script);
+        $script = $varFormatter->finalize($script);
 
         $script = $runner->format($script);
+
+        $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
 
         $runner
             ->setApplication($this->getApplication())
@@ -202,75 +207,5 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $runner = $runnerFactory->getRunner($type);
 
         return $runner;
-    }
-
-    public function removeProtocol(string $script) : string
-    {
-        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script, $result)) {
-            $header = $result['header'];
-
-            $script = substr($script, strlen($header));
-        }
-
-        return $script;
-    }
-
-    protected function injectArguments($script) : string
-    {
-        $tokens = $this->input->getSavedTokens();
-        $index = array_search($this->input->getFirstArgument(), $tokens);
-        $args = array_slice($tokens, $index + 1);
-
-        $usedArgs = [];
-
-        for ($c = 1; $c <= count($args); $c ++) {
-            if (preg_match("/%$c%/", $script)) {
-                $script = str_replace('%' . $c . '%', $args[$c - 1], $script);
-                $usedArgs[] = $c;
-            }
-        }
-
-        if (preg_match("/%_all%/", $script)) {
-            $script = str_replace('%_all%', implode(' ', $args), $script);
-
-            $usedArgs = array_keys($args);
-            array_shift($usedArgs);
-            $usedArgs[] = count($args);
-        }
-
-        if (preg_match("/%_left%/", $script)) {
-            $leftArgs = [];
-            foreach ($args as $key => $arg) {
-                if (!in_array($key + 1, $usedArgs)) {
-                    $leftArgs[] = $arg;
-                }
-            }
-            $script = str_replace('%_left%', implode(' ', $leftArgs), $script);
-        }
-
-        return $script;
-    }
-
-    protected function injectParameters($script) : string
-    {
-        /** @var Application $application */
-        $application = $this->getApplication();
-
-        $parameters = $application->getConfigLoader()->getParameters();
-
-        foreach ($parameters as $key => $val) {
-            $script = str_replace('%' . $key . '%', $val, $script);
-        }
-
-        return $script;
-    }
-
-    protected function injectEnvVars($script) : string
-    {
-        foreach ($_ENV as $key => $val) {
-            $script = str_replace('%ENV:' . $key . '%', $val, $script);
-        }
-
-        return $script;
     }
 }
