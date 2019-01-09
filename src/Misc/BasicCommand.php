@@ -23,8 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
-    const PROTOCOL_REGEX = "/^(?<header>(?<type>[A-Z0-9_\.-]+):\/\/)/iJ";
-
     /** @var string|array Script ou liste des scripts à éxecuter. */
     private $script;
 
@@ -194,7 +192,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var string $type */
         $type = $this->defaultType;
 
-        if (preg_match(self::PROTOCOL_REGEX, $script, $result)) {
+        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script, $result)) {
             $type = $result['type'];
         }
 
@@ -209,7 +207,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
     public function removeProtocol(string $script) : string
     {
-        if (preg_match(self::PROTOCOL_REGEX, $script, $result)) {
+        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script, $result)) {
             $header = $result['header'];
 
             $script = substr($script, strlen($header));

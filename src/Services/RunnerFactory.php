@@ -8,6 +8,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class RunnerFactory
 {
+    const PROTOCOL_REGEX = "/^(?<header>(?<type>[A-Z0-9_\.-]+):\/\/)/iJ";
+
     private $runnerServiceNames = [];
 
     /** @var ContainerInterface  */
