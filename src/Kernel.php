@@ -16,6 +16,19 @@ class Kernel extends BaseKernel
 
     const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
+    /** @var Application */
+    private $application;
+
+    /**
+     * @param Application $application
+     */
+    public function setApplication(Application $application) : self
+    {
+        $this->application = $application;
+
+        return $this;
+    }
+
     public function getCacheDir()
     {
         return getcwd().'/var/cache/'.$this->environment;

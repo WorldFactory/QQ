@@ -35,6 +35,13 @@ class Application extends SymfonyConsoleApplication
         "Quick Qommand, with a Q, because it's like that !"
     ];
 
+    public function __construct(Kernel $kernel)
+    {
+        parent::__construct($kernel);
+
+        $kernel->setApplication($this);
+    }
+
     public function setConfigLoader(ConfigLoader $configLoader)
     {
         $this->configLoader = $configLoader;
