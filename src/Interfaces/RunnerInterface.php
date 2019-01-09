@@ -13,15 +13,15 @@ interface RunnerInterface
 
     public function format(string $script) : string;
 
-    public function setOutput(OutputInterface $output);
+    public function setOutput(OutputInterface $output) : RunnerInterface;
 
     public function getOutput();
 
-    public function setApplication(Application $application);
+    public function setApplication(Application $application) : RunnerInterface;
 
     public function getApplication();
 
-    public function setCommand(BasicCommand $command);
+    public function setCommand(BasicCommand $command) : RunnerInterface;
 
     public function getCommand();
 }

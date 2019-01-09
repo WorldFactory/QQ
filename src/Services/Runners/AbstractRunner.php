@@ -27,7 +27,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $script;
     }
 
-    public function setOutput(OutputInterface $output)
+    public function setOutput(OutputInterface $output) : RunnerInterface
     {
         $this->output = $output;
 
@@ -39,7 +39,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $this->output;
     }
 
-    public function setApplication(Application $application)
+    public function setApplication(Application $application) : RunnerInterface
     {
         $this->application = $application;
 
@@ -51,7 +51,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $this->application;
     }
 
-    public function setCommand(BasicCommand $command)
+    public function setCommand(BasicCommand $command) : RunnerInterface
     {
         $this->command = $command;
 
