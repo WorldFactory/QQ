@@ -1,7 +1,7 @@
-libs:
-    - { src: vendor/worldfactory/qq/src/resources/libs/docker.yml }
-    - { src: vendor/worldfactory/qq/src/resources/libs/composer.yml }
-    - { src: vendor/worldfactory/qq/src/resources/libs/symfony.yml }
+imports:
+    - { resource: vendor/worldfactory/qq/src/resources/libs/docker.yml }
+    - { resource: vendor/worldfactory/qq/src/resources/libs/composer.yml }
+    - { resource: vendor/worldfactory/qq/src/resources/libs/symfony.yml }
 
 commands:
     phpv:
