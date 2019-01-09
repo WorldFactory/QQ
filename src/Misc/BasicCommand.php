@@ -147,7 +147,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
     /**
      * @param string $script
-     * @param string|null $description
      * @throws Exception
      */
     protected function executeScript($script)
