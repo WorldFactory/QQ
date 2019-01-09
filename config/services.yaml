@@ -29,6 +29,10 @@ services:
         class: WorldFactory\QQ\Services\RunnerFactory
         arguments: ["@service_container"]
 
+    qq.formatter.var:
+        class: WorldFactory\QQ\Services\VarFormatter
+        arguments: ["@qq.loader.config"]
+
     qq.runner.bash:
         class: WorldFactory\QQ\Services\Runners\BashRunner
         tags:
