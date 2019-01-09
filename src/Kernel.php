@@ -82,4 +82,15 @@ class Kernel extends BaseKernel
     protected function configureRoutes(RouteCollectionBuilder $routes)
     {
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function initializeContainer()
+    {
+        parent::initializeContainer();
+
+        $this->getContainer()->set('qq.app', $this->application);
+        $this->getContainer()->set('qq.loader.config', $this->application->getConfigLoader());
+    }
 }

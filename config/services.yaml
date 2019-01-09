@@ -17,6 +17,14 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    qq.app:
+        class: WorldFactory\QQ\Application
+        synthetic: true
+
+    qq.loader.config:
+        class: WorldFactory\QQ\Misc\ConfigLoader
+        synthetic: true
+
     qq.factory.runners:
         class: WorldFactory\QQ\Services\RunnerFactory
         arguments: ["@service_container"]
