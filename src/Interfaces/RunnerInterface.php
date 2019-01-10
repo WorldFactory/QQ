@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Interfaces;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Misc\BasicCommand;
 use Symfony\Component\Console\Output\OutputInterface;
+use WorldFactory\QQ\Misc\ConfigLoader;
 
 interface RunnerInterface
 {
@@ -17,9 +18,9 @@ interface RunnerInterface
 
     public function getOutput() : OutputInterface;
 
-    public function setApplication(Application $application) : RunnerInterface;
-
     public function getApplication() : Application;
+
+    public function getConfigLoader() : ConfigLoader;
 
     public function setCommand(BasicCommand $command) : RunnerInterface;
 

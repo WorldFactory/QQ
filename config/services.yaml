@@ -39,6 +39,7 @@ services:
         autoconfigure: false
         public: true
         shared: false
+        arguments: ['@qq.loader.config', '@qq.app']
 
     qq.runner.bash:
         parent: qq.runner.abstract

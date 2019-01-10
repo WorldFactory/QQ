@@ -6,6 +6,7 @@ use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use WorldFactory\QQ\Misc\ConfigLoader;
 
 abstract class AbstractRunner implements RunnerInterface
 {
@@ -18,13 +19,26 @@ abstract class AbstractRunner implements RunnerInterface
     /** @var BasicCommand */
     private $command;
 
-    public function __construct()
+    /** @var ConfigLoader */
+    private $configLoader;
+
+    public function __construct(ConfigLoader $configLoader, Application $application)
     {
+        $this->configLoader = $configLoader;
+        $this->application = $application;
     }
 
     public function format(string $script) : string
     {
         return $script;
+    }
+
+    /**
+     * @return ConfigLoader
+     */
+    public function getConfigLoader() : ConfigLoader
+    {
+        return $this->configLoader;
     }
 
     public function setOutput(OutputInterface $output) : RunnerInterface
@@ -37,13 +51,6 @@ abstract class AbstractRunner implements RunnerInterface
     public function getOutput() : OutputInterface
     {
         return $this->output;
-    }
-
-    public function setApplication(Application $application) : RunnerInterface
-    {
-        $this->application = $application;
-
-        return $this;
     }
 
     public function getApplication() : Application

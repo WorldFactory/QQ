@@ -174,7 +174,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
 
         $runner
-            ->setApplication($this->getApplication())
             ->setCommand($this)
             ->setOutput($this->output)
             ->run($script)
