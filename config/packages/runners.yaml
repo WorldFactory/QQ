@@ -56,8 +56,8 @@ services:
     qq.runner.docker:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\DockerRunner
-        call:
-            - [setVarFormatter, '@qq.formatter.var']
-            - [setRunnerFactory, '@qq.factory.runners']
+        calls:
+            - [setVarFormatter, ['@qq.formatter.var']]
+            - [setRunnerFactory, ['@qq.factory.runners']]
         tags:
             - { name: qq.runner, type: docker }
