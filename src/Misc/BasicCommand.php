@@ -152,17 +152,18 @@ class BasicCommand extends Command implements ContainerAwareInterface
      */
     protected function executeScript($script)
     {
-        /** @var RunnerInterface */
-        $runner = $this
-            ->findRunner($script)
-            ->setCommand($this)
-            ->setOutput($this->output)
-        ;
-
         /** @var VarFormatter $varFormatter */
         $varFormatter = $this->container->get('qq.formatter.var');
 
         $varFormatter->init($this->input);
+
+        /** @var RunnerInterface */
+        $runner = $this
+            ->findRunner($script)
+            ->setCommand($this)
+            ->setVarFormatter($varFormatter)
+            ->setOutput($this->output)
+        ;
 
         if ($this->output->isVerbose()) {
             $class = get_class($runner);
@@ -171,9 +172,10 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         $script = $varFormatter->sanitize($script);
         $script = $varFormatter->format($script);
-        $script = $varFormatter->finalize($script);
 
         $script = $runner->format($script);
+
+        $script = $varFormatter->finalize($script);
 
         $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
 

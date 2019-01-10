@@ -12,23 +12,12 @@ class DockerRunner extends AbstractRunner
     /** @var RunnerFactory */
     private $runnerFactory;
 
-    /** @var VarFormatter */
-    private $varFormatter;
-
     /**
      * @param RunnerFactory $runnerFactory
      */
     public function setRunnerFactory(RunnerFactory $runnerFactory) : void
     {
         $this->runnerFactory = $runnerFactory;
-    }
-
-    /**
-     * @param VarFormatter $varFormatter
-     */
-    public function setVarFormatter($varFormatter)
-    {
-        $this->varFormatter = $varFormatter;
     }
 
     public function format(string $script) : string
@@ -39,22 +28,25 @@ class DockerRunner extends AbstractRunner
             throw new \InvalidArgumentException("You should define target container with 'target' parameter.");
         }
 
+        /** @var VarFormatter $formatter */
+        $formatter = $this->getVarFormatter();
+
         /** @var string $target */
-        $target = $this->varFormatter->format($config['target']);
+        $target = $formatter->format($config['target']);
 
         /** @var array $parameters */
         $parameters = [];
 
         if (array_key_exists('user', $config)) {
-            $parameters[] = "--user=" . $this->varFormatter->format($config['user']);
+            $parameters[] = "--user=" . $formatter->format($config['user']);
         }
 
         if (array_key_exists('env', $config)) {
-            $parameters[] = "--env=" . $this->varFormatter->format($config['env']);
+            $parameters[] = "--env=" . $formatter->format($config['env']);
         }
 
         if (array_key_exists('workingDir', $config)) {
-            $parameters[] = "--workdir=" . $this->varFormatter->format($config['workingDir']);
+            $parameters[] = "--workdir=" . $formatter->format($config['workingDir']);
         }
 
         if (array_key_exists('flags', $config) && is_array($config['flags'])) {

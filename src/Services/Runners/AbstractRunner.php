@@ -7,6 +7,7 @@ use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
+use WorldFactory\QQ\Services\VarFormatter;
 
 abstract class AbstractRunner implements RunnerInterface
 {
@@ -21,6 +22,9 @@ abstract class AbstractRunner implements RunnerInterface
 
     /** @var ConfigLoader */
     private $configLoader;
+
+    /** @var VarFormatter */
+    private $varFormatter;
 
     public function __construct(ConfigLoader $configLoader, Application $application)
     {
@@ -39,6 +43,24 @@ abstract class AbstractRunner implements RunnerInterface
     public function getConfigLoader() : ConfigLoader
     {
         return $this->configLoader;
+    }
+
+    /**
+     * @param VarFormatter $varFormatter
+     */
+    public function setVarFormatter(VarFormatter $varFormatter) : RunnerInterface
+    {
+        $this->varFormatter = $varFormatter;
+
+        return $this;
+    }
+
+    /**
+     * @return VarFormatter
+     */
+    public function getVarFormatter(): VarFormatter
+    {
+        return $this->varFormatter;
     }
 
     public function setOutput(OutputInterface $output) : RunnerInterface
