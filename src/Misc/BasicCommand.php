@@ -75,8 +75,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
     }
 
     /**
-    * @return InputInterface
-    */
+     * @return InputInterface
+     */
     public function getInput(): InputInterface
     {
         return $this->input;
