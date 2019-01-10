@@ -43,10 +43,12 @@ class DockerRunner extends AbstractRunner
         /** @var string $target */
         $target = $config['target'];
 
+        $user = array_key_exists('user', $config) ? "--user {$config['user']} " : null;
+
         if ($this->isUnix()) {
-            $dockerScript = "docker-compose exec $target $script";
+            $dockerScript = "docker-compose exec $user$target $script";
         } else {
-            $dockerScript = "docker-compose exec -T $target $script";
+            $dockerScript = "docker-compose exec -T $user$target $script";
         }
 
         return $dockerScript;
