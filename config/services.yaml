@@ -34,56 +34,6 @@ services:
         arguments: ["@qq.loader.config"]
         shared: false
 
-    qq.runner.abstract:
-        abstract: true
-        autowire: false
-        autoconfigure: false
-        public: true
-        shared: false
-        arguments: ['@qq.loader.config', '@qq.app']
-
-    qq.runner.bash:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\BashRunner
-        tags:
-            - { name: qq.runner, type: bash, alias: sh }
-
-    qq.runner.command:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\CommandRunner
-        tags:
-            - { name: qq.runner, type: qq, alias: command }
-
-    qq.runner.exec:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\ExecRunner
-        tags:
-            - { name: qq.runner, type: exec }
-
-    qq.runner.php:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\PhpRunner
-        tags:
-            - { name: qq.runner, type: php }
-
-    qq.runner.include:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\IncludeRunner
-        tags:
-            - { name: qq.runner, type: inc }
-
-    qq.runner.persistent_bash:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\PersistentBashRunner
-        tags:
-            - { name: qq.runner, type: pbash }
-
-    qq.runner.child:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\ChildRunner
-        tags:
-            - { name: qq.runner, type: child }
-
     qq.command.about:
         class: WorldFactory\QQ\Services\Commands\AboutCommand
         tags:
