@@ -41,17 +41,46 @@ class DockerRunner extends AbstractRunner
         }
 
         /** @var string $target */
-        $target = $config['target'];
+        $target = $this->varFormatter->format($config['target']);
 
-        $user = array_key_exists('user', $config) ? "--user {$config['user']} " : null;
+        /** @var array $parameters */
+        $parameters = [];
 
-        if ($this->isUnix()) {
-            $dockerScript = "docker-compose exec $user$target $script";
-        } else {
-            $dockerScript = "docker-compose exec -T $user$target $script";
+        if (array_key_exists('user', $config)) {
+            $parameters[] = "--user=" . $this->varFormatter->format($config['user']);
         }
 
-        return $dockerScript;
+        if (array_key_exists('env', $config)) {
+            $parameters[] = "--env=" . $this->varFormatter->format($config['env']);
+        }
+
+        if (array_key_exists('workingDir', $config)) {
+            $parameters[] = "--workdir=" . $this->varFormatter->format($config['workingDir']);
+        }
+
+        if (array_key_exists('flags', $config) && is_array($config['flags'])) {
+            $flags = $config['flags'];
+
+            if (array_search('detach', $flags)) {
+                $parameters[] = "--detach";
+            }
+
+            if (array_search('interactive', $flags)) {
+                $parameters[] = "--interactive";
+            }
+
+            if (array_search('privilegied', $flags)) {
+                $parameters[] = "--privilegied";
+            }
+        }
+
+        if (!$this->isUnix()) {
+            $parameters[] = "--tty";
+        }
+
+        $execArgs = join(' ', $parameters);
+
+        return "docker-compose exec $execArgs $target $script";
     }
 
     /**
