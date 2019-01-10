@@ -32,11 +32,7 @@ class DockerRunner extends AbstractRunner
         $this->varFormatter = $varFormatter;
     }
 
-    /**
-     * @param string $script
-     * @throws Exception
-     */
-    public function run(string $script) : void
+    public function format(string $script) : string
     {
         $config = $this->getCommand()->getConfig();
 
@@ -47,17 +43,28 @@ class DockerRunner extends AbstractRunner
         /** @var string $target */
         $target = $config['target'];
 
+        if ($this->isUnix()) {
+            $dockerScript = "docker-compose exec $target $script";
+        } else {
+            $dockerScript = "docker-compose exec -T $target $script";
+        }
+
+        return $dockerScript;
+    }
+
+    /**
+     * @param string $script
+     * @throws Exception
+     */
+    public function run(string $script) : void
+    {
         /** @var RunnerInterface $runner */
         $runner = null;
 
         if ($this->isUnix()) {
             $runner = $this->runnerFactory->getRunner('bash');
-
-            $dockerScript = "docker-compose exec $target $script";
         } else {
             $runner = $this->runnerFactory->getRunner('exec');
-
-            $dockerScript = "docker-compose exec -T $target $script";
         }
 
         $runner
