@@ -3,10 +3,16 @@ parameters:
     composer_user: www-data
 commands:
     "composer:run":
-        script: docker-compose exec -T --user %composer_user% %composer_container% composer  %_all%
+        type: docker
+        script: composer %_all%
+        target: "%composer_container%"
+        user: "%composer_user%"
         shortDescription: Lance Composer avec les paramètres fournis.
         aliases: ["composer"]
     "composer:clear":
-        script: docker-compose exec -T --user %composer_user% %composer_container% rm -rf vendor %_all%
+        type: docker
+        script: rm -rf vendor
+        target: "%composer_container%"
+        user: "%composer_user%"
         shortDescription: Vide le répertoire des Vendors.
         aliases: ["vendor:clear"]
