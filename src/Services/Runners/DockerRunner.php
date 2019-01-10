@@ -6,11 +6,15 @@ use Exception;
 use Symfony\Component\Process\Process;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
+use WorldFactory\QQ\Services\VarFormatter;
 
 class DockerRunner extends AbstractRunner
 {
     /** @var RunnerFactory */
     private $runnerFactory;
+
+    /** @var VarFormatter */
+    private $varFormatter;
 
     /**
      * @param RunnerFactory $runnerFactory
@@ -18,6 +22,14 @@ class DockerRunner extends AbstractRunner
     public function setRunnerFactory(RunnerFactory $runnerFactory) : void
     {
         $this->runnerFactory = $runnerFactory;
+    }
+
+    /**
+     * @param VarFormatter $varFormatter
+     */
+    public function setVarFormatter($varFormatter)
+    {
+        $this->varFormatter = $varFormatter;
     }
 
     /**
