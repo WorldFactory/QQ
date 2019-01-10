@@ -34,7 +34,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $this;
     }
 
-    public function getOutput()
+    public function getOutput() : OutputInterface
     {
         return $this->output;
     }
@@ -46,7 +46,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $this;
     }
 
-    public function getApplication()
+    public function getApplication() : Application
     {
         return $this->application;
     }
@@ -58,7 +58,7 @@ abstract class AbstractRunner implements RunnerInterface
         return $this;
     }
 
-    public function getCommand()
+    public function getCommand() : BasicCommand
     {
         return $this->command;
     }

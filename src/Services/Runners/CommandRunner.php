@@ -14,7 +14,7 @@ class CommandRunner extends AbstractRunner
      * @param string $script
      * @throws \Exception
      */
-    public function run(string $script)
+    public function run(string $script) : void
     {
         $explodedScript = explode(' ', $script);
         $commandName = $explodedScript[0];

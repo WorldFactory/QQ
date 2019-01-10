@@ -8,7 +8,7 @@ class ChildRunner extends AbstractRunner
      * @param string $script
      * @throws \Exception
      */
-    public function run(string $script)
+    public function run(string $script) : void
     {
         $varDir = getcwd() . '/var/tmp';
 
