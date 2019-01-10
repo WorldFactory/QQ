@@ -32,6 +32,7 @@ services:
     qq.formatter.var:
         class: WorldFactory\QQ\Services\VarFormatter
         arguments: ["@qq.loader.config"]
+        shared: false
 
     qq.runner.abstract:
         abstract: true
