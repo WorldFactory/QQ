@@ -91,4 +91,9 @@ abstract class AbstractRunner implements RunnerInterface
     {
         return $this->command;
     }
+
+    public function isHeaderDisplayed() : bool
+    {
+        return true;
+    }
 }

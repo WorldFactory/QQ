@@ -177,7 +177,9 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         $script = $varFormatter->finalize($script);
 
-        $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
+        if ($runner->isHeaderDisplayed()) {
+            $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
+        }
 
         $runner->run($script)
         ;

@@ -30,4 +30,6 @@ interface RunnerInterface
     public function setCommand(BasicCommand $command) : RunnerInterface;
 
     public function getCommand() : BasicCommand;
+
+    public function isHeaderDisplayed() : bool;
 }
