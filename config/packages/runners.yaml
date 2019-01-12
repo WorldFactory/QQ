@@ -41,12 +41,6 @@ services:
         tags:
             - { name: qq.runner, type: inc }
 
-    qq.runner.persistent_bash:
-        parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\PersistentBashRunner
-        tags:
-            - { name: qq.runner, type: pbash }
-
     qq.runner.child:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\ChildRunner
