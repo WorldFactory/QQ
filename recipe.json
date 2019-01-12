@@ -2,12 +2,12 @@
   "actions": [
     {
       "type": "copy-file",
-      "source": "recipe/qq.bat",
+      "source": "resources/recipe/qq.bat",
       "target": "qq.bat"
     },
     {
       "type": "copy-file",
-      "source": "recipe/qq.sh",
+      "source": "resources/recipe/qq.sh",
       "target": "qq.sh"
     },
     {
@@ -21,17 +21,17 @@
     },
     {
       "type": "copy-file",
-      "source": "recipe/config/bundles.php",
+      "source": "resources/recipe/config/bundles.php",
       "target": "config/bundles.php"
     },
     {
       "type": "copy-file",
-      "source": "recipe/config/commands.yml",
+      "source": "resources/recipe/config/commands.yml",
       "target": "config/commands.yml"
     },
     {
       "type": "copy-file",
-      "source": "recipe/config/services.yaml",
+      "source": "resources/recipe/config/services.yaml",
       "target": "config/services.yaml"
     }
   ]
