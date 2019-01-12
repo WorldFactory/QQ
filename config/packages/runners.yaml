@@ -61,6 +61,12 @@ services:
         tags:
             - { name: qq.runner, type: docker }
 
+    qq.runner.view:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\ViewRunner
+        tags:
+            - { name: qq.runner, type: view }
+
     qq.runner.null:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\NullRunner
