@@ -5,7 +5,7 @@ QQ is a small software to save shortcuts to the commands you use the most during
 
 Simply add QQ with Composer.
 
-```composer require worldfactory/cookbook``` 
+```composer require worldfactory/qq``` 
 
 On *Windows*, the shortcut `qq.bat` will be automatically used.
 
