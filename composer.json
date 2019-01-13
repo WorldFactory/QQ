@@ -8,7 +8,6 @@
         "symfony/console": "^4.1",
         "symfony/dotenv": "^4.1",
         "symfony/yaml": "^4.1",
-        "symfony/flex": "^1.1",
         "symfony/framework-bundle": "^4.1",
         "symfony/process": "^4.2",
         "worldfactory/cookbook": "^0.1.0"
