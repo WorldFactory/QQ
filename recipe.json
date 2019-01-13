@@ -2,6 +2,11 @@
   "actions": [
     {
       "type": "copy-file",
+      "source": "resources/recipe/.env.dist",
+      "target": ".env.dist"
+    },
+    {
+      "type": "copy-file",
       "source": "resources/recipe/qq.bat",
       "target": "qq.bat"
     },
