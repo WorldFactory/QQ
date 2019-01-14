@@ -1,5 +1,11 @@
 # QQ
-QQ is a small software to save shortcuts to the commands you use the most during your developments.
+QQ is a small software to save shortcuts of the commands you use the most during your developments.
+
+## Disclamer
+
+Warning, QQ is not a library, QQ is a software in its own right. It can not be installed directly in your project, it must be installed at a lower level of your application.
+
+Its purpose is to be the keystone of your development environment.
 
 ## Installation
 
@@ -44,6 +50,7 @@ Add a description with the `shortDescription` parameter.
 ## Coming soon
 
  * Full documentation.
+ * More information about development environment with QQ.
   
  [Trello development tab.](https://trello.com/b/IQ62jazu) (in french)
  
