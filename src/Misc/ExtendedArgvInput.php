@@ -19,9 +19,7 @@ class ExtendedArgvInput extends ArgvInput
             $argv = $_SERVER['argv'];
         }
 
-//        $this->savedTokens = array_slice($argv, 1);
-        $this->savedTokens = $argv;
-        array_shift($this->savedTokens);
+        $this->savedTokens = array_slice($argv, 1);
 
         parent::__construct($argv, $definition);
     }
