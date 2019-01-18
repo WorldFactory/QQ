@@ -17,18 +17,12 @@ class ExtendedArgvInput extends ArgvInput
     {
         if (null === $argv) {
             $argv = $_SERVER['argv'];
+            $this->savedTokens = array_slice($argv, 1);
+        } else {
+            $this->savedTokens = $argv;
         }
 
-        $this->savedTokens = array_slice($argv, 1);
-
         parent::__construct($argv, $definition);
-    }
-
-    protected function setTokens(array $tokens)
-    {
-        $this->savedTokens = $tokens;
-
-        parent::setTokens($tokens);
     }
 
     public function getSavedTokens()

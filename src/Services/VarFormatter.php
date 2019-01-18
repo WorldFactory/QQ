@@ -27,10 +27,7 @@ class VarFormatter
 
     public function init(ExtendedArgvInput $input)
     {
-        $tokens = $input->getSavedTokens();
-        $index = array_search($input->getFirstArgument(), $tokens, true);
-
-        $this->args = array_slice($tokens, $index);
+        $this->args = array_slice($input->getSavedTokens(), 1);
         $this->usedArgs = [];
     }
 
@@ -65,10 +62,11 @@ class VarFormatter
     {
         $nbArgs = count($this->args);
 
-        for ($c = 1; $c < $nbArgs; $c ++) {
-            if (preg_match("/%$c%/", $var)) {
-                $var = str_replace('%' . $c . '%', $this->args[$c], $var);
-                $this->usedArgs[] = $c;
+        foreach ($this->args as $i => $arg) {
+            $index = $i + 1;
+            if (preg_match("/%$index%/", $var)) {
+                $var = str_replace('%' . $index . '%', $arg, $var);
+                $this->usedArgs[] = $index;
             }
         }
 
