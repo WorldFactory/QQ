@@ -54,6 +54,7 @@ class ScriptFormatter implements ScriptFormatterInterface
 
     public function finalize(string $var) : string
     {
+        $var = $this->injectAllArguments($var);
         $var = $this->injectLeftArguments($var);
 
         return $var;
@@ -61,21 +62,11 @@ class ScriptFormatter implements ScriptFormatterInterface
 
     protected function injectArguments($var) : string
     {
-        $nbArgs = count($this->args);
-
         foreach ($this->args as $i => $arg) {
             $index = $i + 1;
             if (preg_match("/%$index%/", $var)) {
                 $var = str_replace('%' . $index . '%', $arg, $var);
                 $this->usedArgs[] = $index;
-            }
-        }
-
-        if (preg_match("/%_all%/", $var)) {
-            $var = str_replace('%_all%', implode(' ', $this->args), $var);
-
-            if ($nbArgs > 0) {
-                $this->usedArgs = range(1, $nbArgs);
             }
         }
 
@@ -97,6 +88,15 @@ class ScriptFormatter implements ScriptFormatterInterface
     {
         foreach ($_ENV as $key => $val) {
             $var = str_replace('%ENV:' . $key . '%', $val, $var);
+        }
+
+        return $var;
+    }
+
+    protected function injectAllArguments($var) : string
+    {
+        if (preg_match("/%_all%/", $var)) {
+            $var = str_replace('%_all%', implode(' ', $this->args), $var);
         }
 
         return $var;
