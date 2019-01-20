@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Services;
 
-use Symfony\Component\Console\Input\InputInterface;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
 
@@ -26,9 +25,9 @@ class ScriptFormatter implements ScriptFormatterInterface
         $this->configLoader = $configLoader;
     }
 
-    public function init(InputInterface $input)
+    public function setTokens(array $tokens) : void
     {
-        $this->args = array_slice($input->getArgument('arguments'), 1);
+        $this->args = $tokens;
         $this->usedArgs = [];
     }
 

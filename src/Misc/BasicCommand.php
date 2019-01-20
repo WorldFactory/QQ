@@ -157,7 +157,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var ScriptFormatterInterface $formatter */
         $formatter = $this->container->get('qq.formatter.script');
 
-        $varFormatter->init($this->input);
+        $formatter->setTokens($this->input->getArgument('arguments'));
 
         /** @var RunnerInterface */
         $runner = $this->findRunner($script)
