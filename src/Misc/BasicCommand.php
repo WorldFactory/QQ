@@ -2,21 +2,14 @@
 
 namespace WorldFactory\QQ\Misc;
 
-use function array_keys;
 use Exception;
 use function get_class;
 use Symfony\Component\Console\Input\InputArgument;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
-use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
-use function mt_rand;
 use function preg_match;
-use function round;
-use function str_replace;
-use function strlen;
-use function substr;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Input\InputInterface;
