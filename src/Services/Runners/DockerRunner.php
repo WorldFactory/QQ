@@ -5,7 +5,7 @@ namespace WorldFactory\QQ\Services\Runners;
 use Exception;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
-use WorldFactory\QQ\Services\VarFormatter;
+use WorldFactory\QQ\Services\ScriptFormatter;
 
 class DockerRunner extends AbstractRunner
 {
@@ -28,7 +28,7 @@ class DockerRunner extends AbstractRunner
             throw new \InvalidArgumentException("You should define target container with 'target' parameter.");
         }
 
-        /** @var VarFormatter $formatter */
+        /** @var ScriptFormatter $formatter */
         $formatter = $this->getVarFormatter();
 
         /** @var string $target */

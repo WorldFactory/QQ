@@ -29,8 +29,8 @@ services:
         class: WorldFactory\QQ\Services\RunnerFactory
         arguments: ["@service_container"]
 
-    qq.formatter.var:
-        class: WorldFactory\QQ\Services\VarFormatter
+    qq.formatter.script:
+        class: WorldFactory\QQ\Services\ScriptFormatter
         arguments: ["@qq.loader.config"]
         shared: false
 

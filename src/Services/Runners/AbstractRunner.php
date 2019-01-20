@@ -2,12 +2,12 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
-use WorldFactory\QQ\Services\VarFormatter;
 
 abstract class AbstractRunner implements RunnerInterface
 {
@@ -23,7 +23,7 @@ abstract class AbstractRunner implements RunnerInterface
     /** @var ConfigLoader */
     private $configLoader;
 
-    /** @var VarFormatter */
+    /** @var ScriptFormatterInterface */
     private $varFormatter;
 
     public function __construct(ConfigLoader $configLoader, Application $application)
@@ -46,9 +46,10 @@ abstract class AbstractRunner implements RunnerInterface
     }
 
     /**
-     * @param VarFormatter $varFormatter
+     * @param ScriptFormatterInterface $varFormatter
+     * @return RunnerInterface
      */
-    public function setVarFormatter(VarFormatter $varFormatter) : RunnerInterface
+    public function setVarFormatter(ScriptFormatterInterface $varFormatter) : RunnerInterface
     {
         $this->varFormatter = $varFormatter;
 
@@ -56,9 +57,9 @@ abstract class AbstractRunner implements RunnerInterface
     }
 
     /**
-     * @return VarFormatter
+     * @return ScriptFormatterInterface
      */
-    public function getVarFormatter(): VarFormatter
+    public function getVarFormatter(): ScriptFormatterInterface
     {
         return $this->varFormatter;
     }

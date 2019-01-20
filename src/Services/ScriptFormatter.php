@@ -2,10 +2,11 @@
 
 namespace WorldFactory\QQ\Services;
 
+use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
 use WorldFactory\QQ\Misc\ExtendedArgvInput;
 
-class VarFormatter
+class ScriptFormatter implements ScriptFormatterInterface
 {
     /** @var ConfigLoader */
     private $configLoader;

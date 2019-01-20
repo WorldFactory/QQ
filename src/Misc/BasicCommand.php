@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Misc;
 use function array_keys;
 use Exception;
 use function get_class;
+use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
@@ -20,7 +21,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use WorldFactory\QQ\Services\VarFormatter;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
@@ -152,16 +152,15 @@ class BasicCommand extends Command implements ContainerAwareInterface
      */
     protected function executeScript($script)
     {
-        /** @var VarFormatter $varFormatter */
-        $varFormatter = $this->container->get('qq.formatter.var');
+        /** @var ScriptFormatterInterface $formatter */
+        $formatter = $this->container->get('qq.formatter.script');
 
         $varFormatter->init($this->input);
 
         /** @var RunnerInterface */
-        $runner = $this
-            ->findRunner($script)
+        $runner = $this->findRunner($script)
             ->setCommand($this)
-            ->setVarFormatter($varFormatter)
+            ->setVarFormatter($formatter)
             ->setOutput($this->output)
         ;
 
@@ -195,7 +194,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
      * @return RunnerInterface
      * @throws Exception
      */
-    private function findRunner(string $script) : RunnerInterface
+    protected function findRunner(string $script) : RunnerInterface
     {
         /** @var string $type */
         $type = $this->defaultType;
