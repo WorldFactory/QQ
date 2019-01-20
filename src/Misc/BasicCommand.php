@@ -6,6 +6,7 @@ use function array_keys;
 use Exception;
 use function get_class;
 use Symfony\Component\Console\Input\InputArgument;
+use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Application;
@@ -118,6 +119,12 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->input = $input;
         $this->output = $output;
 
+        $localScript = new Script(
+            $this->script,
+            $input->getArgument('arguments'),
+            $this->config['options'] ?? []
+        );
+
         if ($this->displayHeader) {
 
             $formatter = $this->getHelper('formatter');
@@ -137,22 +144,28 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         $this->displayHeader = true;
 
-        if (is_array($this->getScript())) {
-            foreach ($this->getScript() as $script) {
-                $this->executeScript($script);
-            }
-        } else {
-            $this->executeScript($this->getScript());
+        /** @var Script $script */
+        foreach ($this->getIterator($localScript) as $script) {
+            $this->executeScript($script);
         }
 
         return 0;
+    }
+
+    protected function getIterator(Script $script) : \RecursiveArrayIterator
+    {
+        $iterator = $script->getIterator();
+
+        $iterator = is_array($iterator) ? $iterator : [$iterator];
+
+        return new \RecursiveArrayIterator($iterator);
     }
 
     /**
      * @param string $script
      * @throws Exception
      */
-    protected function executeScript($script)
+    protected function executeScript(Script $script)
     {
         /** @var ScriptFormatterInterface $formatter */
         $formatter = $this->container->get('qq.formatter.script');
@@ -166,29 +179,19 @@ class BasicCommand extends Command implements ContainerAwareInterface
             ->setOutput($this->output)
         ;
 
+        $script->setFormatter($formatter);
+        $script->setRunner($runner);
+
         if ($this->output->isVerbose()) {
             $class = get_class($runner);
             $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
         }
 
-        $script = $varFormatter->sanitize($script);
-        $script = $varFormatter->format($script);
-
-        $script = $runner->format($script);
-
-        $script = $varFormatter->finalize($script);
-
         if ($runner->isHeaderDisplayed()) {
-            $this->output->writeln("-> <fg=black;bg=green>{$script}</>");
+            $this->output->writeln("-> <fg=black;bg=green>{$script->getCompiledScript()}</>");
         }
 
-        $runner->run($script)
-        ;
-    }
-
-    protected function getScript()
-    {
-        return $this->script;
+        $script->execute();
     }
 
     /**
@@ -196,12 +199,12 @@ class BasicCommand extends Command implements ContainerAwareInterface
      * @return RunnerInterface
      * @throws Exception
      */
-    protected function findRunner(string $script) : RunnerInterface
+    protected function findRunner(Script $script) : RunnerInterface
     {
         /** @var string $type */
         $type = $this->defaultType;
 
-        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script, $result)) {
+        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script->getScript(), $result)) {
             $type = $result['type'];
         }
 
