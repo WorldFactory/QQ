@@ -2,9 +2,9 @@
 
 namespace WorldFactory\QQ\Services;
 
+use Symfony\Component\Console\Input\InputInterface;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
-use WorldFactory\QQ\Misc\ExtendedArgvInput;
 
 class ScriptFormatter implements ScriptFormatterInterface
 {
@@ -26,9 +26,9 @@ class ScriptFormatter implements ScriptFormatterInterface
         $this->configLoader = $configLoader;
     }
 
-    public function init(ExtendedArgvInput $input)
+    public function init(InputInterface $input)
     {
-        $this->args = array_slice($input->getSavedTokens(), 1);
+        $this->args = array_slice($input->getArgument('arguments'), 1);
         $this->usedArgs = [];
     }
 

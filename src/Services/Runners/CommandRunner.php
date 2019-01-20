@@ -5,8 +5,9 @@ namespace WorldFactory\QQ\Services\Runners;
 use function array_shift;
 use function explode;
 use Exception;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\StringInput;
 use WorldFactory\QQ\Misc\BasicCommand;
-use WorldFactory\QQ\Misc\ExtendedArgvInput;
 
 class CommandRunner extends AbstractRunner
 {
@@ -16,18 +17,25 @@ class CommandRunner extends AbstractRunner
      */
     public function run(string $script) : void
     {
-        $explodedScript = explode(' ', $script);
-        $commandName = $explodedScript[0];
+        $arguments = explode(' ', $script);
+        $commandName = array_shift($arguments);
 
         $command = $this->getApplication()->find($commandName);
 
         if ($command instanceof BasicCommand) {
             $command->setDisplayHeader(false);
+
+            $input = new ArrayInput([
+                'command' => $commandName,
+                'arguments' => $arguments
+            ]);
+        } else {
+            $input = new StringInput($script);
         }
 
         $this->getOutput()->writeln("Running sub-command...");
 
-        $returnCode = $command->run(new ExtendedArgvInput(explode(' ', $script)), $this->getOutput());
+        $returnCode = $command->run($input, $this->getOutput());
 
         if ($returnCode !== 0) {
             throw new Exception("An error occur when running command : $script");

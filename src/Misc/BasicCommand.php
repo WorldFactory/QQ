@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Misc;
 use function array_keys;
 use Exception;
 use function get_class;
+use Symfony\Component\Console\Input\InputArgument;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Application;
@@ -89,6 +90,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
             ->setDescription($this->config['shortDescription'] ?? null)
             ->setHelp($this->config['longDescription'] ?? null)
             ->setAliases($this->config['aliases'] ?? [])
+            ->addArgument('arguments', InputArgument::IS_ARRAY)
             ->ignoreValidationErrors()
         ;
     }
