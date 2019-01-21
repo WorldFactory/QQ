@@ -110,6 +110,10 @@ class BasicCommand extends Command implements ContainerAwareInterface
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$input instanceof TokenizedInputInterface) {
+            throw new \BadMethodCallException("BasicCommand::execute only supporte TokenizedInputInterface.");
+        }
+
         $this->input = $input;
         $this->output = $output;
 
