@@ -112,11 +112,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->input = $input;
         $this->output = $output;
 
-        $localScript = new Script(
-            $this->script,
-            $input->getArgument('arguments'),
-            $this->config['options'] ?? []
-        );
+        /** @var Script $localScript */
+        $localScript = $this->buildScript();
 
         if ($this->displayHeader) {
 
@@ -143,6 +140,18 @@ class BasicCommand extends Command implements ContainerAwareInterface
         }
 
         return 0;
+    }
+
+    /**
+     * @return Script
+     */
+    protected function buildScript() : Script
+    {
+        return new Script(
+            $this->script,
+            $this->input->getArgument('arguments'),
+            $this->config['options'] ?? []
+        );
     }
 
     protected function getIterator(Script $script) : \RecursiveArrayIterator
