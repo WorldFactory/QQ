@@ -5,9 +5,9 @@ namespace WorldFactory\QQ\Services\Runners;
 use function array_shift;
 use function explode;
 use Exception;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\StringInput;
 use WorldFactory\QQ\Misc\BasicCommand;
+use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
 
 class CommandRunner extends AbstractRunner
 {
@@ -25,10 +25,7 @@ class CommandRunner extends AbstractRunner
         if ($command instanceof BasicCommand) {
             $command->setDisplayHeader(false);
 
-            $input = new ArrayInput([
-                'command' => $commandName,
-                'arguments' => $arguments
-            ]);
+            $input = new StringTokenizedInput($script);
         } else {
             $input = new StringInput($script);
         }

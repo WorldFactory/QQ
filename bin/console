@@ -4,8 +4,8 @@
 use WorldFactory\QQ\Kernel;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Misc\ConfigLoader;
+use WorldFactory\QQ\Misc\Inputs\ArgvTokenizedInput;
 use Symfony\Component\Debug\Debug;
-use Symfony\Component\Console\Input\ArgvInput;
 
 const QQ_FILE_SRC = 'config/commands.yml';
 
@@ -17,7 +17,7 @@ if (!class_exists(Application::class)) {
     throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
 }
 
-$input = new ArgvInput();
+$input = new ArgvTokenizedInput();
 if (null !== $_ENV['APP_ENV'] = $input->getParameterOption(['--env', '-e'], null, true)) {
     putenv('APP_ENV='.$_ENV['APP_ENV']);
     // force loading .env files when --env is defined

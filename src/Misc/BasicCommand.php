@@ -7,6 +7,7 @@ use function get_class;
 use Symfony\Component\Console\Input\InputArgument;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
+use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use function preg_match;
@@ -28,7 +29,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
     /** @var array Configuration de la commande. */
     private $config = [];
 
-    /** @var InputInterface */
+    /** @var TokenizedInputInterface */
     private $input;
 
     /** @var OutputInterface */
@@ -70,9 +71,9 @@ class BasicCommand extends Command implements ContainerAwareInterface
     }
 
     /**
-     * @return InputInterface
+     * @return TokenizedInputInterface
      */
-    public function getInput(): InputInterface
+    public function getInput(): TokenizedInputInterface
     {
         return $this->input;
     }
@@ -149,7 +150,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
     {
         return new Script(
             $this->script,
-            $this->input->getArgument('arguments'),
+            $this->input->getArgumentTokens(),
             $this->config['options'] ?? []
         );
     }
