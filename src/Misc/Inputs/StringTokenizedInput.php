@@ -16,7 +16,7 @@ class StringTokenizedInput extends StringInput implements TokenizedInputInterfac
      */
     protected function setTokens(array $tokens)
     {
-        $this->setArgumentTokens($tokens);
+        $this->setArgumentTokens(array_slice($tokens, 1));
 
         parent::setTokens($tokens);
     }
