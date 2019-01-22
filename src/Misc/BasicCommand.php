@@ -6,6 +6,7 @@ use Exception;
 use function get_class;
 use Symfony\Component\Console\Input\InputArgument;
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Entities\ScriptConfig;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
@@ -155,7 +156,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         return new Script(
             $this->script,
             $this->input->getArgumentTokens(),
-            $this->config['options'] ?? []
+            new ScriptConfig($this->config['options'] ?? [], $this->config)
         );
     }
 

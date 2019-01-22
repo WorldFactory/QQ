@@ -16,7 +16,7 @@ class Script
     /** @var array CLI arguments */
     private $tokens = [];
 
-    /** @var array Runner options */
+    /** @var ScriptConfig Runner options */
     private $options = [];
 
     private $children = [];
@@ -27,7 +27,7 @@ class Script
     /** @var RunnerInterface */
     private $runner;
 
-    public function __construct($script, array $tokens, array $options)
+    public function __construct($script, array $tokens, ScriptConfig $options)
     {
         $this->tokens = $tokens;
         $this->options = $options;
@@ -40,11 +40,11 @@ class Script
         if (is_string($script)) {
             $this->script = $script;
         } elseif (is_array($script) && array_key_exists('script', $script)) {
-            $this->options = array_merge($this->options, $script['options'] ?? []);
+            $this->options = $this->options->merge($script['options'] ?? []);
             $this->parseScript($script['script']);
         } elseif (is_array($script)) {
             foreach ($script as $item) {
-                $this->children[] = new Script($item, $this->tokens, $this->options);
+                $this->children[] = new Script($item, $this->tokens, $this->options->clone());
             }
         } else {
             throw new \InvalidArgumentException("Unknown script type.");
@@ -135,21 +135,21 @@ class Script
     }
 
     /**
-     * @return array
+     * @return ScriptConfig
      */
-    public function getOptions() : array
+    public function getOptions() : ScriptConfig
     {
         return $this->options;
     }
 
     public function getOption(string $name)
     {
-        return $this->options[$name] ?? null;
+        return $this->options[$name];
     }
 
-    public function hasOption(string $name)
+    public function hasOption(string $name) : bool
     {
-        return array_key_exists($name, $this->options);
+        return isset($this->options[$name]);
     }
 
     public function compile()
