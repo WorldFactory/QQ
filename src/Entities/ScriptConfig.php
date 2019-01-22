@@ -3,9 +3,13 @@
 namespace WorldFactory\QQ\Entities;
 
 use ArrayAccess;
+use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
 class ScriptConfig implements ArrayAccess
 {
+    /** @var array  */
+    private $compiledOptions = [];
+
     /** @var array */
     private $options = [];
 
@@ -31,18 +35,20 @@ class ScriptConfig implements ArrayAccess
 
     protected function get(string $name)
     {
-        return array_key_exists($name, $this->options) ?
-            $this->options[$name] :
-            array_key_exists($name, $this->applicationOptions) ?
-                $this->applicationOptions[$name] :
-                array_key_exists($name, $this->defaultOptions) ?
-                    $this->defaultOptions[$name] :
-                    null;
+        return array_key_exists($name, $this->compiledOptions) ?
+            $this->compiledOptions[$name] :
+            array_key_exists($name, $this->options) ?
+                $this->options[$name] :
+                array_key_exists($name, $this->applicationOptions) ?
+                    $this->applicationOptions[$name] :
+                    array_key_exists($name, $this->defaultOptions) ?
+                        $this->defaultOptions[$name] :
+                        null;
     }
 
     protected function has(string $name)
     {
-        return (array_key_exists($name, $this->options) || array_key_exists($name, $this->applicationOptions) || array_key_exists($name, $this->defaultOptions));
+        return (array_key_exists($name, $this->compiledOptions) || array_key_exists($name, $this->options) || array_key_exists($name, $this->applicationOptions) || array_key_exists($name, $this->defaultOptions));
     }
 
     public function merge(array $options)
@@ -53,6 +59,18 @@ class ScriptConfig implements ArrayAccess
     public function clone()
     {
         return new ScriptConfig($this->options, $this->applicationOptions);
+    }
+
+    /**
+     * @param ScriptFormatterInterface $formatter
+     */
+    public function compile(ScriptFormatterInterface $formatter)
+    {
+        $options = array_merge($this->defaultOptions, $this->applicationOptions, $this->options);
+
+        foreach ($options as $name => $option) {
+            $this->compiledOptions[$name] = $formatter->format($option);
+        }
     }
 
     /**
