@@ -86,10 +86,8 @@ class Script
     {
         if ($this->hasChildren()) {
             throw new \LogicException("Aggregated script has no compiled script.");
-        }
-
-        if ($this->compiledScript === null) {
-            $this->compile();
+        } elseif ($this->compiledScript === null) {
+            throw new \LogicException("Script is not compiled.");
         }
 
         return $this->compiledScript;
@@ -156,12 +154,15 @@ class Script
     {
         if ($this->hasChildren()) {
             throw new \LogicException("Unable to compile an aggregated script.");
-        }
-
-        if ($this->compiledScript !== null) {
+        } elseif ($this->compiledScript !== null) {
             throw new \LogicException(("Script already compiled."));
         }
 
+        $this->compiledScript = $this->compileScript();
+    }
+
+    protected function compileScript()
+    {
         $compiledScript = $this->getScript();
 
         $compiledScript = $this->formatter->sanitize($compiledScript);
@@ -171,7 +172,7 @@ class Script
 
         $compiledScript = $this->formatter->finalize($compiledScript);
 
-        $this->compiledScript = $compiledScript;
+        return $compiledScript;
     }
 
     public function execute()

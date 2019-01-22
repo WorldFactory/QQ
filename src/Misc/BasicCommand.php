@@ -190,6 +190,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $script->setFormatter($formatter);
         $script->setRunner($runner);
 
+        $script->compile();
+
         if ($this->output->isVerbose()) {
             $class = get_class($runner);
             $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
