@@ -57,7 +57,7 @@ commands:
         aliases: [cpin]
         longDescription: |
             Usage : qq cpin <container> <source> <target>
-            <container> is the name of the container.
+            <container> is the name of the container. (Use docker-compose names)
             <source> is the path to the source on the host.
             <target> is the path to the target inside the container.
             All arguments are required.
@@ -68,7 +68,7 @@ commands:
         shortDescription: Copy a file or directory from a container to the outside.
         longDescription: |
             Usage : qq cpout <container> <source> <target>
-            <container> is the name of the container.
+            <container> is the name of the container. (Use docker-compose names)
             <source> is the path to the source inside the container.
             <target> is the path to the target on the host.
             All arguments are required.
