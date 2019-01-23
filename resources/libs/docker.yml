@@ -50,3 +50,34 @@ commands:
         script: docker stop %1% && docker start %1%
         shortDescription: Relance un container.
         aliases: [restart]
+
+    "docker-compose:in":
+        script: docker cp %2% `docker-compose ps -q %1%`:%3%
+        shortDescription: Copy a file or directory from outside to a container.
+        aliases: [cpin]
+        longDescription: |
+            Usage : qq cpin <container> <source> <target>
+            <container> is the name of the container. (Use docker-compose names)
+            <source> is the path to the source on the host.
+            <target> is the path to the target inside the container.
+            All arguments are required.
+
+    "docker-compose:out":
+        script: docker cp `docker-compose ps -q %1%`:%2% %3%
+        aliases: [cpout]
+        shortDescription: Copy a file or directory from a container to the outside.
+        longDescription: |
+            Usage : qq cpout <container> <source> <target>
+            <container> is the name of the container. (Use docker-compose names)
+            <source> is the path to the source inside the container.
+            <target> is the path to the target on the host.
+            All arguments are required.
+
+    "docker:wait":
+        script: ./vendor/worldfactory/qq/resources/bin/docker-waiting-logs.sh "%_all%"
+        shortDescription: Displays docker logs until you find a match, then hands over to the user.
+        longDescription: |
+            Usage : qq docker:wait <pattern>
+            <pattern> is the pattern to hands over to the user. (Required - Do not add quotes)
+            This command is intended to be used to delay a script while an event occurs inside the containers.
+            The event must be visible in the logs.
