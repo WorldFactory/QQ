@@ -9,7 +9,7 @@ class BashRunner extends AbstractRunner
 {
     protected function createProcess($script)
     {
-        return Process::fromShellCommandline($script, null, $_ENV, $this->getCommand()->getInput()->getStream());
+        return Process::fromShellCommandline($script, null, $_ENV, $this->getInput()->getStream());
     }
 
     protected function getProcess(string $script)

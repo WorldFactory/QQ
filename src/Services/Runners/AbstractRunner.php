@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
+use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
@@ -13,6 +14,9 @@ abstract class AbstractRunner implements RunnerInterface
 {
     /** @var OutputInterface */
     private $output;
+
+    /** @var TokenizedInputInterface */
+    private $input;
 
     /** @var Application */
     private $application;
@@ -62,6 +66,18 @@ abstract class AbstractRunner implements RunnerInterface
     public function getVarFormatter(): ScriptFormatterInterface
     {
         return $this->varFormatter;
+    }
+
+    public function setInput(TokenizedInputInterface $input) : RunnerInterface
+    {
+        $this->input = $input;
+
+        return $this;
+    }
+
+    public function getInput(): TokenizedInputInterface
+    {
+        return $this->input;
     }
 
     public function setOutput(OutputInterface $output) : RunnerInterface

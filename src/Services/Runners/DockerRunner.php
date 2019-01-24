@@ -91,6 +91,7 @@ class DockerRunner extends AbstractRunner
 
         $runner
             ->setCommand($this->getCommand())
+            ->setInput($this->getInput())
             ->setOutput($this->getOutput())
             ->run($script)
         ;

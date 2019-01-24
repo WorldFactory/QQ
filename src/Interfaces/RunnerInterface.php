@@ -18,6 +18,10 @@ interface RunnerInterface
 
     public function getVarFormatter() : ScriptFormatterInterface;
 
+    public function setInput(TokenizedInputInterface $input) : RunnerInterface;
+
+    public function getInput() : TokenizedInputInterface;
+
     public function setOutput(OutputInterface $output) : RunnerInterface;
 
     public function getOutput() : OutputInterface;
