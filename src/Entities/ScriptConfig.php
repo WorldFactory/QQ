@@ -69,7 +69,7 @@ class ScriptConfig implements ArrayAccess
         $options = array_merge($this->defaultOptions, $this->applicationOptions, $this->options);
 
         foreach ($options as $name => $option) {
-            $this->compiledOptions[$name] = $formatter->format($option);
+            $this->compiledOptions[$name] = is_scalar($option) ? $formatter->format($option) : $option;
         }
     }
 
