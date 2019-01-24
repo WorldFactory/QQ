@@ -86,7 +86,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
             ->setDescription($this->config['shortDescription'] ?? null)
             ->setHelp($this->config['longDescription'] ?? null)
             ->setAliases($this->config['aliases'] ?? [])
-            ->addArgument('arguments', InputArgument::IS_ARRAY)
             ->ignoreValidationErrors()
         ;
     }
@@ -178,7 +177,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var ScriptFormatterInterface $formatter */
         $formatter = $this->container->get('qq.formatter.script');
 
-        $formatter->setTokens($this->input->getArgument('arguments'));
+        $formatter->setTokens($script->getTokens());
 
         /** @var RunnerInterface */
         $runner = $this->findRunner($script)
