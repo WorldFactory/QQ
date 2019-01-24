@@ -4,15 +4,16 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use Symfony\Component\Process\Process;
+use WorldFactory\QQ\Entities\Script;
 
 class BashRunner extends AbstractRunner
 {
-    protected function createProcess($script)
+    protected function createProcess(Script $script)
     {
-        return Process::fromShellCommandline($script, null, $_ENV, $this->getInput()->getStream());
+        return Process::fromShellCommandline($script->getCompiledScript(), null, $_ENV, $this->getInput()->getStream());
     }
 
-    protected function getProcess(string $script)
+    protected function getProcess(Script $script)
     {
         $process = $this->createProcess($script);
 
@@ -22,9 +23,8 @@ class BashRunner extends AbstractRunner
             ->setTty(Process::isPtySupported())
         ;
 
-        $config = $this->getCommand()->getConfig();
-        if (array_key_exists('workingDir', $config)) {
-            $process->setWorkingDirectory($config['workingDir']);
+        if ($script->hasOption('workingDir')) {
+            $process->setWorkingDirectory($script->getOption('workingDir'));
         }
 
         return $process;
@@ -34,7 +34,7 @@ class BashRunner extends AbstractRunner
      * @param string $script
      * @throws \Exception
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
         /** @var Process $process */
         $process = $this->getProcess($script);
@@ -44,7 +44,7 @@ class BashRunner extends AbstractRunner
         });
 
         if (!$process->isSuccessful()) {
-            $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script}\"");
+            $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script->getCompiledScript()}\"");
 
             throw $exception;
         }

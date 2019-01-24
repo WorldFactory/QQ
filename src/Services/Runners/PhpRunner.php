@@ -2,14 +2,16 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use WorldFactory\QQ\Entities\Script;
+
 class PhpRunner extends AbstractRunner
 {
     /**
-     * @param string $script
+     * @param Script $script
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
-        eval($script);
+        eval($script->getCompiledScript());
 
         $this->getOutput()->writeln('');
     }

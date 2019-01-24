@@ -6,18 +6,19 @@ use function array_shift;
 use function explode;
 use Exception;
 use Symfony\Component\Console\Input\StringInput;
+use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
 
 class CommandRunner extends AbstractRunner
 {
     /**
-     * @param string $script
+     * @param Script $script
      * @throws \Exception
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
-        $arguments = explode(' ', $script);
+        $arguments = explode(' ', $script->getCompiledScript());
         $commandName = array_shift($arguments);
 
         $command = $this->getApplication()->find($commandName);
@@ -25,9 +26,9 @@ class CommandRunner extends AbstractRunner
         if ($command instanceof BasicCommand) {
             $command->setDisplayHeader(false);
 
-            $input = new StringTokenizedInput($script);
+            $input = new StringTokenizedInput($script->getCompiledScript());
         } else {
-            $input = new StringInput($script);
+            $input = new StringInput($script->getCompiledScript());
         }
 
         $this->getOutput()->writeln("Running sub-command...");
@@ -35,7 +36,7 @@ class CommandRunner extends AbstractRunner
         $returnCode = $command->run($input, $this->getOutput());
 
         if ($returnCode !== 0) {
-            throw new Exception("An error occur when running command : $script");
+            throw new Exception("An error occur when running command : {$script->getCompiledScript()}");
         }
     }
 }

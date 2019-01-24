@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Misc\BasicCommand;
@@ -36,9 +37,9 @@ abstract class AbstractRunner implements RunnerInterface
         $this->application = $application;
     }
 
-    public function format(string $script) : string
+    public function format(Script $script, string $compiledScript) : string
     {
-        return $script;
+        return $compiledScript;
     }
 
     /**

@@ -2,13 +2,15 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use WorldFactory\QQ\Entities\Script;
+
 class NullRunner extends AbstractRunner
 {
     /**
      * Do nothing !!
-     * @param string $script
+     * @param Script $script
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
     }
 }

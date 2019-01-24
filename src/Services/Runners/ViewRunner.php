@@ -3,22 +3,21 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use Symfony\Component\Console\Helper\FormatterHelper;
+use WorldFactory\QQ\Entities\Script;
 
 class ViewRunner extends AbstractRunner
 {
     const DEFAULT_STYLE = 'error';
 
     /**
-     * @param string $script
+     * @param Script $script
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
-        $config = $this->getCommand()->getConfig();
-
-        $style = $config['style'] ?? self::DEFAULT_STYLE;
+        $style = $script->hasOption('style') ? $script->getOption('style') : self::DEFAULT_STYLE;
 
         $formatter = new FormatterHelper();
-        $this->getOutput()->writeln($formatter->formatBlock($script, $style, TRUE));
+        $this->getOutput()->writeln($formatter->formatBlock($script->getCompiledScript(), $style, TRUE));
     }
 
     public function isHeaderDisplayed() : bool

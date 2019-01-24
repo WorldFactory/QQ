@@ -170,7 +170,7 @@ class Script
         $compiledScript = $this->formatter->sanitize($compiledScript);
         $compiledScript = $this->formatter->format($compiledScript);
 
-        $compiledScript = $this->runner->format($compiledScript);
+        $compiledScript = $this->runner->format($this, $compiledScript);
 
         $compiledScript = $this->formatter->finalize($compiledScript);
 
@@ -179,6 +179,6 @@ class Script
 
     public function execute()
     {
-        $this->runner->run($this->getCompiledScript());
+        $this->runner->run($this);
     }
 }

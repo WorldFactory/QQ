@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
+use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Services\ScriptFormatter;
@@ -20,47 +21,42 @@ class DockerRunner extends AbstractRunner
         $this->runnerFactory = $runnerFactory;
     }
 
-    public function format(string $script) : string
+    public function format(Script $script, string $compiledScript) : string
     {
-        $config = $this->getCommand()->getConfig();
+        $options = $script->getOptions();
 
-        if (!array_key_exists('target', $config)) {
+        if (!isset($options['target'])) {
             throw new \InvalidArgumentException("You should define target container with 'target' parameter.");
         }
 
-        /** @var ScriptFormatter $formatter */
-        $formatter = $this->getVarFormatter();
-
         /** @var string $target */
-        $target = $formatter->format($config['target']);
+        $target = $options['target'];
 
         /** @var array $parameters */
         $parameters = [];
 
-        if (array_key_exists('user', $config)) {
-            $parameters[] = "--user=" . $formatter->format($config['user']);
+        if (isset($options['user'])) {
+            $parameters[] = "--user=" . $options['user'];
         }
 
-        if (array_key_exists('env', $config)) {
-            $parameters[] = "--env=" . $formatter->format($config['env']);
+        if (isset($options['env'])) {
+            $parameters[] = "--env=" . $options['env'];
         }
 
-        if (array_key_exists('workingDir', $config)) {
-            $parameters[] = "--workdir=" . $formatter->format($config['workingDir']);
+        if (isset($options['workingDir'])) {
+            $parameters[] = "--workdir=" . $options['workingDir'];
         }
 
-        if (array_key_exists('flags', $config) && is_array($config['flags'])) {
-            $flags = $config['flags'];
-
-            if (array_search('detach', $flags)) {
+        if (isset($options['flags']) and is_array($options['flags'])) {
+            if (in_array('detach', $options['flags'])) {
                 $parameters[] = "--detach";
             }
 
-            if (array_search('interactive', $flags)) {
+            if (in_array('interactive', $options['flags'])) {
                 $parameters[] = "--interactive";
             }
 
-            if (array_search('privilegied', $flags)) {
+            if (in_array('privilegied', $options['flags'])) {
                 $parameters[] = "--privilegied";
             }
         }
@@ -71,14 +67,14 @@ class DockerRunner extends AbstractRunner
 
         $execArgs = join(' ', $parameters);
 
-        return "docker-compose exec $execArgs $target $script";
+        return "docker-compose exec $execArgs $target $compiledScript";
     }
 
     /**
      * @param string $script
      * @throws Exception
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
         /** @var RunnerInterface $runner */
         $runner = null;
@@ -91,10 +87,14 @@ class DockerRunner extends AbstractRunner
 
         $runner
             ->setCommand($this->getCommand())
+            ->setVarFormatter($this->getVarFormatter())
             ->setInput($this->getInput())
             ->setOutput($this->getOutput())
-            ->run($script)
         ;
+
+        $script->setRunner($runner);
+
+        $runner->run($script);
     }
 
     /**

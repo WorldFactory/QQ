@@ -2,13 +2,15 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use WorldFactory\QQ\Entities\Script;
+
 class ChildRunner extends AbstractRunner
 {
     /**
-     * @param string $script
+     * @param Script $script
      * @throws \Exception
      */
-    public function run(string $script) : void
+    public function run(Script $script) : void
     {
         $varDir = getcwd() . '/var/tmp';
 
@@ -21,7 +23,7 @@ class ChildRunner extends AbstractRunner
         $extendedScript = <<<EOT
 #!/usr/bin/env bash
 
-$script
+{$script->getCompiledScript()}
 
 read -n1 -r -p "Press any key to continue..." key
 EOT;
