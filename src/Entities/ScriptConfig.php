@@ -37,13 +37,13 @@ class ScriptConfig implements ArrayAccess
     {
         return array_key_exists($name, $this->compiledOptions) ?
             $this->compiledOptions[$name] :
-            array_key_exists($name, $this->options) ?
+            (array_key_exists($name, $this->options) ?
                 $this->options[$name] :
-                array_key_exists($name, $this->applicationOptions) ?
+                (array_key_exists($name, $this->applicationOptions) ?
                     $this->applicationOptions[$name] :
-                    array_key_exists($name, $this->defaultOptions) ?
+                    (array_key_exists($name, $this->defaultOptions) ?
                         $this->defaultOptions[$name] :
-                        null;
+                        null)));
     }
 
     protected function has(string $name)
