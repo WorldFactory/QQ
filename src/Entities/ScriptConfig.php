@@ -46,6 +46,10 @@ class ScriptConfig implements ArrayAccess
             if (isset($definition['default'])) {
                 $this->optionDefinitions[$option] = $definition['default'];
             }
+
+            if (isset($this->applicationOptions[$option])) {
+                trigger_error("Define runner options into command root definition is deprecated. Consider to move '$option' option into 'options' array option.", E_USER_DEPRECATED);
+            }
         }
     }
 
