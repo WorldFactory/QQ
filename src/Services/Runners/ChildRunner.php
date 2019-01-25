@@ -6,6 +6,10 @@ use WorldFactory\QQ\Entities\Script;
 
 class ChildRunner extends AbstractRunner
 {
+    const OPTION_DEFINITIONS = [
+        'pause' => ['type' => 'bool', 'default' => false]
+    ];
+
     /**
      * @param Script $script
      * @throws \Exception
@@ -25,13 +29,19 @@ class ChildRunner extends AbstractRunner
 
 {$script->getCompiledScript()}
 
-read -n1 -r -p "Press any key to continue..." key
 EOT;
+
+        if ($script->getOption('pause')) {
+            $extendedScript .= <<<EOT
+read -n1 -r -p "Press any key to continue..." key
+
+EOT;
+        }
 
 
         file_put_contents($tmpScriptName, $extendedScript);
 
-        chmod($tmpScriptName, 0766);
+        chmod($tmpScriptName, 0755);
 
         passthru($tmpScriptName);
     }
