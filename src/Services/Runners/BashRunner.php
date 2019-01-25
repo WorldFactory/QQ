@@ -43,14 +43,16 @@ class BashRunner extends AbstractRunner
         /** @var Process $process */
         $process = $this->getProcess($script);
 
-        $process->run(function ($type, $buffer) {
-            echo $buffer.PHP_EOL;
-        });
+        $process->run([$this, 'displayCallback']);
 
         if (!$process->isSuccessful()) {
             $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script->getCompiledScript()}\"");
 
             throw $exception;
         }
+    }
+
+    public function displayCallback ($type, $buffer) {
+        $this->getOutput()->writeln($buffer);
     }
 }
