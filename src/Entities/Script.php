@@ -158,6 +158,8 @@ class Script
             throw new \LogicException(("Script already compiled."));
         }
 
+        $this->options->setOptionDefinitions($this->runner->getOptionDefinitions());
+
         $this->options->compile($this->formatter);
 
         $this->compiledScript = $this->compileScript();

@@ -19,6 +19,8 @@ class ScriptConfig implements ArrayAccess
     /** @var array */
     private $defaultOptions = [];
 
+    private $optionDefinitions = [];
+
     public function __construct(array $options, array $applicationOptions = [])
     {
         $this->options = $options;
@@ -31,6 +33,20 @@ class ScriptConfig implements ArrayAccess
     public function setDefaultOptions(array $defaultOptions) : void
     {
         $this->defaultOptions = $defaultOptions;
+    }
+
+    /**
+     * @param array $optionDefinitions
+     */
+    public function setOptionDefinitions(array $optionDefinitions): void
+    {
+        $this->optionDefinitions = $optionDefinitions;
+
+        foreach($optionDefinitions as $option => $definition) {
+            if (isset($definition['default'])) {
+                $this->optionDefinitions[$option] = $definition['default'];
+            }
+        }
     }
 
     protected function get(string $name)

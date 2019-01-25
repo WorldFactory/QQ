@@ -10,6 +10,7 @@ use WorldFactory\QQ\Misc\ConfigLoader;
 
 interface RunnerInterface
 {
+    public function getOptionDefinitions() : array;
 
     public function run(Script $script) : void;
 

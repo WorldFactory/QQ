@@ -13,6 +13,8 @@ use WorldFactory\QQ\Misc\ConfigLoader;
 
 abstract class AbstractRunner implements RunnerInterface
 {
+    protected const OPTION_DEFINITIONS = [];
+
     /** @var OutputInterface */
     private $output;
 
@@ -35,6 +37,11 @@ abstract class AbstractRunner implements RunnerInterface
     {
         $this->configLoader = $configLoader;
         $this->application = $application;
+    }
+
+    public function getOptionDefinitions() : array
+    {
+        return static::OPTION_DEFINITIONS;
     }
 
     public function format(Script $script, string $compiledScript) : string
