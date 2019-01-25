@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Entities;
 
 use ArrayAccess;
+use InvalidArgumentException;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
 class ScriptConfig implements ArrayAccess
@@ -55,7 +56,7 @@ class ScriptConfig implements ArrayAccess
 
     protected function get(string $name)
     {
-        return array_key_exists($name, $this->compiledOptions) ?
+        $value = array_key_exists($name, $this->compiledOptions) ?
             $this->compiledOptions[$name] :
             (array_key_exists($name, $this->options) ?
                 $this->options[$name] :
@@ -64,11 +65,28 @@ class ScriptConfig implements ArrayAccess
                     (array_key_exists($name, $this->defaultOptions) ?
                         $this->defaultOptions[$name] :
                         null)));
+
+        if (!array_key_exists($name, $this->optionDefinitions)) {
+            throw new InvalidArgumentException("Unknown option '$name'.");
+        } elseif (in_array($value, [null, false, '', []]) && $this->isRequired($name)) {
+            throw new InvalidArgumentException("The '$name' option must be set.");
+        }
+        
+        return $value;
     }
 
     protected function has(string $name)
     {
         return (array_key_exists($name, $this->compiledOptions) || array_key_exists($name, $this->options) || array_key_exists($name, $this->applicationOptions) || array_key_exists($name, $this->defaultOptions));
+    }
+
+    protected function isRequired(string $name)
+    {
+        return (
+            array_key_exists($name, $this->optionDefinitions) &&
+            array_key_exists('required', $this->optionDefinitions[$name]) &&
+            ($this->optionDefinitions[$name]['required'] === true)
+        );
     }
 
     public function merge(array $options)
