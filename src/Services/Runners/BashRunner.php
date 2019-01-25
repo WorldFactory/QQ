@@ -8,6 +8,10 @@ use WorldFactory\QQ\Entities\Script;
 
 class BashRunner extends AbstractRunner
 {
+    const OPTION_DEFINITIONS = [
+        'workingDir' => ['type' => 'string']
+    ];
+
     protected function createProcess(Script $script)
     {
         return Process::fromShellCommandline($script->getCompiledScript(), null, $_ENV, $this->getInput()->getStream());

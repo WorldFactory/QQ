@@ -7,17 +7,24 @@ use WorldFactory\QQ\Entities\Script;
 
 class ViewRunner extends AbstractRunner
 {
-    const DEFAULT_STYLE = 'error';
+    const OPTION_DEFINITIONS = [
+        'style' => ['type' => 'string', 'default' => 'error']
+    ];
 
     /**
      * @param Script $script
      */
     public function run(Script $script) : void
     {
-        $style = $script->hasOption('style') ? $script->getOption('style') : self::DEFAULT_STYLE;
-
         $formatter = new FormatterHelper();
-        $this->getOutput()->writeln($formatter->formatBlock($script->getCompiledScript(), $style, TRUE));
+
+        $message = $formatter->formatBlock(
+            $script->getCompiledScript(),
+            $script->getOption('style'),
+            TRUE
+        );
+
+        $this->getOutput()->writeln($message);
     }
 
     public function isHeaderDisplayed() : bool

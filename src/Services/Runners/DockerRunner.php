@@ -10,6 +10,14 @@ use WorldFactory\QQ\Services\ScriptFormatter;
 
 class DockerRunner extends AbstractRunner
 {
+    protected const OPTION_DEFINITIONS = [
+        'target'     => ['type' => 'string', 'required' => true],
+        'user'       => ['type' => 'string'],
+        'env'        => ['type' => 'string'],
+        'workingDir' => ['type' => 'string'],
+        'flags'      => ['type' => 'array']
+    ];
+
     /** @var RunnerFactory */
     private $runnerFactory;
 
