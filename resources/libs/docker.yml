@@ -31,8 +31,8 @@ commands:
         script:
             - docker build %docker_image_folder%%1% --tag %docker_images_prefix%%1%:latest %_left%
             - docker-compose up -d %1%
-        aliases: [build]
         shortDescription: Reconstruit localement un container.
+        aliases: [build]
 
     "docker:clean":
         script:
@@ -54,17 +54,16 @@ commands:
     "docker-compose:in":
         script: docker cp %2% `docker-compose ps -q %1%`:%3%
         shortDescription: Copy a file or directory from outside to a container.
-        aliases: [cpin]
         longDescription: |
             Usage : qq cpin <container> <source> <target>
             <container> is the name of the container. (Use docker-compose names)
             <source> is the path to the source on the host.
             <target> is the path to the target inside the container.
             All arguments are required.
+        aliases: [cpin]
 
     "docker-compose:out":
         script: docker cp `docker-compose ps -q %1%`:%2% %3%
-        aliases: [cpout]
         shortDescription: Copy a file or directory from a container to the outside.
         longDescription: |
             Usage : qq cpout <container> <source> <target>
@@ -72,6 +71,7 @@ commands:
             <source> is the path to the source inside the container.
             <target> is the path to the target on the host.
             All arguments are required.
+        aliases: [cpout]
 
     "docker:wait":
         script: ./vendor/worldfactory/qq/resources/bin/docker-waiting-logs.sh "%_all%"

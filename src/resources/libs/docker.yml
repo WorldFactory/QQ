@@ -45,8 +45,8 @@ commands:
             - null://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker build %docker_image_folder%%1% --tag %docker_images_prefix%%1%:latest %_left%
             - docker-compose up -d %1%
-        aliases: [build]
         shortDescription: Reconstruit localement un container.
+        aliases: [build]
 
     "docker:clean":
         script:

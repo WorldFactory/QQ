@@ -12,6 +12,7 @@ commands:
         target: "%symfony_container%"
         user: "%symfony_user%"
         shortDescription: Lance la console Symfony avec les paramètres fournis.
+
     "entity:map":
         type: docker
         script:
@@ -21,6 +22,7 @@ commands:
         target: "%symfony_container%"
         user: "%symfony_user%"
         shortDescription: Génère le mapping de la ou des tables spécifiées. Le nom de la table doit être indiqué en CamelCase. Ne prends en compte que les entités du Bundle %model_bundle%.
+
     "entity:generate":
         type: docker
         script:
@@ -30,6 +32,7 @@ commands:
         target: "%symfony_container%"
         user: "%symfony_user%"
         shortDescription: "Génère l'entité spécifiée. Necessite le nom court de l'entité. ex : ModelBundle:MyEntity"
+
     "cache:clear":
         type: docker
         script:
@@ -40,6 +43,7 @@ commands:
         user: "%symfony_user%"
         shortDescription: Vide le cache de symfony.
         aliases: ["cc"]
+
     "cache:reset":
         type: docker
         script:

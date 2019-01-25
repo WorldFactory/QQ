@@ -9,6 +9,7 @@ commands:
         user: "%composer_user%"
         shortDescription: Lance Composer avec les paramètres fournis.
         aliases: ["composer"]
+
     "composer:clear":
         type: docker
         script: rm -rf vendor
