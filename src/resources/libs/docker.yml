@@ -10,7 +10,8 @@ commands:
             - view://WARNING - DEPRECATED
             - null://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - "%docker_shell%"
-        target: "%1%"
+        options:
+            target: "%1%"
         shortDescription: Open shell in target container.
         longDescription: Need a target environment name.
         aliases: [bash, open, "docker:bash"]

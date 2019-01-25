@@ -8,8 +8,9 @@ commands:
             - view://WARNING - DEPRECATED
             - null://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - composer %_all%
-        target: "%composer_container%"
-        user: "%composer_user%"
+        options:
+            target: "%composer_container%"
+            user: "%composer_user%"
         shortDescription: Lance Composer avec les paramètres fournis.
         aliases: ["composer"]
 
@@ -19,7 +20,8 @@ commands:
             - view://WARNING - DEPRECATED
             - null://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - rm -rf vendor
-        target: "%composer_container%"
-        user: "%composer_user%"
+        options:
+            target: "%composer_container%"
+            user: "%composer_user%"
         shortDescription: Vide le répertoire des Vendors.
         aliases: ["vendor:clear"]

@@ -5,15 +5,17 @@ commands:
     "composer:run":
         type: docker
         script: composer %_all%
-        target: "%composer_container%"
-        user: "%composer_user%"
+        options:
+            target: "%composer_container%"
+            user: "%composer_user%"
         shortDescription: Lance Composer avec les paramètres fournis.
         aliases: ["composer"]
 
     "composer:clear":
         type: docker
         script: rm -rf vendor
-        target: "%composer_container%"
-        user: "%composer_user%"
+        options:
+            target: "%composer_container%"
+            user: "%composer_user%"
         shortDescription: Vide le répertoire des Vendors.
         aliases: ["vendor:clear"]

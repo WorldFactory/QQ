@@ -7,7 +7,8 @@ commands:
     "docker:open":
         type: docker
         script: "%docker_shell%"
-        target: "%1%"
+        options:
+            target: "%1%"
         shortDescription: Open shell in target container.
         longDescription: Need a target environment name.
         aliases: [bash, open, "docker:bash"]
