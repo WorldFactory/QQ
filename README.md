@@ -7,6 +7,14 @@ Warning, QQ is not a library, QQ is a software in its own right. It can not be i
 
 Its purpose is to be the keystone of your development environment.
 
+## Documentation
+
+* Introduction (this file)
+    * Installation
+    * Basic use
+    * Extend
+* [How to create a script ?](./doc/scripts.md)
+
 ## Installation
 
 Simply add QQ with Composer.
@@ -49,8 +57,9 @@ Add a description with the `shortDescription` parameter.
 
 ## Coming soon
 
- * Full documentation.
- * More information about development environment with QQ.
+* Extends documentation
+* More information about development environment with QQ.
+* Many other improvements.
   
  [Trello development tab.](https://trello.com/b/IQ62jazu) (in french)
  
