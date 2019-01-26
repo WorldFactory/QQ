@@ -38,8 +38,16 @@ class ConfigLoader
         }
     }
 
-    private function addCommand(string $taskName, array $taskConfig)
+    /**
+     * @param string $taskName
+     * @param array|string $taskConfig
+     */
+    private function addCommand(string $taskName, $taskConfig)
     {
+        if (!is_array($taskConfig)) {
+            $taskConfig = ['script' => $taskConfig];
+        }
+
         if (array_key_exists($taskName, $this->commands)) {
             $this->commands[$taskName] = array_merge($this->commands[$taskName], $taskConfig);
         } else {

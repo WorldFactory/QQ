@@ -40,6 +40,17 @@ This text will be displayed each time you use the command.
 
 Only the name and the `script` parameter are required for a command to be used.
 
+So, a ultra-minimaliste config mode is available.
+
+```
+phpv: php -v
+```
+Only the name and the script !!
+
+This ultra-minimaliste config mode is also available with multi-line scripts.
+
+Nevertheless, keep in mind that adding documentation is never a waste of time.
+
 ### All options
 
 * script : [*Required*] This is the command, as you would type it in a command line.
@@ -50,7 +61,7 @@ Only the name and the `script` parameter are required for a command to be used.
 
 * longDescription : [*Optional*] A long description of the command. This description will be displayed only if you ask for help on this command. (Type `qq help the-name-of-the-command`)
 
-* aliases : [*Optional*] An array of aliases that can be used to use this command, replacing its name.
+* aliases : [*Optional*] An array of aliases that can be used to call this command, replacing its name.
 
 ## Multi-line script
 
