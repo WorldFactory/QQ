@@ -38,6 +38,11 @@
       "type": "copy-file",
       "source": "resources/recipe/config/services.yaml",
       "target": "config/services.yaml"
+    },
+    {
+      "type": "chmod-file",
+      "target": "vendor/worldfactory/qq/resources/bin/docker-waiting-logs.sh",
+      "mode": 775
     }
   ]
 }
