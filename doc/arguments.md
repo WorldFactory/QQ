@@ -22,9 +22,9 @@ It's up to you to tell QQ how to handle the extra arguments.
 
 ## Indexed arguments
 
-In fact, QQ will take into account everything to the left of the name of your order.
+In fact, QQ will take into account everything to the left of the name of your command.
 The Symfony console offers several options common to all commands to control the verbosity of the script, the environment, etc ...
-All these options must be placed to the left of the name of your order.
+All these options must be placed to the left of the name of your command.
 
 Everything to the right of the name of your order will be called 'argument' in the rest of this tutorial.
 
@@ -42,7 +42,7 @@ It is the intermediate spaces that distinguish the different arguments.
 
 Internally, we use the term 'token'. Perhaps you will find it more suitable.
 
-To use these arguments inside a QQ command, just insert the code `% index%` inside the definition of your command.
+To use these arguments inside a QQ command, just insert the code `%index%` inside the definition of your command.
 
 ```
 commands:
