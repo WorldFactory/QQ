@@ -14,6 +14,7 @@ Its purpose is to be the keystone of your development environment.
     * Basic use
     * Extend
 * [How to create a script ?](./doc/scripts.md)
+* [Use command line arguments](./doc/arguments.md)
 
 ## Installation
 
