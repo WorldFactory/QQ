@@ -63,6 +63,8 @@ Nevertheless, keep in mind that adding documentation is never a waste of time.
 
 * aliases : [*Optional*] An array of aliases that can be used to call this command, replacing its name.
 
+* options : [*Optional*] An array of options depending to the runner used for executing the script. Runner 'bash' (the default Runner), for example, has a 'workingDir' option to specify the working directory of the script that will be executed.
+
 ## Multi-line script
 
 A script can be composed of several lines.
