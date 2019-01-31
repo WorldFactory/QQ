@@ -45,7 +45,7 @@ class ScriptConfig implements ArrayAccess
 
         foreach($optionDefinitions as $option => $definition) {
             if (isset($definition['default'])) {
-                $this->optionDefinitions[$option] = $definition['default'];
+                $this->defaultOptions[$option] = $definition['default'];
             }
 
             if (isset($this->applicationOptions[$option])) {
