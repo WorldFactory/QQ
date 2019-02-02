@@ -2,6 +2,7 @@ parameters:
     model_bundle: ModelBundle
     symfony_container: php
     symfony_user: www-data
+    folder_cache: var/cache
 commands:
     sf:
         type: docker
@@ -46,11 +47,11 @@ commands:
         script:
             - view://WARNING - DEPRECATED
             - null://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
-            - rm -rf var/cache
+            - rm -rf %folder_cache%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
-        shortDescription: Vide le cache de symfony.
+        shortDescription: Vide le répertoire de cache.
         aliases: ["cd"]
 
     "cache:reset":

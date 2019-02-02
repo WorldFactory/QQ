@@ -2,6 +2,7 @@ parameters:
     model_bundle: ModelBundle
     symfony_container: php
     symfony_user: www-data
+    folder_cache: var/cache
 commands:
     sf:
         type: docker
@@ -36,11 +37,11 @@ commands:
 
     "cache:delete":
         type: docker
-        script: rm -rf var/cache
+        script: rm -rf %folder_cache%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
-        shortDescription: Vide le cache de symfony.
+        shortDescription: Vide le répertoire de cache.
         aliases: ["cd"]
 
     "cache:reset":
