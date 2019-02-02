@@ -21,11 +21,18 @@ commands:
 
     "entity:generate":
         type: docker
-        script: php bin/console doctrine:generate:entities --path=src/ --no-backup %_all%
+        script:
+            - view://No longer requires the full name of the entity. Please see the long description.
+            - php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%_all%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
-        shortDescription: "Génère l'entité spécifiée. Necessite le nom court de l'entité. ex : ModelBundle:MyEntity"
+        shortDescription: "Generate the specified entity. Requires the name of the entity. ex: MyEntity"
+        longDescription: |
+            Warning, the operation of this command has changed.
+            Before, it was necessary to specify the full name of the entity (ex: MyBundle: MyEntity),
+            now the command is based on the bundle specified in the %model_bundle% parameter
+            and only asks for the name of the entity (ex : MyEntity).
 
     "cache:clear":
         type: docker
