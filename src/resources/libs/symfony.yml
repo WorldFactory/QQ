@@ -41,7 +41,7 @@ commands:
             now the command is based on the bundle specified in the %model_bundle% parameter
             and only asks for the name of the entity (ex : MyEntity).
 
-    "cache:clear":
+    "cache:delete":
         type: docker
         script:
             - view://WARNING - DEPRECATED
@@ -51,7 +51,7 @@ commands:
             target: "%symfony_container%"
             user: "%symfony_user%"
         shortDescription: Vide le cache de symfony.
-        aliases: ["cc"]
+        aliases: ["cd"]
 
     "cache:reset":
         type: docker
