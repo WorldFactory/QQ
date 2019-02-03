@@ -11,11 +11,28 @@ use WorldFactory\QQ\Services\ScriptFormatter;
 class DockerRunner extends AbstractRunner
 {
     protected const OPTION_DEFINITIONS = [
-        'target'     => ['type' => 'string', 'required' => true],
-        'user'       => ['type' => 'string'],
-        'env'        => ['type' => 'string'],
-        'workingDir' => ['type' => 'string'],
-        'flags'      => ['type' => 'array']
+        'target'     => [
+            'type' => 'string',
+            'required' => true,
+            'description' => "The targeted container."
+        ],
+        'user'       => [
+            'type' => 'string',
+            'description' => "The user with whom the script is to be executed."
+        ],
+        'env'        => [
+            'type' => 'string',
+            'description' => "Environment variables that must be injected."
+        ],
+        'workingDir' => [
+            'type' => 'string',
+            'description' => "The internal working directory that should be used."
+        ],
+        'flags'      => [
+            'type' => 'array',
+            'description' => "The flags to activate when running the script.",
+            'default' => []
+        ]
     ];
 
     protected const SHORT_DESCRIPTION = "Run script in target Docker container. ";

@@ -9,7 +9,10 @@ use WorldFactory\QQ\Entities\Script;
 class BashRunner extends AbstractRunner
 {
     const OPTION_DEFINITIONS = [
-        'workingDir' => ['type' => 'string']
+        'workingDir' => [
+            'type' => 'string',
+            'description' => "The working directory for the executed script."
+        ]
     ];
 
     protected const SHORT_DESCRIPTION = "Run script in CLI.";

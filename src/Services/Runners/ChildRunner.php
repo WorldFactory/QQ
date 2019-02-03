@@ -7,7 +7,11 @@ use WorldFactory\QQ\Entities\Script;
 class ChildRunner extends AbstractRunner
 {
     const OPTION_DEFINITIONS = [
-        'pause' => ['type' => 'bool', 'default' => false]
+        'pause' => [
+            'type' => 'bool',
+            'default' => false,
+            'description' => "If set to True, display a message before continuing."
+        ]
     ];
 
     protected const SHORT_DESCRIPTION = "Save script in file and run it.";

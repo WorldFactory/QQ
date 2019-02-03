@@ -8,7 +8,11 @@ use WorldFactory\QQ\Entities\Script;
 class ViewRunner extends AbstractRunner
 {
     const OPTION_DEFINITIONS = [
-        'style' => ['type' => 'string', 'default' => 'error']
+        'style' => [
+            'type' => 'string',
+            'default' => 'error',
+            'description' => "The style to apply to the message."
+        ]
     ];
 
     protected const SHORT_DESCRIPTION = "Show script in a frame. Useful to display a message.";

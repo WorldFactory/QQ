@@ -82,7 +82,7 @@ EOT
 
             if (!empty($optionDefinitions)) {
                 $table = new Table($output);
-                $table->setHeaders(['Option', 'Type', 'Required', 'Default']);
+                $table->setHeaders(['Option', 'Type', 'Required', 'Default', 'Description']);
 
                 /**
                  * @var string $runnerName
@@ -95,7 +95,8 @@ EOT
                         $optionName,
                         $optionDefinition['type'] ?? 'undefined',
                         ($optionDefinition['required'] ?? false) ? 'yes' : 'no',
-                        is_scalar($default) ? $default : 'A non-scalar value'
+                        is_scalar($default) ? $default : 'A non-scalar value',
+                        $optionDefinition['description'] ?? ''
                     ]);
                 }
 
