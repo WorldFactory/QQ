@@ -38,3 +38,8 @@ services:
         class: WorldFactory\QQ\Services\Commands\AboutCommand
         tags:
             - { name: console.command, command: 'about' }
+
+    qq.command.runner_list:
+        class: WorldFactory\QQ\Services\Commands\RunnerListCommand
+        tags:
+            - { name: console.command, command: 'runner:list' }
