@@ -21,4 +21,9 @@ EOT;
     public function run(Script $script) : void
     {
     }
+
+    public function isHeaderDisplayed() : bool
+    {
+        return false;
+    }
 }
