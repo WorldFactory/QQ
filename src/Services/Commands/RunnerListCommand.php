@@ -46,7 +46,7 @@ EOT
         $output->writeln('List of currently activated QQ Runners :');
 
         $table = new Table($output);
-        $table->setHeaders(['Name', 'Description']);
+        $table->setHeaders(['Name', 'Aliases', 'Description']);
 
         /**
          * @var string $runnerName
@@ -55,6 +55,7 @@ EOT
         foreach($runnerFactory->getRunners() as $runnerName => $runner) {
             $table->addRow([
                 $runnerName,
+                implode(', ', $runnerFactory->getRunnerAliases($runnerName)),
                 $runner->getShortDescription()
             ]);
         }

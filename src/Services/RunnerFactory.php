@@ -78,4 +78,11 @@ class RunnerFactory
 
         return $runners;
     }
+
+    public function getRunnerAliases(string $name) : array
+    {
+        $serviceName = $this->getRunnerServiceName($name);
+
+        return array_keys($this->runnerServiceAliases, $serviceName);
+    }
 }
