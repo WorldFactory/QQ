@@ -14,6 +14,7 @@ use WorldFactory\QQ\Misc\ConfigLoader;
 abstract class AbstractRunner implements RunnerInterface
 {
     protected const OPTION_DEFINITIONS = [];
+    protected const SHORT_DESCRIPTION = "No short description provided.";
 
     /** @var OutputInterface */
     private $output;
@@ -42,6 +43,11 @@ abstract class AbstractRunner implements RunnerInterface
     public function getOptionDefinitions() : array
     {
         return static::OPTION_DEFINITIONS;
+    }
+
+    public function getShortDescription() : string
+    {
+        return static::SHORT_DESCRIPTION;
     }
 
     public function format(Script $script, string $compiledScript) : string

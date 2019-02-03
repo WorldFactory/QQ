@@ -12,6 +12,8 @@ use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
 
 class CommandRunner extends AbstractRunner
 {
+    protected const SHORT_DESCRIPTION = "Run QQ sub-command.";
+
     /**
      * @param Script $script
      * @throws \Exception

@@ -6,6 +6,8 @@ use WorldFactory\QQ\Entities\Script;
 
 class PhpRunner extends AbstractRunner
 {
+    protected const SHORT_DESCRIPTION = "Execute PHP code with 'eval' function.";
+
     /**
      * @param Script $script
      */

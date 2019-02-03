@@ -10,6 +10,8 @@ class ChildRunner extends AbstractRunner
         'pause' => ['type' => 'bool', 'default' => false]
     ];
 
+    protected const SHORT_DESCRIPTION = "Save script in file and run it.";
+
     /**
      * @param Script $script
      * @throws \Exception

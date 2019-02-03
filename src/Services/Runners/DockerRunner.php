@@ -18,6 +18,8 @@ class DockerRunner extends AbstractRunner
         'flags'      => ['type' => 'array']
     ];
 
+    protected const SHORT_DESCRIPTION = "Run script in target Docker container. ";
+
     /** @var RunnerFactory */
     private $runnerFactory;
 

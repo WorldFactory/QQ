@@ -12,6 +12,8 @@ interface RunnerInterface
 {
     public function getOptionDefinitions() : array;
 
+    public function getShortDescription() : string;
+
     public function run(Script $script) : void;
 
     public function format(Script $script, string $compiledScript) : string;

@@ -12,6 +12,8 @@ class BashRunner extends AbstractRunner
         'workingDir' => ['type' => 'string']
     ];
 
+    protected const SHORT_DESCRIPTION = "Run script in CLI.";
+
     protected function createProcess(Script $script)
     {
         return Process::fromShellCommandline($script->getCompiledScript(), null, $_ENV, $this->getInput()->getStream());

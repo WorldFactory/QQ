@@ -11,6 +11,8 @@ class ViewRunner extends AbstractRunner
         'style' => ['type' => 'string', 'default' => 'error']
     ];
 
+    protected const SHORT_DESCRIPTION = "Show script in a frame. Useful to display a message.";
+
     /**
      * @param Script $script
      */
