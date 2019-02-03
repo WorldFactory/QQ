@@ -12,6 +12,8 @@ class RunnerFactory
 
     private $runnerServiceNames = [];
 
+    private $runnerServiceAliases = [];
+
     /** @var ContainerInterface  */
     private $container;
 
@@ -29,8 +31,22 @@ class RunnerFactory
         $this->runnerServiceNames[$type] = $runnerServiceName;
 
         if ($alias !== null) {
-            $this->runnerServiceNames[$alias] = $runnerServiceName;
+            $this->runnerServiceAliases[$alias] = $runnerServiceName;
         }
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     * @throws Exception
+     */
+    public function getRunnerServiceName($name) : string
+    {
+        if (!array_key_exists($name, $this->runnerServiceNames) && !array_key_exists($name, $this->runnerServiceAliases)) {
+            throw new Exception("Unknown runner type : '$name'.");
+        }
+
+        return array_key_exists($name, $this->runnerServiceNames) ? $this->runnerServiceNames[$name] : $this->runnerServiceAliases[$name];
     }
 
     /**
@@ -40,13 +56,26 @@ class RunnerFactory
      */
     public function getRunner($type) : RunnerInterface
     {
-        if (!array_key_exists($type, $this->runnerServiceNames)) {
-            throw new Exception("Unknown runner type : '$type'.");
-        }
+        $serviceName = $this->getRunnerServiceName($type);
 
         /** @var RunnerInterface $runner */
-        $runner = $this->container->get($this->runnerServiceNames[$type]);
+        $runner = $this->container->get($serviceName);
 
         return $runner;
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function getRunners() : array
+    {
+        $runners = [];
+
+        foreach (array_keys($this->runnerServiceNames) as $runnerName) {
+            $runners[$runnerName] = $this->getRunner($runnerName);
+        }
+
+        return $runners;
     }
 }
