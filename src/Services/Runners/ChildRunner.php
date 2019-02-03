@@ -12,6 +12,10 @@ class ChildRunner extends AbstractRunner
 
     protected const SHORT_DESCRIPTION = "Save script in file and run it.";
 
+    protected const LONG_DESCRIPTION = <<<EOT
+The file is saved in the ./var/tmp directory and executed with the PHP passthru command.
+EOT;
+
     /**
      * @param Script $script
      * @throws \Exception

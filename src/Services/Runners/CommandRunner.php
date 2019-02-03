@@ -14,6 +14,11 @@ class CommandRunner extends AbstractRunner
 {
     protected const SHORT_DESCRIPTION = "Run QQ sub-command.";
 
+    protected const LONG_DESCRIPTION = <<<EOT
+The command is executed directly in the current execution context.
+Feel free to compose your scripts with other subcommands to factorize your 'commands.yml' file.
+EOT;
+
     /**
      * @param Script $script
      * @throws \Exception

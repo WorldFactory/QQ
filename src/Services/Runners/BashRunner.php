@@ -14,6 +14,12 @@ class BashRunner extends AbstractRunner
 
     protected const SHORT_DESCRIPTION = "Run script in CLI.";
 
+    protected const LONG_DESCRIPTION = <<<EOT
+Run script using Symfony\Process class.
+Many options are available.
+This is the cleanest way to run a script with QQ.
+EOT;
+
     protected function createProcess(Script $script)
     {
         return Process::fromShellCommandline($script->getCompiledScript(), null, $_ENV, $this->getInput()->getStream());

@@ -13,6 +13,11 @@ class ViewRunner extends AbstractRunner
 
     protected const SHORT_DESCRIPTION = "Show script in a frame. Useful to display a message.";
 
+    protected const LONG_DESCRIPTION = <<<EOT
+This Runner is used to display messages during the execution of your scripts.
+You have an option to style the frame as you wish.
+EOT;
+
     /**
      * @param Script $script
      */

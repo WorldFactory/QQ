@@ -15,6 +15,7 @@ abstract class AbstractRunner implements RunnerInterface
 {
     protected const OPTION_DEFINITIONS = [];
     protected const SHORT_DESCRIPTION = "No short description provided.";
+    protected const LONG_DESCRIPTION = "No long description provided.";
 
     /** @var OutputInterface */
     private $output;
@@ -48,6 +49,11 @@ abstract class AbstractRunner implements RunnerInterface
     public function getShortDescription() : string
     {
         return static::SHORT_DESCRIPTION;
+    }
+
+    public function getLongDescription() : string
+    {
+        return static::LONG_DESCRIPTION;
     }
 
     public function format(Script $script, string $compiledScript) : string

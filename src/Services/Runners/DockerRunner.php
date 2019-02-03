@@ -20,6 +20,12 @@ class DockerRunner extends AbstractRunner
 
     protected const SHORT_DESCRIPTION = "Run script in target Docker container. ";
 
+    protected const LONG_DESCRIPTION = <<<EOT
+The specified script is executed directly in the targeted container.
+You can specify a particular user or internal directory.
+You can also inject environment variables when running the script.
+EOT;
+
     /** @var RunnerFactory */
     private $runnerFactory;
 
