@@ -19,7 +19,7 @@ class RunnerCompilerPass implements CompilerPassInterface
 
         foreach ($taggedServices as $id => $tags) {
             foreach ($tags as $attributes) {
-                $definition->addMethodCall('addRunnerDefinition', [$id, $attributes["type"], $attributes["alias"] ?? null]);
+                $definition->addMethodCall('addRunnerDefinition', [$id, $attributes["type"], $attributes["alias"] ?? null, $attributes["deprecated"] ?? false]);
             }
         }
     }

@@ -14,8 +14,11 @@ class RunnerFactory
 
     private $runnerAliases = [];
 
-    /** @var ContainerInterface  */
+    /** @var ContainerInterface */
     private $container;
+
+    /** @var array List of deprecated aliases */
+    private $deprecatedAliases = [];
 
     public function __construct(ContainerInterface $container)
     {
@@ -25,13 +28,19 @@ class RunnerFactory
     /**
      * @param string $runnerServiceName
      * @param string $name
+     * @param string $alias
+     * @param bool $deprecated
      */
-    public function addRunnerDefinition(string $runnerServiceName, string $name, string $alias = null)
+    public function addRunnerDefinition(string $runnerServiceName, string $name, string $alias = null, bool $deprecated = false)
     {
         $this->runnerServiceNames[$name] = $runnerServiceName;
 
         if ($alias !== null) {
             $this->runnerAliases[$alias] = $name;
+
+            if ($deprecated) {
+                $this->deprecatedAliases[] = $alias;
+            }
         }
     }
 
@@ -104,5 +113,10 @@ class RunnerFactory
         $name = $this->getRealRunnerName($name);
 
         return (array_key_exists($name, $this->runnerServiceNames));
+    }
+
+    public function isDeprecated(string $name)
+    {
+        return in_array($name, $this->deprecatedAliases);
     }
 }

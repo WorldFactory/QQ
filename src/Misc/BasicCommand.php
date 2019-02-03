@@ -221,6 +221,10 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var RunnerInterface $runner */
         $runner = $runnerFactory->getRunner($type);
 
+        if ($runnerFactory->isDeprecated($type)) {
+            trigger_error("'$type' Runner alias is deprecated. Consider to use Runner real name.", E_USER_DEPRECATED);
+        }
+
         return $runner;
     }
 }
