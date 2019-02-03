@@ -4,7 +4,7 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use WorldFactory\QQ\Entities\Script;
 
-class ChildRunner extends AbstractRunner
+class FileRunner extends AbstractRunner
 {
     const OPTION_DEFINITIONS = [
         'pause' => [

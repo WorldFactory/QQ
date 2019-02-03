@@ -42,11 +42,11 @@ services:
         tags:
             - { name: qq.runner, type: inc }
 
-    qq.runner.child:
+    qq.runner.file:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\ChildRunner
+        class: WorldFactory\QQ\Services\Runners\FileRunner
         tags:
-            - { name: qq.runner, type: child }
+            - { name: qq.runner, type: file, alias: child, deprecated: true }
 
     qq.runner.docker:
         parent: qq.runner.abstract
