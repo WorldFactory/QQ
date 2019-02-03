@@ -11,11 +11,12 @@ services:
         shared: false
         arguments: ['@qq.loader.config', '@qq.app']
 
-    qq.runner.bash:
+    qq.runner.shell:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\BashRunner
+        class: WorldFactory\QQ\Services\Runners\ShellRunner
         tags:
-            - { name: qq.runner, type: bash, alias: sh }
+            - { name: qq.runner, type: shell, alias: sh, deprecated: true }
+            - { name: qq.runner, type: shell, alias: bash, deprecated: true }
 
     qq.runner.command:
         parent: qq.runner.abstract

@@ -6,7 +6,7 @@ use Exception;
 use Symfony\Component\Process\Process;
 use WorldFactory\QQ\Entities\Script;
 
-class BashRunner extends AbstractRunner
+class ShellRunner extends AbstractRunner
 {
     const OPTION_DEFINITIONS = [
         'workingDir' => [
