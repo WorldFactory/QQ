@@ -43,3 +43,8 @@ services:
         class: WorldFactory\QQ\Services\Commands\RunnerListCommand
         tags:
             - { name: console.command, command: 'runner:list' }
+
+    qq.command.runner_help:
+        class: WorldFactory\QQ\Services\Commands\RunnerHelpCommand
+        tags:
+            - { name: console.command, command: 'runner:help' }
