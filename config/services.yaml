@@ -48,3 +48,6 @@ services:
         class: WorldFactory\QQ\Services\Commands\RunnerHelpCommand
         tags:
             - { name: console.command, command: 'runner:help' }
+
+    qq.handler.deprecation:
+        class: WorldFactory\QQ\Services\DeprecationHandler
