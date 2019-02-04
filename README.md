@@ -15,7 +15,7 @@ Its purpose is to be the keystone of your development environment.
     * Extend
 * [How to create a script ?](./doc/scripts.md)
 * [Use command line arguments](./doc/arguments.md)
-* [Runners and Runner options](./doc/arguments.md)
+* [Runners and Runner options](./doc/runners.md)
 
 ## Installation
 
