@@ -32,7 +32,8 @@ class Application extends SymfonyConsoleApplication
         "May the force be with QQ...",
         "The origin of most bugs lies in the interface between the chair and the keyboard.",
         "Why two Q ? If i tell you, i'll have to kill you ...",
-        "Quick Qommand, with a Q, because it's like that !"
+        "Quick Qommand, with a Q, because it's like that !",
+        "And if we all had QQ tattoo on the right buttock ?"
     ];
 
     public function __construct(Kernel $kernel)
