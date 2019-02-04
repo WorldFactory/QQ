@@ -8,6 +8,7 @@ use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\ScriptConfig;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
+use WorldFactory\QQ\Services\DeprecationHandler;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use function preg_match;
@@ -134,11 +135,23 @@ class BasicCommand extends Command implements ContainerAwareInterface
             }
         }
 
-        $this->displayHeader = true;
+//        $this->displayHeader = true;
 
         /** @var Script $script */
         foreach ($this->getIterator($localScript) as $script) {
             $this->executeScript($script);
+        }
+
+        if ($this->displayHeader) {
+            /** @var DeprecationHandler $deprecationHandler */
+            $deprecationHandler = $this->container->get('qq.handler.deprecation');
+
+            if (count($deprecationHandler->getDeprecations()) > 0) {
+                $output->writeln("Several depreciation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.");
+                foreach ($deprecationHandler->getDeprecations() as $deprecation) {
+                    $output->writeln("<error>* $deprecation</error>");
+                }
+            }
         }
 
         return 0;
