@@ -89,8 +89,8 @@ EOT;
                 $parameters[] = "--interactive";
             }
 
-            if (in_array('privilegied', $options['flags'])) {
-                $parameters[] = "--privilegied";
+            if (in_array('privileged', $options['flags'])) {
+                $parameters[] = "--privileged";
             }
         }
 
