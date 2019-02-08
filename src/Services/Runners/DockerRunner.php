@@ -33,6 +33,11 @@ class DockerRunner extends AbstractRunner
             'description' => "The flags to activate when running the script.",
             'default' => []
         ],
+        'tty'      => [
+            'type' => 'bool',
+            'description' => "Use TTY to launch script.",
+            'default' => false
+        ],
         'wrap'      => [
             'type' => 'bool',
             'description' => "Wrap script into CLI.",
@@ -104,7 +109,7 @@ EOT;
             }
         }
 
-        if (!$this->isUnix()) {
+        if ($options['tty']) {
             $parameters[] = "--tty";
         }
 
