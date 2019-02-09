@@ -29,10 +29,10 @@ commands:
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
-        shortDescription: "Generate the specified entity. Requires the name of the entity. ex: MyEntity"
+        shortDescription: "Generate the specified entity. Requires the name of the entity. ex : MyEntity"
         longDescription: |
             Warning, the operation of this command has changed.
-            Before, it was necessary to specify the full name of the entity (ex: MyBundle: MyEntity),
+            Before, it was necessary to specify the full name of the entity (ex : MyBundle:MyEntity),
             now the command is based on the bundle specified in the %model_bundle% parameter
             and only asks for the name of the entity (ex : MyEntity).
 
