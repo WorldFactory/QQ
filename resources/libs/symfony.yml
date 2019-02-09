@@ -3,6 +3,7 @@ parameters:
     symfony_container: php
     symfony_user: www-data
     folder_cache: var/cache
+
 commands:
     sf:
         type: docker
