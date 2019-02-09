@@ -21,7 +21,7 @@ commands:
         script:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
-            - php bin/console doctrine:mapping:import %model_bundle% yml --force --filter %_all%
+            - php bin/console doctrine:mapping:import %model_bundle% yml --force --filter %1% %_left%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
@@ -32,7 +32,7 @@ commands:
         script:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
-            - php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%_all%
+            - php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%1% %_left%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
