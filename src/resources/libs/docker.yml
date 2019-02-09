@@ -29,7 +29,7 @@ commands:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker-compose halt && docker-compose up -d %_all%
-        shortDescription: Relance tous les containers.
+        shortDescription: Reboot all containers.
         aliases: [reboot]
 
     "docker:up":
@@ -37,7 +37,7 @@ commands:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker-compose up -d %_all%
-        shortDescription: Lance docker sous forme de démon.
+        shortDescription: Starts containers as daemons.
         aliases: [up]
 
     "docker:build":
@@ -46,7 +46,7 @@ commands:
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker build %docker_image_folder%%1% --tag %docker_images_prefix%%1%:latest %_left%
             - docker-compose up -d %1%
-        shortDescription: Reconstruit localement un container.
+        shortDescription: Rebuilt a container locally.
         aliases: [build]
 
     "docker:clean":
@@ -55,7 +55,7 @@ commands:
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker-compose down --remove-orphans
             - exec://docker system prune -a --volumes
-        shortDescription: Nettoyage des images et volumes Docker non-utilisés.
+        shortDescription: Cleaning unused Docker images and volumes.
         aliases: [clean]
 
     "docker:down":
@@ -63,7 +63,7 @@ commands:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker-compose down --remove-orphans %_all%
-        shortDescription: Désactive les containers Docker.
+        shortDescription: Disable Docker containers.
         aliases: [down]
 
     "docker:restart":
@@ -71,5 +71,5 @@ commands:
             - view://WARNING - DEPRECATED
             - view://Integrated libraries have been moved from "vendor/worldfactory/qq/src/resources/lib" to "vendor/worldfactory/qq/resources/lib". From version 2.0, they will become unavailable from the previous path.
             - docker stop %1% && docker start %1%
-        shortDescription: Relance un container.
+        shortDescription: Restart target container.
         aliases: [restart]

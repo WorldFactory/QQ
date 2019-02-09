@@ -8,7 +8,7 @@ commands:
         options:
             target: "%composer_container%"
             user: "%composer_user%"
-        shortDescription: Lance Composer avec les paramètres fournis.
+        shortDescription: Run Composer into %composer_container% with provided parameters.
         aliases: ["composer"]
 
     "composer:clear":
@@ -17,5 +17,5 @@ commands:
         options:
             target: "%composer_container%"
             user: "%composer_user%"
-        shortDescription: Vide le répertoire des Vendors.
+        shortDescription: Delete vendor folder into %composer_container%.
         aliases: ["vendor:clear"]

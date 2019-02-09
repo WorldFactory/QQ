@@ -20,36 +20,36 @@ commands:
 
     "docker:reboot":
         script: docker-compose halt && docker-compose up -d %_all%
-        shortDescription: Relance tous les containers.
+        shortDescription: Reboot all containers.
         aliases: [reboot]
 
     "docker:up":
         script: docker-compose up -d %_all%
-        shortDescription: Lance docker sous forme de démon.
+        shortDescription: Starts containers as daemons.
         aliases: [up]
 
     "docker:build":
         script:
             - docker build %docker_image_folder%%1% --tag %docker_images_prefix%%1%:latest %_left%
             - docker-compose up -d %1%
-        shortDescription: Reconstruit localement un container.
+        shortDescription: Rebuilt a container locally.
         aliases: [build]
 
     "docker:clean":
         script:
             - docker-compose down --remove-orphans
             - exec://docker system prune -a --volumes
-        shortDescription: Nettoyage des images et volumes Docker non-utilisés.
+        shortDescription: Cleaning unused Docker images and volumes.
         aliases: [clean]
 
     "docker:down":
         script: docker-compose down --remove-orphans %_all%
-        shortDescription: Désactive les containers Docker.
+        shortDescription: Disable Docker containers.
         aliases: [down]
 
     "docker:restart":
         script: docker stop %1% && docker start %1%
-        shortDescription: Relance un container.
+        shortDescription: Restart target container.
         aliases: [restart]
 
     "docker-compose:in":
