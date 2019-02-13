@@ -32,6 +32,21 @@ class DockerRunner extends AbstractRunner
             'type' => 'array',
             'description' => "The flags to activate when running the script.",
             'default' => []
+        ],
+        'tty'      => [
+            'type' => 'bool',
+            'description' => "Use TTY to launch script.",
+            'default' => false
+        ],
+        'wrap'      => [
+            'type' => 'bool',
+            'description' => "Wrap script into CLI.",
+            'default' => true
+        ],
+        'wrapper'      => [
+            'type' => 'string',
+            'description' => "Define CLI wrapper. Only Bash and Sh are recognized a this time.",
+            'default' => 'sh'
         ]
     ];
 
@@ -89,13 +104,25 @@ EOT;
                 $parameters[] = "--interactive";
             }
 
-            if (in_array('privilegied', $options['flags'])) {
-                $parameters[] = "--privilegied";
+            if (in_array('privileged', $options['flags'])) {
+                $parameters[] = "--privileged";
             }
         }
 
-        if (!$this->isUnix()) {
+        if ($options['tty']) {
             $parameters[] = "--tty";
+        }
+
+        if ($options['wrap']) {
+            switch (strtolower($options['wrapper'])) {
+                case 'sh':
+                case 'bash':
+                    $compiledScript = addcslashes($compiledScript, '\'');
+                    $compiledScript = "sh -c '$compiledScript'";
+                    break;
+                default:
+                    throw new \RuntimeException("Unknown wrapper type : '{$options['wrapper']}'.");
+            }
         }
 
         $execArgs = join(' ', $parameters);
