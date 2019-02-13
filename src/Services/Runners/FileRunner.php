@@ -57,5 +57,7 @@ EOT;
         chmod($tmpScriptName, 0755);
 
         passthru($tmpScriptName);
+
+        unlink($tmpScriptName);
     }
 }
