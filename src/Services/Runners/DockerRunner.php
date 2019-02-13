@@ -116,9 +116,12 @@ EOT;
         if ($options['wrap']) {
             switch (strtolower($options['wrapper'])) {
                 case 'sh':
-                case 'bash':
                     $compiledScript = addcslashes($compiledScript, '\'');
                     $compiledScript = "sh -c '$compiledScript'";
+                    break;
+                case 'bash':
+                    $compiledScript = addcslashes($compiledScript, '\'');
+                    $compiledScript = "bash -c '$compiledScript'";
                     break;
                 default:
                     throw new \RuntimeException("Unknown wrapper type : '{$options['wrapper']}'.");
