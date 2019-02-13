@@ -40,12 +40,12 @@ class DockerRunner extends AbstractRunner
         ],
         'wrap'      => [
             'type' => 'bool',
-            'description' => "Wrap script into CLI.",
+            'description' => "Wrap script into interpreter.",
             'default' => true
         ],
         'wrapper'      => [
             'type' => 'string',
-            'description' => "Define CLI wrapper. Only Bash and Sh are recognized a this time.",
+            'description' => "Define interpreter wrapper. Only Bash, Sh and PHP are recognized a this time.",
             'default' => 'sh'
         ]
     ];
@@ -122,6 +122,10 @@ EOT;
                 case 'bash':
                     $compiledScript = addcslashes($compiledScript, '\'');
                     $compiledScript = "bash -c '$compiledScript'";
+                    break;
+                case 'php':
+                    $compiledScript = addcslashes($compiledScript, '"');
+                    $compiledScript = "php -r \"$compiledScript\"";
                     break;
                 default:
                     throw new \RuntimeException("Unknown wrapper type : '{$options['wrapper']}'.");
