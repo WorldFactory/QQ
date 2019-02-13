@@ -117,15 +117,28 @@ abstract class AbstractRunner implements RunnerInterface
         return $this->application;
     }
 
+    /**
+     * @param BasicCommand $command
+     * @return RunnerInterface
+     * @deprecated 1.5.0
+     */
     public function setCommand(BasicCommand $command) : RunnerInterface
     {
+        trigger_error("Method 'setCommand' is deprecated.", E_USER_DEPRECATED);
+
         $this->command = $command;
 
         return $this;
     }
 
+    /**
+     * @return BasicCommand
+     * @deprecated 1.5.0
+     */
     public function getCommand() : BasicCommand
     {
+        trigger_error("Method 'getCommand' is deprecated.", E_USER_DEPRECATED);
+
         return $this->command;
     }
 
