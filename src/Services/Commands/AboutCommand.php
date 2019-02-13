@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Services\Commands;
 
 use WorldFactory\QQ\Application;
-use Symfony\Bundle\FrameworkBundle\Command\AboutCommand as ParentCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @final
  */
-class AboutCommand extends ParentCommand
+class AboutCommand extends Command
 {
     protected static $defaultName = 'about';
 
