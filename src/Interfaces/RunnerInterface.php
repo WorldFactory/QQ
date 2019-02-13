@@ -36,9 +36,5 @@ interface RunnerInterface
 
     public function getConfigLoader() : ConfigLoader;
 
-    public function setCommand(BasicCommand $command) : RunnerInterface;
-
-    public function getCommand() : BasicCommand;
-
     public function isHeaderDisplayed() : bool;
 }
