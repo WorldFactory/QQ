@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use DateTime;
 use WorldFactory\QQ\Entities\Script;
 
 class FileRunner extends AbstractRunner
@@ -32,7 +33,9 @@ EOT;
             mkdir($varDir);
         }
 
-        $tmpScriptName = $varDir . '/' . str_replace(':', '-', $this->getCommand()->getName()) . '.sh';
+        $hash = sha1((DateTime::createFromFormat('U.u', microtime(TRUE)))->format('Y-m-d H:i:s:u'));
+
+        $tmpScriptName = $varDir . '/' . $hash . '.sh';
 
         $extendedScript = <<<EOT
 #!/usr/bin/env bash
