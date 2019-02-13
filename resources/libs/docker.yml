@@ -82,3 +82,14 @@ commands:
             <pattern> is the pattern to hands over to the user. (Required - Do not add quotes)
             This command is intended to be used to delay a script while an event occurs inside the containers.
             The event must be visible in the logs.
+
+    "docker:ps":
+        script: |
+            docker-compose ps | sed --unbuffered \
+            -e 's/\(%ENV:COMPOSE_PROJECT_NAME%[a-zA-Z0-9_-]*\)/\o033[96m\1\o033[39m/g' \
+            -e 's/\([0-9]*\(\.[0-9]*\)*\:[0-9]*\)/\o033[93m\1\o033[39m/g' \
+            -e 's/\([0-9]*\/\(tcp\|udp\)\)/\o033[32m\1\o033[39m/g' \
+            -e 's/\(Up      \)/\o033[42m   Up   \o033[49m/g' \
+            -e 's/\(Exit [0-9]*  \)/\o033[101m Exited \o033[49m Status : \1/g' \
+            -e 's/\(Paused  \)/\o033[101m Paused \o033[49m/g'
+        aliases: [ps]
