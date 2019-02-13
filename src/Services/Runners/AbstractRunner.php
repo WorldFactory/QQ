@@ -119,12 +119,15 @@ abstract class AbstractRunner implements RunnerInterface
 
     /**
      * @param BasicCommand $command
+     * @param bool $hide
      * @return RunnerInterface
      * @deprecated 1.5.0
      */
-    public function setCommand(BasicCommand $command) : RunnerInterface
+    public function setCommand(BasicCommand $command, bool $hide = false) : RunnerInterface
     {
-        trigger_error("Method 'setCommand' is deprecated.", E_USER_DEPRECATED);
+        if (!$hide) {
+            trigger_error("Method 'setCommand' is deprecated.", E_USER_DEPRECATED);
+        }
 
         $this->command = $command;
 
@@ -132,12 +135,15 @@ abstract class AbstractRunner implements RunnerInterface
     }
 
     /**
+     * @param bool $hide
      * @return BasicCommand
      * @deprecated 1.5.0
      */
-    public function getCommand() : BasicCommand
+    public function getCommand(bool $hide = false) : BasicCommand
     {
-        trigger_error("Method 'getCommand' is deprecated.", E_USER_DEPRECATED);
+        if (!$hide) {
+            trigger_error("Method 'getCommand' is deprecated.", E_USER_DEPRECATED);
+        }
 
         return $this->command;
     }

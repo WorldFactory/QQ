@@ -191,7 +191,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         /** @var RunnerInterface */
         $runner = $this->findRunner($script)
-            ->setCommand($this)
+            ->setCommand($this, true)
             ->setVarFormatter($formatter)
             ->setInput($this->input)
             ->setOutput($this->output)

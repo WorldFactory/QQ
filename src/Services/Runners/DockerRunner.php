@@ -146,7 +146,7 @@ EOT;
         }
 
         $runner
-            ->setCommand($this->getCommand())
+            ->setCommand($this->getCommand(true), true)
             ->setVarFormatter($this->getVarFormatter())
             ->setInput($this->getInput())
             ->setOutput($this->getOutput())
