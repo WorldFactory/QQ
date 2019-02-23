@@ -30,11 +30,15 @@ class Script
     /** @var string Type of runner to be used */
     private $type;
 
-    public function __construct($script, string $type, array $tokens, ScriptConfig $options)
+    /** @var Accreditor Object to define if script is executable */
+    private $accreditor;
+
+    public function __construct($script, string $type, array $tokens, ScriptConfig $options, Accreditor $accreditor)
     {
         $this->type = $type;
         $this->tokens = $tokens;
         $this->options = $options;
+        $this->accreditor = $accreditor;
 
         $this->parseScript($script);
     }
@@ -46,10 +50,11 @@ class Script
         } elseif (is_array($script) && array_key_exists('script', $script)) {
             $this->type = $script['type'] ?? $this->type;
             $this->options = $this->options->merge($script['options'] ?? []);
+            $this->accreditor = new Accreditor($script['if'] ?? null);
             $this->parseScript($script['script']);
         } elseif (is_array($script)) {
             foreach ($script as $item) {
-                $this->children[] = new Script($item, $this->type, $this->tokens, $this->options->clone());
+                $this->children[] = new Script($item, $this->type, $this->tokens, $this->options->clone(), new Accreditor());
             }
         } else {
             throw new \InvalidArgumentException("Unknown script type.");

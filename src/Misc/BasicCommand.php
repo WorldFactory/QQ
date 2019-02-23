@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Misc;
 
 use Exception;
 use function get_class;
+use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\ScriptConfig;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
@@ -166,7 +167,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->script,
             $this->config['type'] ?? $this->defaultType,
             $this->input->getArgumentTokens(),
-            new ScriptConfig($this->config['options'] ?? [], $this->config)
+            new ScriptConfig($this->config['options'] ?? [], $this->config),
+            new Accreditor($this->config['if'] ?? null)
         );
     }
 
