@@ -129,6 +129,14 @@ class Script
         $this->runner = $runner;
     }
 
+    /**
+     * @return RunnerInterface
+     */
+    public function getRunner(): RunnerInterface
+    {
+        return $this->runner;
+    }
+
     public function hasChildren() : bool
     {
         return !empty($this->children);

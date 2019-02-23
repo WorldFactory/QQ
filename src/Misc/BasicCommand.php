@@ -206,11 +206,11 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $script->compile();
 
         if ($this->output->isVerbose()) {
-            $class = get_class($runner);
+            $class = get_class($script->getRunner());
             $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
         }
 
-        if ($runner->isHeaderDisplayed()) {
+        if ($script->getRunner()->isHeaderDisplayed()) {
             $this->output->writeln("-> <fg=black;bg=green>{$script->getCompiledScript()}</>");
         }
 
