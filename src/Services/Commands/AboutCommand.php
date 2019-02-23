@@ -58,6 +58,7 @@ EOT
             array('Version', Application::VERSION),
             array('Maintainer name', Application::MAINTAINER_NAME),
             array('Maintainer mail', Application::MAINTAINER_MAIL),
+            new TableSeparator(),
             array('<info>Symfony</>'),
             new TableSeparator(),
             array('Version', Kernel::VERSION),
