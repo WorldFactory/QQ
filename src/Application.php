@@ -90,7 +90,7 @@ class Application extends SymfonyConsoleApplication
             $this->getRandomSentence()
         ];
 
-        $output->writeln($formatter->formatBlock($message, 'question', TRUE));
+        $output->writeln($formatter->formatBlock($message, 'fg=white;bg=magenta', TRUE));
 
         return parent::doRun($input, $output);
     }

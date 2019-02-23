@@ -10,7 +10,7 @@ class ViewRunner extends AbstractRunner
     const OPTION_DEFINITIONS = [
         'style' => [
             'type' => 'string',
-            'default' => 'error',
+            'default' => 'fg=white;bg=green',
             'description' => "The style to apply to the message."
         ]
     ];
