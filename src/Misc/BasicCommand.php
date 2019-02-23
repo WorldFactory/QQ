@@ -18,6 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use WorldFactory\QQ\Services\ScriptIterator;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
@@ -116,9 +117,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->input = $input;
         $this->output = $output;
 
-        /** @var Script $localScript */
-        $localScript = $this->buildScript();
-
         if ($this->displayHeader) {
 
             $formatter = $this->getHelper('formatter');
@@ -136,10 +134,17 @@ class BasicCommand extends Command implements ContainerAwareInterface
             }
         }
 
-//        $this->displayHeader = true;
+        /** @var ScriptIterator $scriptIterator */
+        $scriptIterator = $this->container->get('qq.iterator.script');
+
+        $scriptIterator->setInputOutput($this->input, $this->output);
+        $scriptIterator->setCommand($this);
+
+        /** @var Script $rootScript */
+        $rootScript = $this->buildScript();
 
         /** @var Script $script */
-        foreach ($this->getIterator($localScript) as $script) {
+        foreach ($scriptIterator->browse($rootScript) as $script) {
             $this->executeScript($script);
         }
 
@@ -172,39 +177,12 @@ class BasicCommand extends Command implements ContainerAwareInterface
         );
     }
 
-    protected function getIterator(Script $script) : \RecursiveArrayIterator
-    {
-        $iterator = $script->getIterator();
-
-        $iterator = is_array($iterator) ? $iterator : [$iterator];
-
-        return new \RecursiveArrayIterator($iterator);
-    }
-
     /**
      * @param string $script
      * @throws Exception
      */
     protected function executeScript(Script $script)
     {
-        /** @var ScriptFormatterInterface $formatter */
-        $formatter = $this->container->get('qq.formatter.script');
-
-        $formatter->setTokens($script->getTokens());
-
-        /** @var RunnerInterface */
-        $runner = $this->findRunner($script)
-            ->setCommand($this, true)
-            ->setVarFormatter($formatter)
-            ->setInput($this->input)
-            ->setOutput($this->output)
-        ;
-
-        $script->setFormatter($formatter);
-        $script->setRunner($runner);
-
-        $script->compile();
-
         if ($this->output->isVerbose()) {
             $class = get_class($script->getRunner());
             $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
@@ -215,32 +193,5 @@ class BasicCommand extends Command implements ContainerAwareInterface
         }
 
         $script->execute();
-    }
-
-    /**
-     * @param string $script
-     * @return RunnerInterface
-     * @throws Exception
-     */
-    protected function findRunner(Script $script) : RunnerInterface
-    {
-        /** @var string $type */
-        $type = $this->defaultType;
-
-        if (preg_match(RunnerFactory::PROTOCOL_REGEX, $script->getScript(), $result)) {
-            $type = $result['type'];
-        }
-
-        /** @var RunnerFactory $runnerFactory */
-        $runnerFactory = $this->container->get('qq.factory.runners');
-
-        /** @var RunnerInterface $runner */
-        $runner = $runnerFactory->getRunner($type);
-
-        if ($runnerFactory->isDeprecated($type)) {
-            trigger_error("'$type' Runner alias is deprecated. Consider to use Runner real name.", E_USER_DEPRECATED);
-        }
-
-        return $runner;
     }
 }
