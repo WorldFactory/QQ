@@ -61,6 +61,11 @@ class Script
         }
     }
 
+    public function isExecutable()
+    {
+        return $this->accreditor->test();
+    }
+
     /**
      * @return string
      */
@@ -187,6 +192,8 @@ class Script
 
     protected function compileScript()
     {
+        $this->accreditor->compile($this->formatter);
+
         $compiledScript = $this->getScript();
 
         if (!empty($compiledScript)) {
