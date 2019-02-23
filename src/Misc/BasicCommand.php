@@ -164,6 +164,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
     {
         return new Script(
             $this->script,
+            $this->config['type'] ?? $this->defaultType,
             $this->input->getArgumentTokens(),
             new ScriptConfig($this->config['options'] ?? [], $this->config)
         );

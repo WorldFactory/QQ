@@ -27,8 +27,12 @@ class Script
     /** @var RunnerInterface */
     private $runner;
 
-    public function __construct($script, array $tokens, ScriptConfig $options)
+    /** @var string Type of runner to be used */
+    private $type;
+
+    public function __construct($script, string $type, array $tokens, ScriptConfig $options)
     {
+        $this->type = $type;
         $this->tokens = $tokens;
         $this->options = $options;
 
@@ -40,15 +44,24 @@ class Script
         if (is_string($script)) {
             $this->script = $script;
         } elseif (is_array($script) && array_key_exists('script', $script)) {
+            $this->type = $script['type'] ?? $this->type;
             $this->options = $this->options->merge($script['options'] ?? []);
             $this->parseScript($script['script']);
         } elseif (is_array($script)) {
             foreach ($script as $item) {
-                $this->children[] = new Script($item, $this->tokens, $this->options->clone());
+                $this->children[] = new Script($item, $this->type, $this->tokens, $this->options->clone());
             }
         } else {
             throw new \InvalidArgumentException("Unknown script type.");
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public function getIterator()
