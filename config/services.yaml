@@ -51,3 +51,7 @@ services:
 
     qq.handler.deprecation:
         class: WorldFactory\QQ\Services\DeprecationHandler
+
+    qq.iterator.script:
+        class: WorldFactory\QQ\Services\ScriptIterator
+        arguments: ["@service_container", "@qq.factory.runners"]
