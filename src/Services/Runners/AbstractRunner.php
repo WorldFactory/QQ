@@ -112,6 +112,10 @@ abstract class AbstractRunner implements RunnerInterface
         return $this->output;
     }
 
+    /**
+     * @return Application
+     * @deprecated 1.5.0
+     */
     public function getApplication() : Application
     {
         return $this->application;
