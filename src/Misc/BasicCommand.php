@@ -51,7 +51,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         $this->script = $config['script'];
 
-        $this->defaultType = $config['type'] ?? 'bash';
+        $this->defaultType = $config['type'] ?? 'shell';
 
         parent::__construct($this->config['name']);
     }
