@@ -148,9 +148,9 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $deprecationHandler = $this->container->get('qq.handler.deprecation');
 
             if (count($deprecationHandler->getDeprecations()) > 0) {
-                $output->writeln("Several depreciation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.");
+                $output->writeln("<error>Several deprecation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.</error>");
                 foreach ($deprecationHandler->getDeprecations() as $deprecation) {
-                    $output->writeln("<error>* $deprecation</error>");
+                    $output->writeln("* $deprecation");
                 }
             }
         }
