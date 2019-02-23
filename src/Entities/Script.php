@@ -88,12 +88,8 @@ class Script
     /**
      * @return string
      */
-    public function getScript() : string
+    public function getScript() :? string
     {
-        if ($this->hasChildren()) {
-            throw new \LogicException("Aggregated script has no text script.");
-        }
-
         return $this->script;
     }
 
@@ -178,9 +174,7 @@ class Script
 
     public function compile()
     {
-        if ($this->hasChildren()) {
-            throw new \LogicException("Unable to compile an aggregated script.");
-        } elseif ($this->compiledScript !== null) {
+        if ($this->compiledScript !== null) {
             throw new \LogicException(("Script already compiled."));
         }
 
@@ -195,12 +189,14 @@ class Script
     {
         $compiledScript = $this->getScript();
 
-        $compiledScript = $this->formatter->sanitize($compiledScript);
-        $compiledScript = $this->formatter->format($compiledScript);
+        if (!empty($compiledScript)) {
+            $compiledScript = $this->formatter->sanitize($compiledScript);
+            $compiledScript = $this->formatter->format($compiledScript);
 
-        $compiledScript = $this->runner->format($this, $compiledScript);
+            $compiledScript = $this->runner->format($this, $compiledScript);
 
-        $compiledScript = $this->formatter->finalize($compiledScript);
+            $compiledScript = $this->formatter->finalize($compiledScript);
+        }
 
         return $compiledScript;
     }
