@@ -33,12 +33,9 @@ class Accreditor
                 throw new \LogicException(("Accreditor is not compiled."));
             }
 
-            try {
-                $this->executable = eval("return (bool) ({$this->compiledCondition});");
-            } catch (ParseError $exception) {
-                $message = "Error when execute condition : '{$this->condition}' : " . $exception->getMessage();
-                throw new RuntimeException($message, 0, $exception);
-            }
+            $this->checkSyntax();
+
+            $this->executable = eval("return (bool) ({$this->compiledCondition});");
         }
 
         return $this->executable;
@@ -54,6 +51,18 @@ class Accreditor
             }
 
             $this->compiledCondition = $formatter->format($this->condition);
+        }
+    }
+
+    protected function checkSyntax()
+    {
+        $code = escapeshellarg($this->compiledCondition);
+
+        exec("echo \"<?php $code\" | php -l 2>/dev/null", $output, $return);
+
+        if (!empty($output)) {
+            $message = "Error when execute condition : `{$this->condition}` --> `{$this->compiledCondition}`.";
+            throw new RuntimeException($message);
         }
     }
 }
