@@ -61,7 +61,7 @@ class Script
         }
     }
 
-    public function isExecutable()
+    public function isExecutable() : bool
     {
         return $this->accreditor->test();
     }
@@ -69,7 +69,7 @@ class Script
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType() : string
     {
         return $this->type;
     }
@@ -101,7 +101,7 @@ class Script
     /**
      * @return string
      */
-    public function getCompiledScript(): string
+    public function getCompiledScript() : string
     {
         if ($this->hasChildren()) {
             throw new \LogicException("Aggregated script has no compiled script.");
@@ -115,7 +115,7 @@ class Script
     /**
      * @param ScriptFormatterInterface $formatter
      */
-    public function setFormatter(ScriptFormatterInterface $formatter): void
+    public function setFormatter(ScriptFormatterInterface $formatter) : void
     {
         $this->formatter = $formatter;
 
@@ -133,7 +133,7 @@ class Script
     /**
      * @return RunnerInterface
      */
-    public function getRunner(): RunnerInterface
+    public function getRunner() : RunnerInterface
     {
         return $this->runner;
     }
@@ -146,7 +146,7 @@ class Script
     /**
      * @return array
      */
-    public function getChildren(): array
+    public function getChildren() : array
     {
         return $this->children;
     }
@@ -177,7 +177,7 @@ class Script
         return isset($this->options[$name]);
     }
 
-    public function compile()
+    public function compile() : void
     {
         if ($this->compiledScript !== null) {
             throw new \LogicException(("Script already compiled."));
@@ -190,7 +190,7 @@ class Script
         $this->compiledScript = $this->compileScript();
     }
 
-    protected function compileScript()
+    protected function compileScript() :? string
     {
         $this->accreditor->compile($this->formatter);
 
@@ -208,7 +208,7 @@ class Script
         return $compiledScript;
     }
 
-    public function execute()
+    public function execute() : void
     {
         $this->runner->run($this);
     }
