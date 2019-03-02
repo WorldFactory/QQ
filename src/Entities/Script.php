@@ -74,22 +74,6 @@ class Script
         return $this->type;
     }
 
-    public function getIterator()
-    {
-        if ($this->hasChildren()) {
-            $array = [];
-
-            /** @var Script $child */
-            foreach ($this->children as $child) {
-                $array[] = $child->getIterator();
-            }
-        } else {
-            $array = $this;
-        }
-
-        return $array;
-    }
-
     /**
      * @return string
      */
