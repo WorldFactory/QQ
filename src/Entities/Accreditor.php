@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Entities;
 
-use ParseError;
+use DateTime;
 use RuntimeException;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
@@ -33,9 +33,7 @@ class Accreditor
                 throw new \LogicException(("Accreditor is not compiled."));
             }
 
-            $this->checkSyntax();
-
-            $this->executable = eval("return (bool) ({$this->compiledCondition});");
+            $this->run();
         }
 
         return $this->executable;
@@ -54,15 +52,64 @@ class Accreditor
         }
     }
 
-    protected function checkSyntax()
+    protected function run()
     {
-        $code = escapeshellarg($this->compiledCondition);
+        $filename = $this->buildScript();
 
-        exec("echo \"<?php $code\" | php -l 2>/dev/null", $output, $return);
+        try {
+            $this->check($filename);
 
-        if (!empty($output)) {
-            $message = "Error when execute condition : `{$this->condition}` --> `{$this->compiledCondition}`.";
-            throw new RuntimeException($message);
+            $this->executable = $this->execute($filename);
+        } finally {
+            unlink($filename);
         }
+    }
+
+    protected function check(string $filename)
+    {
+        $code = "php -l $filename 2>/dev/null";
+
+        exec($code, $output, $return);
+
+        if ($return !== 0) {
+            $message = "Error when parsing condition : `{$this->condition}` --> `{$this->compiledCondition}`.";
+            throw new RuntimeException($message, $return);
+        }
+    }
+
+    protected function execute(string $filename)
+    {
+        $code = "php -f $filename 2>&1";
+
+        exec($code, $output, $return);
+
+        if ($return !== 0) {
+            $message = array_shift($output);
+            $message = str_replace(" in $filename:1", '', $message);
+            $message = "Error when running condition `{$this->compiledCondition}` : $message";
+
+            throw new RuntimeException($message, $return);
+        }
+
+        return (bool) array_shift($output);
+    }
+
+    protected function buildScript() : string
+    {
+        $varDir = getcwd() . '/var/tmp';
+
+        if (!is_dir($varDir)) {
+            mkdir($varDir);
+        }
+
+        $hash = sha1((DateTime::createFromFormat('U.u', microtime(TRUE)))->format('Y-m-d H:i:s:u'));
+
+        $tmpScriptName = $varDir . '/' . $hash . '.php';
+
+        $conditionScript = '<?php echo ((bool) (' . $this->compiledCondition . ')) ? 1 : 0;';
+
+        file_put_contents($tmpScriptName, $conditionScript);
+
+        return $tmpScriptName;
     }
 }
