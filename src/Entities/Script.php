@@ -43,7 +43,7 @@ class Script
     {
         $this->type = $definition['type'] ?? $type;
         $this->tokens = $tokens;
-        $this->options = $options;
+        $this->options = $options->merge($definition['options'] ?? []);
         $this->accreditor = isset($definition['if']) ? new Accreditor($definition['if']) : null;
 
         if ($this->isConditionnal()) {
