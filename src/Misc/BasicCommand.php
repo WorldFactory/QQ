@@ -22,12 +22,6 @@ use WorldFactory\QQ\Services\ScriptIterator;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
-    /** @var string|array Script ou liste des scripts à éxecuter. */
-    private $script;
-
-    /** @var string Type of the script. */
-    private $defaultType;
-
     /** @var array Configuration de la commande. */
     private $config = [];
 
@@ -50,10 +44,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
     public function __construct(array $config)
     {
         $this->config = $config;
-
-        $this->script = $config['script'];
-
-        $this->defaultType = $config['type'] ?? 'shell';
 
         parent::__construct($this->config['name']);
     }
@@ -169,11 +159,10 @@ class BasicCommand extends Command implements ContainerAwareInterface
     protected function buildScript() : Script
     {
         return new Script(
-            $this->script,
-            $this->config['type'] ?? $this->defaultType,
+            $this->config,
+            'shell',
             $this->input->getArgumentTokens(),
-            new ScriptConfig($this->config['options'] ?? [], $this->config),
-            new Accreditor($this->config['if'] ?? null)
+            new ScriptConfig($this->config['options'] ?? [], $this->config)
         );
     }
 

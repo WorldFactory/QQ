@@ -58,20 +58,18 @@ class ScriptIterator
     {
         $this->compileScript($script);
 
-        if ($script->isExecutable()) {
-            if ($script->hasChildren()) {
-                /** @var Script $child */
-                foreach ($script->getChildren() as $child) {
-                    /** @var Script|null $subChild */
-                    foreach($this->browse($child) as $subChild) {
-                        if ($subChild) {
-                            yield $subChild;
-                        }
+        if ($script->hasChildren()) {
+            /** @var Script $child */
+            foreach ($script->getChildren() as $child) {
+                /** @var Script|null $subChild */
+                foreach($this->browse($child) as $subChild) {
+                    if ($subChild) {
+                        yield $subChild;
                     }
                 }
-            } else {
-                yield $script;
             }
+        } elseif ($script->isExecutable()) {
+            yield $script;
         }
     }
 

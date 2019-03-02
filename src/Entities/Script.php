@@ -10,6 +10,12 @@ class Script
     /** @var string Configured script */
     private $script;
 
+    /** @var string Configured script */
+    private $thenChildren;
+
+    /** @var string Configured script */
+    private $elseChildren;
+
     /** @var string Compiled script */
     private $compiledScript = null;
 
@@ -30,40 +36,81 @@ class Script
     /** @var string Type of runner to be used */
     private $type;
 
-    /** @var Accreditor Object to define if script is executable */
-    private $accreditor;
+    /** @var Accreditor|null Object to define if script is executable */
+    private $accreditor = null;
 
-    public function __construct($script, string $type, array $tokens, ScriptConfig $options, Accreditor $accreditor)
+    public function __construct(array $definition, string $type, array $tokens, ScriptConfig $options)
     {
-        $this->type = $type;
+        $this->type = $definition['type'] ?? $type;
         $this->tokens = $tokens;
         $this->options = $options;
-        $this->accreditor = $accreditor;
+        $this->accreditor = isset($definition['if']) ? new Accreditor($definition['if']) : null;
 
-        $this->parseScript($script);
+        if ($this->isConditionnal()) {
+            if (isset($definition['then'])) {
+                $script = $definition['then'];
+            } elseif (isset($definition['script'])) {
+                $script = $definition['script'];
+                trigger_error("For conditional scripts, you must provide the 'then' option.", E_USER_DEPRECATED);
+            } else {
+                throw new \Exception("'then' option is not provided.");
+            }
+
+            $this->thenChildren = $this->parseScript($script, true);
+
+            if (isset($definition['else'])) {
+                $this->elseChildren = $this->parseScript($definition['else'], true);
+            }
+        } else {
+            if (!isset($definition['script'])) {
+                throw new \Exception("'script' option is not provided.");
+            }
+
+            $script = $this->parseScript($definition['script']);
+
+            if (is_array($script)) {
+                $this->children = $script;
+            } else {
+                $this->script = $script;
+            }
+        }
     }
 
-    private function parseScript($script)
+    private function parseScript($script, $forceScript = false)
     {
+        $result = null;
+
         if (is_string($script)) {
-            $this->script = $script;
-        } elseif (is_array($script) && array_key_exists('script', $script)) {
-            $this->type = $script['type'] ?? $this->type;
-            $this->options = $this->options->merge($script['options'] ?? []);
-            $this->accreditor = new Accreditor($script['if'] ?? null);
-            $this->parseScript($script['script']);
+            $result = $forceScript ? [new Script(['script' => $script], $this->type, $this->tokens, $this->options->clone())] : $script;
+        } elseif (is_array($script) && (array_key_exists('script', $script) || array_key_exists('if', $script))) {
+            $result = [new Script($script, $this->type, $this->tokens, $this->options->clone())];
         } elseif (is_array($script)) {
+            $result = [];
+
             foreach ($script as $item) {
-                $this->children[] = new Script($item, $this->type, $this->tokens, $this->options->clone(), new Accreditor());
+                $result[] = new Script(['script' => $item], $this->type, $this->tokens, $this->options->clone());
             }
         } else {
             throw new \InvalidArgumentException("Unknown script type.");
         }
+
+        return $result;
+    }
+
+    public function isConditionnal() : bool
+    {
+        return ($this->accreditor !== null);
     }
 
     public function isExecutable() : bool
     {
-        return $this->accreditor->test();
+        $result = true;
+
+        if ($this->isConditionnal()) {
+            $result = $this->accreditor->test();
+        }
+
+        return $result;
     }
 
     /**
@@ -124,7 +171,13 @@ class Script
 
     public function hasChildren() : bool
     {
-        return !empty($this->children);
+        if ($this->isConditionnal()) {
+            $result = $this->accreditor->test() ? !empty($this->thenChildren) : !empty($this->elseChildren);
+        } else {
+            $result = !empty($this->children);
+        }
+
+        return $result;
     }
 
     /**
@@ -132,7 +185,13 @@ class Script
      */
     public function getChildren() : array
     {
-        return $this->children;
+        if ($this->isConditionnal()) {
+            $result = $this->accreditor->test() ? $this->thenChildren : $this->elseChildren;
+        } else {
+            $result = $this->children;
+        }
+
+        return $result;
     }
 
     /**
@@ -176,7 +235,9 @@ class Script
 
     protected function compileScript() :? string
     {
-        $this->accreditor->compile($this->formatter);
+        if ($this->isConditionnal()) {
+            $this->accreditor->compile($this->formatter);
+        }
 
         $compiledScript = $this->getScript();
 
