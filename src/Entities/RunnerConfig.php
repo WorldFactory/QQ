@@ -6,7 +6,7 @@ use ArrayAccess;
 use InvalidArgumentException;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
-class ScriptConfig implements ArrayAccess
+class RunnerConfig implements ArrayAccess
 {
     /** @var array  */
     private $compiledOptions = [];
@@ -137,12 +137,12 @@ class ScriptConfig implements ArrayAccess
 
     public function merge(array $options)
     {
-        return new ScriptConfig(array_merge($this->options, $options), $this->applicationOptions);
+        return new RunnerConfig(array_merge($this->options, $options), $this->applicationOptions);
     }
 
     public function clone()
     {
-        return new ScriptConfig($this->options, $this->applicationOptions);
+        return new RunnerConfig($this->options, $this->applicationOptions);
     }
 
     /**

@@ -22,7 +22,7 @@ class Script
     /** @var array CLI arguments */
     private $tokens = [];
 
-    /** @var ScriptConfig Runner options */
+    /** @var RunnerConfig Runner options */
     private $options = [];
 
     private $children = [];
@@ -39,7 +39,7 @@ class Script
     /** @var Accreditor|null Object to define if script is executable */
     private $accreditor = null;
 
-    public function __construct(array $definition, string $type, array $tokens, ScriptConfig $options)
+    public function __construct(array $definition, string $type, array $tokens, RunnerConfig $options)
     {
         $this->type = $definition['type'] ?? $type;
         $this->tokens = $tokens;
@@ -203,9 +203,9 @@ class Script
     }
 
     /**
-     * @return ScriptConfig
+     * @return RunnerConfig
      */
-    public function getOptions() : ScriptConfig
+    public function getOptions() : RunnerConfig
     {
         return $this->options;
     }

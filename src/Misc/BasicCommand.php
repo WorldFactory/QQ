@@ -6,7 +6,7 @@ use Exception;
 use function get_class;
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Script;
-use WorldFactory\QQ\Entities\ScriptConfig;
+use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\DeprecationHandler;
@@ -162,7 +162,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->config,
             'shell',
             $this->input->getArgumentTokens(),
-            new ScriptConfig($this->config['options'] ?? [], $this->config)
+            new RunnerConfig($this->config['options'] ?? [], $this->config)
         );
     }
 
