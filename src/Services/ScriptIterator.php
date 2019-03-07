@@ -19,12 +19,6 @@ class ScriptIterator
     /** @var RunnerFactory */
     private $runnerFactory;
 
-    /** @var TokenizedInputInterface */
-    private $input;
-
-    /** @var OutputInterface */
-    private $output;
-
     /** @var BasicCommand */
     private $command;
 
@@ -36,9 +30,6 @@ class ScriptIterator
 
     public function setInputOutput(TokenizedInputInterface $input, OutputInterface $output)
     {
-        $this->input = $input;
-        $this->output = $output;
-
         $this->runnerFactory->setInputOutput($input, $output);
     }
 
