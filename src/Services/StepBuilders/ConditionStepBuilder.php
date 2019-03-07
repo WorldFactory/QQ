@@ -3,10 +3,10 @@
 namespace WorldFactory\QQ\Services\StepBuilders;
 
 use WorldFactory\QQ\Entities\RunnerConfig;
-use WorldFactory\QQ\Entities\Steps\AbstractStep;
+use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Entities\Steps\ConditionStep;
 
-class ConditionStepBuilder extends  AbstractStepBuilder
+class ConditionStepBuilder extends AbstractStepBuilder
 {
     public function isValid($definition) : bool
     {

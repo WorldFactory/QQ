@@ -7,7 +7,7 @@ use function get_class;
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\RunnerConfig;
-use WorldFactory\QQ\Entities\Steps\AbstractStep;
+use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\DeprecationHandler;

@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Entities\Steps;
 
 use Exception;
 use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
 class ConditionStep extends AbstractStep

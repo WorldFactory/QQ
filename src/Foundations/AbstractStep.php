@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Steps;
+namespace WorldFactory\QQ\Foundations;
 
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Services\StepFactory;

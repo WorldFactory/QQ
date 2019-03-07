@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Services\StepBuilders;
 
 use WorldFactory\QQ\Entities\RunnerConfig;
-use WorldFactory\QQ\Entities\Steps\AbstractStep;
+use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
 abstract class AbstractStepBuilder

@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Entities\Steps;
 
 use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
 class LegStep extends AbstractStep
