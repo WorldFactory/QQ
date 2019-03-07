@@ -177,7 +177,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->config,
             'shell',
             $this->input->getArgumentTokens(),
-            new RunnerConfig($this->config['options'] ?? [], $this->config)
+            new RunnerConfig($this->config['options'] ?? [])
         );
     }
 

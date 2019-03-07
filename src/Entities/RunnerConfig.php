@@ -15,17 +15,13 @@ class RunnerConfig implements ArrayAccess
     private $options = [];
 
     /** @var array */
-    private $applicationOptions = [];
-
-    /** @var array */
     private $defaultOptions = [];
 
     private $optionDefinitions = [];
 
-    public function __construct(array $options, array $applicationOptions = [])
+    public function __construct(array $options)
     {
         $this->options = $options;
-        $this->applicationOptions = $applicationOptions;
     }
 
     /**
@@ -47,10 +43,6 @@ class RunnerConfig implements ArrayAccess
             if (isset($definition['default'])) {
                 $this->defaultOptions[$option] = $definition['default'];
             }
-
-            if (isset($this->applicationOptions[$option])) {
-                trigger_error("Define runner options into command root definition is deprecated. Consider to move '$option' option into 'options' array option.", E_USER_DEPRECATED);
-            }
         }
     }
 
@@ -60,11 +52,9 @@ class RunnerConfig implements ArrayAccess
             $this->compiledOptions[$name] :
             (array_key_exists($name, $this->options) ?
                 $this->options[$name] :
-                (array_key_exists($name, $this->applicationOptions) ?
-                    $this->applicationOptions[$name] :
-                    (array_key_exists($name, $this->defaultOptions) ?
-                        $this->defaultOptions[$name] :
-                        null)));
+                (array_key_exists($name, $this->defaultOptions) ?
+                    $this->defaultOptions[$name] :
+                    null));
 
         $this->verifyOption($name, $value);
 
@@ -123,7 +113,7 @@ class RunnerConfig implements ArrayAccess
 
     protected function has(string $name)
     {
-        return (array_key_exists($name, $this->compiledOptions) || array_key_exists($name, $this->options) || array_key_exists($name, $this->applicationOptions) || array_key_exists($name, $this->defaultOptions));
+        return (array_key_exists($name, $this->compiledOptions) || array_key_exists($name, $this->options) || array_key_exists($name, $this->defaultOptions));
     }
 
     protected function isRequired(string $name)
@@ -137,12 +127,12 @@ class RunnerConfig implements ArrayAccess
 
     public function merge(array $options)
     {
-        return new RunnerConfig(array_merge($this->options, $options), $this->applicationOptions);
+        return new RunnerConfig(array_merge($this->options, $options));
     }
 
     public function clone()
     {
-        return new RunnerConfig($this->options, $this->applicationOptions);
+        return new RunnerConfig($this->options);
     }
 
     /**
@@ -150,7 +140,7 @@ class RunnerConfig implements ArrayAccess
      */
     public function compile(ScriptFormatterInterface $formatter)
     {
-        $options = array_merge($this->defaultOptions, $this->applicationOptions, $this->options);
+        $options = array_merge($this->defaultOptions, $this->options);
 
         foreach ($options as $name => $option) {
             $this->compiledOptions[$name] = is_string($option) ? $formatter->format($option) : $option;
