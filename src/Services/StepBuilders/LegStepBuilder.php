@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Services\StepBuilders;
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Entities\Steps\LegStep;
+use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class LegStepBuilder extends  AbstractStepBuilder
 {

@@ -1,9 +1,8 @@
 <?php
 
-namespace WorldFactory\QQ\Services\StepBuilders;
+namespace WorldFactory\QQ\Foundations;
 
 use WorldFactory\QQ\Entities\RunnerConfig;
-use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
 abstract class AbstractStepBuilder

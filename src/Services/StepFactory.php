@@ -6,7 +6,7 @@ use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
-use WorldFactory\QQ\Services\StepBuilders\AbstractStepBuilder;
+use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class StepFactory
 {

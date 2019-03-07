@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Services\StepBuilders;
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Entities\Steps\ConditionStep;
+use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class ConditionStepBuilder extends AbstractStepBuilder
 {
