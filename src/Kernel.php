@@ -9,6 +9,7 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use WorldFactory\QQ\DependencyInjection\StepBuilderCompilerPass;
 
 class Kernel extends BaseKernel
 {
@@ -77,6 +78,7 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{services}'.self::CONFIG_EXTS, 'glob');
 
         $container->addCompilerPass(new RunnerCompilerPass());
+        $container->addCompilerPass(new StepBuilderCompilerPass());
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes)

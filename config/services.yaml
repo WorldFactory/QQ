@@ -56,3 +56,7 @@ services:
     qq.iterator.script:
         class: WorldFactory\QQ\Services\ScriptIterator
         arguments: ["@service_container", "@qq.factory.runners"]
+
+    qq.factory.step:
+        class: WorldFactory\QQ\Services\StepFactory
+        arguments: ["@service_container"]
