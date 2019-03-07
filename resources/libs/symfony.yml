@@ -14,19 +14,13 @@ commands:
         shortDescription: Lance la console Symfony avec les paramètres fournis.
 
     "entity:map":
-        type: docker
-        script: php bin/console doctrine:mapping:import %model_bundle% yml --force --filter %1% %_left%
-        options:
-            target: "%symfony_container%"
-            user: "%symfony_user%"
+        type: qq
+        script: sf doctrine:mapping:import %model_bundle% yml --force --filter %1% %_left%
         shortDescription: Génère le mapping de la ou des tables spécifiées. Le nom de la table doit être indiqué en CamelCase. Ne prends en compte que les entités du Bundle %model_bundle%.
 
     "entity:generate":
-        type: docker
-        script: php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%1% %_left%
-        options:
-            target: "%symfony_container%"
-            user: "%symfony_user%"
+        type: qq
+        script: sf doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%1% %_left%
         shortDescription: "Generate the specified entity. Requires the name of the entity. ex : MyEntity"
         longDescription: |
             Warning, the operation of this command has changed.
@@ -44,10 +38,7 @@ commands:
         aliases: ["cd"]
 
     "cache:reset":
-        type: docker
-        script: php bin/console cache:clear %_all%
-        options:
-            target: "%symfony_container%"
-            user: "%symfony_user%"
+        type: qq
+        script: sf cache:clear %_all%
         shortDescription: Réinitialise le cache de symfony.
         aliases: ["cr"]
