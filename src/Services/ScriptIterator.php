@@ -90,8 +90,6 @@ class ScriptIterator
         $runner = $this->findRunner($script)
             ->setCommand($this->command, true)
             ->setVarFormatter($formatter)
-            ->setInput($this->input)
-            ->setOutput($this->output)
         ;
 
         $script->setFormatter($formatter);

@@ -99,7 +99,11 @@ class RunnerFactory
         $serviceName = $this->getRunnerServiceName($name);
 
         /** @var RunnerInterface $runner */
-        $runner = $this->container->get($serviceName);
+        $runner = $this->container
+            ->get($serviceName)
+            ->setInput($this->input)
+            ->setOutput($this->output)
+        ;
 
         return $runner;
     }
