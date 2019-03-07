@@ -38,6 +38,8 @@ class ScriptIterator
     {
         $this->input = $input;
         $this->output = $output;
+
+        $this->runnerFactory->setInputOutput($input, $output);
     }
 
     /**

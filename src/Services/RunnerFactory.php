@@ -4,6 +4,8 @@ namespace WorldFactory\QQ\Services;
 
 use Exception;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
+use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class RunnerFactory
@@ -19,6 +21,12 @@ class RunnerFactory
 
     /** @var array List of deprecated aliases */
     private $deprecatedAliases = [];
+
+    /** @var TokenizedInputInterface */
+    private $input;
+
+    /** @var OutputInterface */
+    private $output;
 
     public function __construct(ContainerInterface $container)
     {
@@ -42,6 +50,12 @@ class RunnerFactory
                 $this->deprecatedAliases[] = $alias;
             }
         }
+    }
+
+    public function setInputOutput(TokenizedInputInterface $input, OutputInterface $output)
+    {
+        $this->input = $input;
+        $this->output = $output;
     }
 
     /**
