@@ -28,6 +28,7 @@ services:
     qq.factory.runners:
         class: WorldFactory\QQ\Services\RunnerFactory
         arguments: ["@service_container"]
+        shared: false
 
     qq.formatter.script:
         class: WorldFactory\QQ\Services\ScriptFormatter
