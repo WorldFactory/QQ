@@ -132,7 +132,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $scriptIterator = $this->container->get('qq.iterator.script');
 
         $scriptIterator->setInputOutput($this->input, $this->output);
-        $scriptIterator->setCommand($this);
 
         /** @var Script $rootScript */
         $rootScript = $this->buildScript();

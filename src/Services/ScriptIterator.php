@@ -34,15 +34,6 @@ class ScriptIterator
     }
 
     /**
-     * @param $command
-     * @deprecated 1.5.0
-     */
-    public function setCommand($command)
-    {
-        $this->command = $command;
-    }
-
-    /**
      * @param Script $script
      * @return \Generator
      * @throws Exception
@@ -79,7 +70,6 @@ class ScriptIterator
 
         /** @var RunnerInterface */
         $runner = $this->findRunner($script)
-            ->setCommand($this->command, true)
             ->setVarFormatter($formatter)
         ;
 

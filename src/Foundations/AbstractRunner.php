@@ -5,7 +5,6 @@ namespace WorldFactory\QQ\Foundations;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
-use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,9 +24,6 @@ abstract class AbstractRunner implements RunnerInterface
 
     /** @var Application */
     private $application;
-
-    /** @var BasicCommand */
-    private $command;
 
     /** @var ConfigLoader */
     private $configLoader;
@@ -119,37 +115,6 @@ abstract class AbstractRunner implements RunnerInterface
     public function getApplication() : Application
     {
         return $this->application;
-    }
-
-    /**
-     * @param BasicCommand $command
-     * @param bool $hide
-     * @return RunnerInterface
-     * @deprecated 1.5.0
-     */
-    public function setCommand(BasicCommand $command, bool $hide = false) : RunnerInterface
-    {
-        if (!$hide) {
-            trigger_error("Method 'setCommand' is deprecated.", E_USER_DEPRECATED);
-        }
-
-        $this->command = $command;
-
-        return $this;
-    }
-
-    /**
-     * @param bool $hide
-     * @return BasicCommand
-     * @deprecated 1.5.0
-     */
-    public function getCommand(bool $hide = false) : BasicCommand
-    {
-        if (!$hide) {
-            trigger_error("Method 'getCommand' is deprecated.", E_USER_DEPRECATED);
-        }
-
-        return $this->command;
     }
 
     public function isHeaderDisplayed() : bool

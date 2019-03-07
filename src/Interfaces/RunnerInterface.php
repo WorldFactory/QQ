@@ -4,7 +4,6 @@ namespace WorldFactory\QQ\Interfaces;
 
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Entities\Script;
-use WorldFactory\QQ\Misc\BasicCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
 
