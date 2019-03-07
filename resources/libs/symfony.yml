@@ -23,9 +23,7 @@ commands:
 
     "entity:generate":
         type: docker
-        script:
-            - view://No longer requires the full name of the entity. Please see the long description.
-            - php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%1% %_left%
+        script: php bin/console doctrine:generate:entities --path=src/ --no-backup %model_bundle%:%1% %_left%
         options:
             target: "%symfony_container%"
             user: "%symfony_user%"
