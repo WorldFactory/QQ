@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldFactory\QQ\Services\Runners;
+namespace WorldFactory\QQ\Foundations;
 
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;

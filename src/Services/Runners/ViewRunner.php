@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Symfony\Component\Console\Helper\FormatterHelper;
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ViewRunner extends AbstractRunner
 {

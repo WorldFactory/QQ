@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class NullRunner extends AbstractRunner
 {

@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Services\Runners;
 use Exception;
 use Symfony\Component\Process\Process;
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ShellRunner extends AbstractRunner
 {

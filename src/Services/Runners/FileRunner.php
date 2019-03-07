@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use DateTime;
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class FileRunner extends AbstractRunner
 {

@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 use WorldFactory\QQ\Services\ScriptFormatter;
