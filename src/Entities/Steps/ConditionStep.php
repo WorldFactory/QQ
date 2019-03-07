@@ -30,4 +30,28 @@ class ConditionStep extends AbstractStep
             $this->then = $stepFactory->buildStep($definition['else'], $runnerConfig);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIf()
+    {
+        return $this->if;
+    }
+
+    /**
+     * @return AbstractStep|null
+     */
+    public function getThen(): ?AbstractStep
+    {
+        return $this->then;
+    }
+
+    /**
+     * @return null
+     */
+    public function getElse()
+    {
+        return $this->else;
+    }
 }

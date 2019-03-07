@@ -7,6 +7,7 @@ use function get_class;
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Entities\Steps\AbstractStep;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\DeprecationHandler;
@@ -19,6 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use WorldFactory\QQ\Services\ScriptIterator;
+use WorldFactory\QQ\Services\StepFactory;
 
 class BasicCommand extends Command implements ContainerAwareInterface
 {
@@ -107,6 +109,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->input = $input;
         $this->output = $output;
 
+        $root = $this->buildStepTree();
+
         if ($this->displayHeader) {
 
             $formatter = $this->getHelper('formatter');
@@ -151,6 +155,18 @@ class BasicCommand extends Command implements ContainerAwareInterface
         }
 
         return 0;
+    }
+
+    /**
+     * @return AbstractStep
+     * @throws Exception
+     */
+    protected function buildStepTree() : AbstractStep
+    {
+        /** @var StepFactory $stepFactory */
+        $stepFactory = $this->container->get('qq.factory.step');
+
+        return $stepFactory->buildStep($this->config, new RunnerConfig(['type' => $this->config['type'] ?? 'shell']));
     }
 
     /**

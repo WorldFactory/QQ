@@ -17,4 +17,12 @@ class ArrayStep extends AbstractStep
             $this->children[] = $stepFactory->buildStep($line, $runnerConfig);
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getChildren(): array
+    {
+        return $this->children;
+    }
 }

@@ -19,7 +19,7 @@ class LegStep extends AbstractStep
     /**
      * @return AbstractStep|null
      */
-    public function getChild() :? AbstractStep
+    public function getChild() : AbstractStep
     {
         return $this->child;
     }
