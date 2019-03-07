@@ -15,8 +15,7 @@ services:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\ShellRunner
         tags:
-            - { name: qq.runner, type: shell, alias: sh, deprecated: true }
-            - { name: qq.runner, type: shell, alias: bash, deprecated: true }
+            - { name: qq.runner, type: shell }
 
     qq.runner.command:
         parent: qq.runner.abstract
@@ -46,7 +45,7 @@ services:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\FileRunner
         tags:
-            - { name: qq.runner, type: file, alias: child, deprecated: true }
+            - { name: qq.runner, type: file }
 
     qq.runner.docker:
         parent: qq.runner.abstract
