@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Interfaces;
 
-use WorldFactory\QQ\Entities\Script;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
 
@@ -14,9 +13,9 @@ interface RunnerInterface
 
     public function getLongDescription() : string;
 
-    public function run(Script $script) : void;
+    public function run(string $script) : void;
 
-    public function format(Script $script, string $compiledScript) : string;
+    public function format(string $compiledScript) : string;
 
     public function setVarFormatter(ScriptFormatterInterface $varFormatter) : RunnerInterface;
 

@@ -3,7 +3,6 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use DateTime;
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class FileRunner extends AbstractRunner
@@ -23,10 +22,9 @@ The file is saved in the ./var/tmp directory and executed with the PHP passthru 
 EOT;
 
     /**
-     * @param Script $script
-     * @throws \Exception
+     * @inheritdoc
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
         $varDir = getcwd() . '/var/tmp';
 
@@ -41,7 +39,7 @@ EOT;
         $extendedScript = <<<EOT
 #!/usr/bin/env bash
 
-{$script->getCompiledScript()}
+{$script}
 
 EOT;
 

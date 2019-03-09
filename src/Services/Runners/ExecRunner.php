@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ExecRunner extends AbstractRunner
@@ -17,11 +16,11 @@ This Runner has still been preserved to provide an alternative in case of troubl
 EOT;
 
     /**
-     * @param Script $script
+     * @inheritdoc
      * @throws \Exception
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
-        passthru($script->getCompiledScript());
+        passthru($script);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
@@ -47,7 +46,7 @@ abstract class AbstractRunner implements RunnerInterface
         return static::LONG_DESCRIPTION;
     }
 
-    public function format(Script $script, string $compiledScript) : string
+    public function format(string $compiledScript) : string
     {
         return $compiledScript;
     }
@@ -78,6 +77,22 @@ abstract class AbstractRunner implements RunnerInterface
     {
         return $this->varFormatter;
     }
+
+    public function run(string $script): void
+    {
+        if ($this->getOutput()->isVerbose()) {
+            $class = get_class($this);
+            $this->getOutput()->writeln("-> Runner : <fg=magenta>{$class}</>");
+        }
+
+        if ($this->isHeaderDisplayed()) {
+            $this->getOutput()->writeln("-> <fg=black;bg=green>{$script}</>");
+        }
+
+        $this->execute($script);
+    }
+
+    abstract public function execute(string $script) : void;
 
     public function setInput(TokenizedInputInterface $input) : RunnerInterface
     {

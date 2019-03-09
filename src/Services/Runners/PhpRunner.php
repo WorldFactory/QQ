@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class PhpRunner extends AbstractRunner
@@ -16,11 +15,11 @@ You have at your disposal a \$script object of type WorldFactory\QQ\Entities\Scr
 EOT;
 
     /**
-     * @param Script $script
+     * @inheritdoc
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
-        eval($script->getCompiledScript());
+        eval($script);
 
         $this->getOutput()->writeln('');
     }

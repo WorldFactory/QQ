@@ -4,7 +4,6 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use Symfony\Component\Process\Process;
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ShellRunner extends AbstractRunner
@@ -24,12 +23,12 @@ Many options are available.
 This is the cleanest way to run a script with QQ.
 EOT;
 
-    protected function createProcess(Script $script)
+    protected function createProcess(string $script)
     {
-        return Process::fromShellCommandline($script->getCompiledScript(), null, $_ENV, $this->getInput()->getStream());
+        return Process::fromShellCommandline($script, null, $_ENV, $this->getInput()->getStream());
     }
 
-    protected function getProcess(Script $script)
+    protected function getProcess(string $script)
     {
         $process = $this->createProcess($script);
 
@@ -40,17 +39,17 @@ EOT;
         ;
 
         if ($script->hasOption('workingDir')) {
-            $process->setWorkingDirectory($script->getOption('workingDir'));
+            $process->setWorkingDirectory($this->getOption('workingDir'));
         }
 
         return $process;
     }
 
     /**
-     * @param string $script
-     * @throws \Exception
+     * @inheritdoc
+     * @throws Exception
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
         /** @var Process $process */
         $process = $this->getProcess($script);
@@ -58,7 +57,7 @@ EOT;
         $process->run([$this, 'displayCallback']);
 
         if (!$process->isSuccessful()) {
-            $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script->getCompiledScript()}\"");
+            $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script}\"");
 
             throw $exception;
         }

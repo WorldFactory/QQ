@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class NullRunner extends AbstractRunner
@@ -17,9 +16,9 @@ EOT;
 
     /**
      * Do nothing !!
-     * @param Script $script
+     * @inheritdoc
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
     }
 

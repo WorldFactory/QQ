@@ -3,7 +3,6 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use Symfony\Component\Console\Helper\FormatterHelper;
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ViewRunner extends AbstractRunner
@@ -24,14 +23,14 @@ You have an option to style the frame as you wish.
 EOT;
 
     /**
-     * @param Script $script
+     * @inheritdoc
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
         $formatter = new FormatterHelper();
 
         $message = $formatter->formatBlock(
-            $script->getCompiledScript(),
+            $script,
             $script->getOption('style'),
             TRUE
         );

@@ -3,7 +3,6 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
@@ -70,7 +69,7 @@ EOT;
         $this->runnerFactory = $runnerFactory;
     }
 
-    public function format(Script $script, string $compiledScript) : string
+    public function format(string $compiledScript) : string
     {
         $options = $script->getOptions();
 
@@ -142,7 +141,7 @@ EOT;
      * @param string $script
      * @throws Exception
      */
-    public function run(Script $script) : void
+    public function execute(string $script) : void
     {
         /** @var RunnerInterface $runner */
         $runner = null;
@@ -158,8 +157,6 @@ EOT;
             ->setInput($this->getInput())
             ->setOutput($this->getOutput())
         ;
-
-        $script->setRunner($runner);
 
         $runner->run($script);
     }
