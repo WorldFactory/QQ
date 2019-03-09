@@ -44,14 +44,7 @@ class LeafStageBuilder extends AbstractStageBuilder
 
         $options->compile($formatter);
 
-        $compiledScript = $step->getScript();
-
-        $compiledScript = $formatter->sanitize($compiledScript);
-        $compiledScript = $formatter->format($compiledScript);
-
-        $compiledScript = $runner->format($this, $compiledScript);
-
-        $compiledScript = $formatter->finalize($compiledScript);
+        $compiledScript = $this->compileScript($step, $formatter, $runner);
 
         return new LeafStage($step, $compiledScript, $runner);
     }
@@ -81,5 +74,19 @@ class LeafStageBuilder extends AbstractStageBuilder
         ;
 
         return $runner;
+    }
+
+    protected function compileScript(LeafStep $step, ContextualizedFormatter $formatter, RunnerInterface $runner) : string
+    {
+        $compiledScript = $step->getScript();
+
+        $compiledScript = $formatter->sanitize($compiledScript);
+        $compiledScript = $formatter->format($compiledScript);
+
+        $compiledScript = $runner->format($compiledScript);
+
+        $compiledScript = $formatter->finalize($compiledScript);
+
+        return $compiledScript;
     }
 }

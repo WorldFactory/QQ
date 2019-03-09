@@ -131,7 +131,12 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var StepFactory $stepFactory */
         $stepFactory = $this->container->get('qq.factory.step');
 
-        return $stepFactory->buildStep($this->config, new RunnerConfig(['type' => $this->config['type'] ?? 'shell']));
+        return $stepFactory->buildStep(
+            $this->config,
+            new RunnerConfig([
+                'type' => $this->config['type'] ?? 'shell'
+            ])
+        );
     }
 
     protected function buildContext() : Context
