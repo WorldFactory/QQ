@@ -5,7 +5,6 @@ namespace WorldFactory\QQ\Foundations;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
-use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
@@ -22,19 +21,15 @@ abstract class AbstractRunner implements RunnerInterface
     /** @var TokenizedInputInterface */
     private $input;
 
-    /** @var Application */
-    private $application;
-
     /** @var ConfigLoader */
     private $configLoader;
 
     /** @var ScriptFormatterInterface */
     private $varFormatter;
 
-    public function __construct(ConfigLoader $configLoader, Application $application)
+    public function __construct(ConfigLoader $configLoader)
     {
         $this->configLoader = $configLoader;
-        $this->application = $application;
     }
 
     public function getOptionDefinitions() : array
@@ -106,15 +101,6 @@ abstract class AbstractRunner implements RunnerInterface
     public function getOutput() : OutputInterface
     {
         return $this->output;
-    }
-
-    /**
-     * @return Application
-     * @deprecated 1.5.0
-     */
-    public function getApplication() : Application
-    {
-        return $this->application;
     }
 
     public function isHeaderDisplayed() : bool

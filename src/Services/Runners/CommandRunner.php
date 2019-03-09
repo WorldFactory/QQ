@@ -6,6 +6,7 @@ use function array_shift;
 use function explode;
 use Exception;
 use Symfony\Component\Console\Input\StringInput;
+use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\BasicCommand;
@@ -20,6 +21,17 @@ The command is executed directly in the current execution context.
 Feel free to compose your scripts with other subcommands to factorize your 'commands.yml' file.
 EOT;
 
+    /** @var Application */
+    private $application;
+
+    /**
+     * @param Application $application
+     */
+    public function setApplication(Application $application): void
+    {
+        $this->application = $application;
+    }
+
     /**
      * @param Script $script
      * @throws \Exception
@@ -29,7 +41,7 @@ EOT;
         $arguments = explode(' ', $script->getCompiledScript());
         $commandName = array_shift($arguments);
 
-        $command = $this->getApplication()->find($commandName);
+        $command = $this->application->find($commandName);
 
         if ($command instanceof BasicCommand) {
             $command->setDisplayHeader(false);

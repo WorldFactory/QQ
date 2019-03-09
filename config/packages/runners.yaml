@@ -9,7 +9,7 @@ services:
         autoconfigure: false
         public: true
         shared: false
-        arguments: ['@qq.loader.config', '@qq.app']
+        arguments: ['@qq.loader.config']
 
     qq.runner.shell:
         parent: qq.runner.abstract
@@ -20,6 +20,8 @@ services:
     qq.runner.command:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\CommandRunner
+        calls:
+            - { method: setApplication, arguments: ['@qq.app'] }
         tags:
             - { name: qq.runner, type: qq, alias: command }
 
