@@ -31,14 +31,6 @@ class RunnerConfig implements ArrayAccess
     }
 
     /**
-     * @param array $defaultOptions
-     */
-    public function setDefaultOptions(array $defaultOptions) : void
-    {
-        $this->defaultOptions = $defaultOptions;
-    }
-
-    /**
      * @param array $optionDefinitions
      */
     public function setOptionDefinitions(array $optionDefinitions): void
