@@ -6,6 +6,7 @@ use ArrayAccess;
 use InvalidArgumentException;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
+use WorldFactory\QQ\Misc\ContextualizedFormatter;
 
 class RunnerConfig implements ArrayAccess
 {
@@ -142,9 +143,9 @@ class RunnerConfig implements ArrayAccess
     }
 
     /**
-     * @param ScriptFormatterInterface $formatter
+     * @param ContextualizedFormatter $formatter
      */
-    public function compile(ScriptFormatterInterface $formatter)
+    public function compile(ContextualizedFormatter $formatter)
     {
         $options = array_merge($this->defaultOptions, $this->options);
 
