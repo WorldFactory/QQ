@@ -70,7 +70,7 @@ EOT;
 
     public function format(string $compiledScript) : string
     {
-        $options = $script->getOptions();
+        $options = $this->getOptions();
 
         if (!isset($options['target'])) {
             throw new \InvalidArgumentException("You should define target container with 'target' parameter.");

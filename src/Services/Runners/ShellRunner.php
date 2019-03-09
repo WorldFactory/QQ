@@ -38,7 +38,7 @@ EOT;
             ->setTty(Process::isPtySupported())
         ;
 
-        if ($script->hasOption('workingDir')) {
+        if ($this->hasOption('workingDir')) {
             $process->setWorkingDirectory($this->getOption('workingDir'));
         }
 

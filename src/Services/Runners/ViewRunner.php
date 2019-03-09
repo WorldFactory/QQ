@@ -31,7 +31,7 @@ EOT;
 
         $message = $formatter->formatBlock(
             $script,
-            $script->getOption('style'),
+            $this->getOption('style'),
             TRUE
         );
 
