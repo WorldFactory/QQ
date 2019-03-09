@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Misc;
 
 use Exception;
 use function get_class;
+use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -106,6 +107,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $this->output = $output;
 
         $root = $this->buildStepTree();
+        $context = $this->buildContext();
 
         if ($this->displayHeader) {
 
@@ -162,6 +164,19 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $stepFactory = $this->container->get('qq.factory.step');
 
         return $stepFactory->buildStep($this->config, new RunnerConfig(['type' => $this->config['type'] ?? 'shell']));
+    }
+
+    protected function buildContext() : Context
+    {
+        /** @var ConfigLoader $loaderConfig */
+        $loaderConfig = $this->container->get('qq.loader.config');
+
+        return new Context(
+            $loaderConfig->getParameters(),
+            $this->input->getArgumentTokens(),
+            $this->input,
+            $this->output
+        );
     }
 
     /**
