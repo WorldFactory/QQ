@@ -110,20 +110,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $context = $this->buildContext();
 
         if ($this->displayHeader) {
-
-            $formatter = $this->getHelper('formatter');
-
-            $this->output->writeln($formatter->formatSection(
-                'Task name  ',
-                $this->getName()
-            ));
-
-            if ($this->getDescription()) {
-                $this->output->writeln($formatter->formatSection(
-                    'Description',
-                    $this->getDescription()
-                ));
-            }
+            $this->writeHeader();
         }
 
         /** @var ScriptIterator $scriptIterator */
@@ -140,15 +127,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
         }
 
         if ($this->displayHeader) {
-            /** @var DeprecationHandler $deprecationHandler */
-            $deprecationHandler = $this->container->get('qq.handler.deprecation');
-
-            if (count($deprecationHandler->getDeprecations()) > 0) {
-                $output->writeln("<error>Several deprecation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.</error>");
-                foreach ($deprecationHandler->getDeprecations() as $deprecation) {
-                    $output->writeln("* $deprecation");
-                }
-            }
+            $this->writeFooter();
         }
 
         return 0;
@@ -177,6 +156,36 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->input,
             $this->output
         );
+    }
+
+    protected function writeHeader()
+    {
+        $formatter = $this->getHelper('formatter');
+
+        $this->output->writeln($formatter->formatSection(
+            'Task name  ',
+            $this->getName()
+        ));
+
+        if ($this->getDescription()) {
+            $this->output->writeln($formatter->formatSection(
+                'Description',
+                $this->getDescription()
+            ));
+        }
+    }
+
+    protected function writeFooter()
+    {
+        /** @var DeprecationHandler $deprecationHandler */
+        $deprecationHandler = $this->container->get('qq.handler.deprecation');
+
+        if (count($deprecationHandler->getDeprecations()) > 0) {
+            $this->output->writeln("<error>Several deprecation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.</error>");
+            foreach ($deprecationHandler->getDeprecations() as $deprecation) {
+                $this->output->writeln("* $deprecation");
+            }
+        }
     }
 
     /**
