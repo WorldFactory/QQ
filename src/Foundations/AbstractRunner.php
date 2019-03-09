@@ -5,7 +5,6 @@ namespace WorldFactory\QQ\Foundations;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Misc\ConfigLoader;
 
 abstract class AbstractRunner implements RunnerInterface
 {
@@ -18,14 +17,6 @@ abstract class AbstractRunner implements RunnerInterface
 
     /** @var TokenizedInputInterface */
     private $input;
-
-    /** @var ConfigLoader */
-    private $configLoader;
-
-    public function __construct(ConfigLoader $configLoader)
-    {
-        $this->configLoader = $configLoader;
-    }
 
     public function getOptionDefinitions() : array
     {
@@ -45,14 +36,6 @@ abstract class AbstractRunner implements RunnerInterface
     public function format(string $compiledScript) : string
     {
         return $compiledScript;
-    }
-
-    /**
-     * @return ConfigLoader
-     */
-    public function getConfigLoader() : ConfigLoader
-    {
-        return $this->configLoader;
     }
 
     public function run(string $script): void
