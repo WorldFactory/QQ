@@ -5,7 +5,6 @@ namespace WorldFactory\QQ\Misc;
 use Exception;
 use function get_class;
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\Script;
 use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
@@ -16,7 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use WorldFactory\QQ\Services\ScriptIterator;
 use WorldFactory\QQ\Services\StageFactory;
 use WorldFactory\QQ\Services\StepFactory;
 
@@ -115,19 +113,6 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->writeHeader();
         }
 
-        /** @var ScriptIterator $scriptIterator */
-        $scriptIterator = $this->container->get('qq.iterator.script');
-
-        $scriptIterator->setInputOutput($this->input, $this->output);
-
-        /** @var Script $rootScript */
-        $rootScript = $this->buildScript();
-
-        /** @var Script $script */
-        foreach ($scriptIterator->browse($rootScript) as $script) {
-            $this->executeScript($script);
-        }
-
         $stepWalker->walk($root);
 
         if ($this->displayHeader) {
@@ -201,36 +186,5 @@ class BasicCommand extends Command implements ContainerAwareInterface
                 $this->output->writeln("* $deprecation");
             }
         }
-    }
-
-    /**
-     * @return Script
-     */
-    protected function buildScript() : Script
-    {
-        return new Script(
-            $this->config,
-            'shell',
-            $this->input->getArgumentTokens(),
-            new RunnerConfig($this->config['options'] ?? [])
-        );
-    }
-
-    /**
-     * @param string $script
-     * @throws Exception
-     */
-    protected function executeScript(Script $script)
-    {
-        if ($this->output->isVerbose()) {
-            $class = get_class($script->getRunner());
-            $this->output->writeln("-> Runner : <fg=magenta>{$class}</>");
-        }
-
-        if ($script->getRunner()->isHeaderDisplayed()) {
-            $this->output->writeln("-> <fg=black;bg=green>{$script->getCompiledScript()}</>");
-        }
-
-        $script->execute();
     }
 }
