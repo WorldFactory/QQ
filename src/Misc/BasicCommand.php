@@ -128,6 +128,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->executeScript($script);
         }
 
+        $stepWalker->walk($root);
+
         if ($this->displayHeader) {
             $this->writeFooter();
         }
