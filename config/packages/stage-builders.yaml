@@ -1,0 +1,36 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    qq.builder.stage.abstract:
+        abstract: true
+        autowire: false
+        autoconfigure: false
+        public: true
+        shared: false
+
+    qq.builder.stage.array:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\ArrayStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: array }
+
+    qq.builder.stage.leg:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\LegStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: leg }
+
+    qq.builder.stage.leaf:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\LeafStageBuilder
+        arguments: ["@qq.factory.runners"]
+        tags:
+            - { name: qq.builder.stage, type: leaf }
+
+    qq.builder.stage.condition:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\ConditionStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: condition }

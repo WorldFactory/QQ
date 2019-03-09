@@ -60,3 +60,7 @@ services:
     qq.factory.step:
         class: WorldFactory\QQ\Services\StepFactory
         arguments: ["@service_container"]
+
+    qq.factory.stage:
+        class: WorldFactory\QQ\Services\StageFactory
+        arguments: ["@service_container"]
