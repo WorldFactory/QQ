@@ -17,7 +17,13 @@ class RunnerConfig implements ArrayAccess
     /** @var array */
     private $defaultOptions = [];
 
-    private $optionDefinitions = [];
+    private $optionDefinitions = [
+        'type'     => [
+            'type' => 'string',
+            'required' => true,
+            'description' => "The default type to define which runner to be used."
+        ]
+    ];
 
     public function __construct(array $options)
     {
@@ -37,7 +43,7 @@ class RunnerConfig implements ArrayAccess
      */
     public function setOptionDefinitions(array $optionDefinitions): void
     {
-        $this->optionDefinitions = $optionDefinitions;
+        $this->optionDefinitions = array_merge($this->optionDefinitions, $optionDefinitions);
 
         foreach($optionDefinitions as $option => $definition) {
             if (isset($definition['default'])) {
