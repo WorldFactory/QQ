@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Entities;
 
 use ArrayAccess;
 use InvalidArgumentException;
+use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
 class RunnerConfig implements ArrayAccess
@@ -30,10 +31,17 @@ class RunnerConfig implements ArrayAccess
         $this->options = $options;
     }
 
+    public function link(RunnerInterface $runner)
+    {
+        $this->setOptionDefinitions($runner->getOptionDefinitions());
+
+        $runner->setOptions($this);
+    }
+
     /**
      * @param array $optionDefinitions
      */
-    public function setOptionDefinitions(array $optionDefinitions): void
+    protected function setOptionDefinitions(array $optionDefinitions): void
     {
         $this->optionDefinitions = array_merge($this->optionDefinitions, $optionDefinitions);
 

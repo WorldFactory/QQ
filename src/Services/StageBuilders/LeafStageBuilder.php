@@ -36,8 +36,9 @@ class LeafStageBuilder extends AbstractStageBuilder
 
         $runner = $this->findRunner($step, $context);
 
-        $options = $step->getRunnerConfig();
-        $options->setOptionDefinitions($runner->getOptionDefinitions());
+        $options = $step->getRunnerConfig()->clone();
+
+        $options->link($runner);
 
         $options->compile($formatter);
 
