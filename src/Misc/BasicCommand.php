@@ -17,6 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use WorldFactory\QQ\Services\ScriptIterator;
+use WorldFactory\QQ\Services\StageFactory;
 use WorldFactory\QQ\Services\StepFactory;
 
 class BasicCommand extends Command implements ContainerAwareInterface
@@ -108,6 +109,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         $root = $this->buildStepTree();
         $context = $this->buildContext();
+        $stepWalker = $this->buildStepWalker($context);
 
         if ($this->displayHeader) {
             $this->writeHeader();
@@ -156,6 +158,17 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->input,
             $this->output
         );
+    }
+
+    /**
+     * @return StepWalker
+     */
+    protected function buildStepWalker(Context $context) : StepWalker
+    {
+        /** @var StageFactory $stageFactory */
+        $stageFactory = $this->container->get('qq.factory.stage');
+
+        return new StepWalker($stageFactory, $context);
     }
 
     protected function writeHeader()
