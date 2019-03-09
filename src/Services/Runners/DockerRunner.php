@@ -6,7 +6,6 @@ use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
-use WorldFactory\QQ\Services\ScriptFormatter;
 
 class DockerRunner extends AbstractRunner
 {
@@ -153,7 +152,6 @@ EOT;
         }
 
         $runner
-            ->setVarFormatter($this->getVarFormatter())
             ->setInput($this->getInput())
             ->setOutput($this->getOutput())
         ;

@@ -36,9 +36,6 @@ class LeafStageBuilder extends AbstractStageBuilder
 
         $runner = $this->findRunner($step, $context);
 
-        // @todo à virer après refacto du DockerRunner
-        $runner->setVarFormatter($formatter);
-
         $options = $step->getRunnerConfig();
         $options->setOptionDefinitions($runner->getOptionDefinitions());
 

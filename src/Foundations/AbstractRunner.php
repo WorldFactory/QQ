@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,9 +21,6 @@ abstract class AbstractRunner implements RunnerInterface
 
     /** @var ConfigLoader */
     private $configLoader;
-
-    /** @var ScriptFormatterInterface */
-    private $varFormatter;
 
     public function __construct(ConfigLoader $configLoader)
     {
@@ -57,25 +53,6 @@ abstract class AbstractRunner implements RunnerInterface
     public function getConfigLoader() : ConfigLoader
     {
         return $this->configLoader;
-    }
-
-    /**
-     * @param ScriptFormatterInterface $varFormatter
-     * @return RunnerInterface
-     */
-    public function setVarFormatter(ScriptFormatterInterface $varFormatter) : RunnerInterface
-    {
-        $this->varFormatter = $varFormatter;
-
-        return $this;
-    }
-
-    /**
-     * @return ScriptFormatterInterface
-     */
-    public function getVarFormatter(): ScriptFormatterInterface
-    {
-        return $this->varFormatter;
     }
 
     public function run(string $script): void

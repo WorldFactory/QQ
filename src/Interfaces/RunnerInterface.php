@@ -17,10 +17,6 @@ interface RunnerInterface
 
     public function format(string $compiledScript) : string;
 
-    public function setVarFormatter(ScriptFormatterInterface $varFormatter) : RunnerInterface;
-
-    public function getVarFormatter() : ScriptFormatterInterface;
-
     public function setInput(TokenizedInputInterface $input) : RunnerInterface;
 
     public function getInput() : TokenizedInputInterface;
