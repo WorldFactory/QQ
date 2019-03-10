@@ -56,8 +56,8 @@ class StepFactory
         /** @var AbstractStepBuilder $stepBuilder */
         foreach ($this->stepBuilders as $stepBuilder) {
             if ($stepBuilder->isValid($definition)) {
-                $context = $this->extendsConfig($runnerConfig, is_array($definition) ? $definition : []);
-                $step = $stepBuilder->build($definition, $context);
+                $config = $this->extendsConfig($runnerConfig, is_array($definition) ? $definition : []);
+                $step = $stepBuilder->build($definition, $config);
                 break;
             }
         }
