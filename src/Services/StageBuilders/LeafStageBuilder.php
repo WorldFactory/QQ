@@ -30,6 +30,12 @@ class LeafStageBuilder extends AbstractStageBuilder
         return $step instanceof LeafStep;
     }
 
+    /**
+     * @param LeafStep $step
+     * @param Context $context
+     * @return AbstractStage
+     * @throws \Exception
+     */
     public function build(AbstractStep $step, Context $context): AbstractStage
     {
         $formatter = new ContextualizedFormatter($context);
