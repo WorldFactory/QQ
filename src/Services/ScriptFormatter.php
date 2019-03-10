@@ -2,11 +2,17 @@
 
 namespace WorldFactory\QQ\Services;
 
+use Exception;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\ConfigLoader;
 
 class ScriptFormatter implements ScriptFormatterInterface
 {
+    const REGEX_ENV_VAR_LEGACY = '/(?<match>%ENV:(?<key>[a-zA-Z0-9_]+)%)/';
+    const REGEX_ENV_VAR_MATCH = '/(^|[^\\\\])(?<match>\$\{(?<key>[a-zA-Z0-9_]+)\})/';
+    const REGEX_ENV_VAR_REPLACE = '/(^|[^\\\\])(\$\{%s\})/';
+    const REGEX_ENV_VAR_CLEANING = '/(\\\\)(\$\{[a-zA-Z0-9_]+\})/';
+
     /** @var ConfigLoader */
     private $configLoader;
 
@@ -85,6 +91,37 @@ class ScriptFormatter implements ScriptFormatterInterface
 
     protected function injectEnvVars($var) : string
     {
+        if (preg_match_all(self::REGEX_ENV_VAR_LEGACY, $var, $matches)) {
+            trigger_error("%ENV:VARNAME% format is deprecated for variable environment injection. Use \${VARNAME} instead.", E_USER_DEPRECATED);
+
+            $combined = array_combine($matches['key'], $matches['match']);
+
+            foreach ($combined as $key => $match) {
+                if (!array_key_exists($key, $_ENV)) {
+                    throw new Exception("Target env var '$key' is not defined.");
+                }
+
+                $var = str_replace($match, $_ENV[$key], $var);
+            }
+        }
+
+        if (preg_match_all(self::REGEX_ENV_VAR_MATCH, $var, $matches)) {
+            $combined = array_combine($matches['key'], $matches['match']);
+
+            foreach ($combined as $key => $match) {
+                if (!array_key_exists($key, $_ENV)) {
+                    throw new Exception("Target env var '$key' is not defined.");
+                }
+
+                $pattern = sprintf(self::REGEX_ENV_VAR_REPLACE, $key);
+                $var = preg_replace($pattern, '${1}' . $_ENV[$key], $var);
+            }
+        }
+
+        $var = preg_replace(self::REGEX_ENV_VAR_CLEANING, '$2', $var);
+
+        return $var;
+
         foreach ($_ENV as $key => $val) {
             $var = str_replace('%ENV:' . $key . '%', $val, $var);
         }
