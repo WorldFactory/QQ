@@ -24,6 +24,14 @@ class Accreditor
     }
 
     /**
+     * @return string|null
+     */
+    public function getCompiledCondition() :? string
+    {
+        return $this->compiledCondition;
+    }
+
+    /**
      * @return bool|mixed|null
      * @throws Exception
      */

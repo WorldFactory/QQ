@@ -46,10 +46,17 @@ class ConditionStage extends AbstractStage
         $then = $this->getStep()->getThen();
         $else = $this->getStep()->getElse();
 
+        $this->output->write("-> <fg=black;bg=cyan>{$this->accreditor->getCompiledCondition()}</> : ");
+
         if ($test) {
+            $this->output->writeln("<fg=white;bg=green>TRUE</>");
             $stepWalker->walk($then);
-        } elseif ($else !== null) {
-            $stepWalker->walk($else);
+        } else {
+            $this->output->writeln("<fg=white;bg=red>FALSE</>");
+
+            if ($else !== null) {
+                $stepWalker->walk($else);
+            }
         }
 
         return true;
