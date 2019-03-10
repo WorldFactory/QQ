@@ -5,6 +5,10 @@ namespace WorldFactory\QQ\Misc;
 use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Services\RunnerFactory;
 
+/**
+ * Class ContextualizedFormatter
+ * @package WorldFactory\QQ\Misc
+ */
 class ContextualizedFormatter
 {
     /** @var Context */
@@ -17,8 +21,8 @@ class ContextualizedFormatter
     private $usedArgs = [];
 
     /**
-     * VarFormatter constructor.
-     * @param ConfigLoader $configLoader
+     * ContextualizedFormatter constructor.
+     * @param Context $context
      */
     public function __construct(Context $context)
     {
@@ -26,6 +30,10 @@ class ContextualizedFormatter
         $this->tokens = $context->getTokens();
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     public function sanitize(string $var) : string
     {
         if (preg_match(RunnerFactory::PROTOCOL_REGEX, $var, $result)) {
@@ -37,6 +45,11 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     * @throws Exception
+     */
     public function format(string $var) : string
     {
         $var = $this->injectEnvVars($var);
@@ -46,6 +59,10 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     public function finalize(string $var) : string
     {
         $var = $this->injectAllArguments($var);
@@ -54,6 +71,10 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     protected function injectTokens($var) : string
     {
         foreach ($this->tokens as $i => $arg) {
@@ -67,6 +88,10 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     protected function injectParameters($var) : string
     {
         $parameters = $this->context->getParameters();
@@ -78,6 +103,11 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     * @throws Exception
+     */
     protected function injectEnvVars($var) : string
     {
         foreach ($_ENV as $key => $val) {
@@ -87,6 +117,10 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     protected function injectAllArguments($var) : string
     {
         if (preg_match("/%_all%/", $var)) {
@@ -96,6 +130,10 @@ class ContextualizedFormatter
         return $var;
     }
 
+    /**
+     * @param string $var
+     * @return string
+     */
     protected function injectLeftArguments($var) : string
     {
         if (preg_match("/%_left%/", $var)) {
