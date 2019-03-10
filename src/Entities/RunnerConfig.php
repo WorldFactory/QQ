@@ -26,7 +26,7 @@ class RunnerConfig implements ArrayAccess
         ]
     ];
 
-    public function __construct(array $options)
+    public function __construct(array $options = [])
     {
         $this->options = $options;
     }
