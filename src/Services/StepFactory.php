@@ -10,7 +10,7 @@ use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class StepFactory
 {
-    const INHERITED_OPTIONS = ['type', 'options'];
+    const INHERITED_OPTIONS = ['type', 'runner'];
 
     /** @var AbstractStepBuilder[]  */
     private $stepBuilders = [];

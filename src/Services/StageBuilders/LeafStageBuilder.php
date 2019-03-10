@@ -71,7 +71,7 @@ class LeafStageBuilder extends AbstractStageBuilder
             ->setOutput($context->getOutput())
         ;
 
-        $runnerConfig = new RunnerConfig(isset($config['options']) ? $config['options'] : []);
+        $runnerConfig = new RunnerConfig(isset($config['runner']) ? $config['runner'] : []);
 
         $runnerConfig->link($runner);
 
