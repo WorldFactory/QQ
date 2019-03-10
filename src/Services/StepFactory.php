@@ -10,8 +10,7 @@ use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class StepFactory
 {
-    const INHERITED_BASIC_OPTIONS = ['type'];
-    const INHERITED_ARRAY_OPTIONS = ['options'];
+    const INHERITED_OPTIONS = ['type', 'options'];
 
     /** @var AbstractStepBuilder[]  */
     private $stepBuilders = [];
@@ -86,15 +85,9 @@ class StepFactory
     {
         $config = [];
 
-        foreach (self::INHERITED_BASIC_OPTIONS as $name) {
+        foreach (self::INHERITED_OPTIONS as $name) {
             if (array_key_exists($name, $definition)) {
                 $config[$name] = $definition[$name];
-            }
-        }
-
-        foreach (self::INHERITED_ARRAY_OPTIONS as $name) {
-            if (array_key_exists($name, $definition) && is_array($definition[$name])) {
-                $config = array_merge($config, $definition[$name]);
             }
         }
 
