@@ -40,13 +40,7 @@ class LeafStageBuilder extends AbstractStageBuilder
     {
         $formatter = new ContextualizedFormatter($context);
 
-        $runner = $this->findRunner($step, $context);
-
-        $options = $step->getRunnerConfig()->clone();
-
-        $options->link($runner);
-
-        $options->compile($formatter);
+        $runner = $this->buildRunner($step, $context, $formatter);
 
         $compiledScript = $this->compileScript($step, $formatter, $runner);
 
@@ -58,7 +52,7 @@ class LeafStageBuilder extends AbstractStageBuilder
      * @return RunnerInterface
      * @throws \Exception
      */
-    protected function findRunner(LeafStep $leafStep, Context $context) : RunnerInterface
+    protected function buildRunner(LeafStep $leafStep, Context $context, ScriptFormatterInterface $formatter) : RunnerInterface
     {
         /** @var RunnerConfig $config */
         $config = $leafStep->getRunnerConfig();
@@ -76,6 +70,10 @@ class LeafStageBuilder extends AbstractStageBuilder
             ->setInput($context->getInput())
             ->setOutput($context->getOutput())
         ;
+
+        $config->link($runner);
+
+        $config->compile($formatter);
 
         return $runner;
     }
