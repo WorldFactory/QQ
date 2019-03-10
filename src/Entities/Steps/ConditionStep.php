@@ -29,13 +29,13 @@ class ConditionStep extends AbstractStep
         $this->if = $definition['if'];
 
         if (array_key_exists('then', $definition)) {
-            $this->then = $stepFactory->buildStep($definition['then'], $runnerConfig);
+            $this->then = $stepFactory->buildStep($definition['then'], $this->getRunnerConfig());
         } else {
             throw new Exception("'Then' statement not provided.");
         }
 
         if (array_key_exists('else', $definition)) {
-            $this->else = $stepFactory->buildStep($definition['else'], $runnerConfig);
+            $this->else = $stepFactory->buildStep($definition['else'], $this->getRunnerConfig());
         }
     }
 

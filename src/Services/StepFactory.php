@@ -10,17 +10,28 @@ use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class StepFactory
 {
+    const INHERITED_BASIC_OPTIONS = ['type'];
+    const INHERITED_ARRAY_OPTIONS = ['options'];
+
     /** @var AbstractStepBuilder[]  */
     private $stepBuilders = [];
 
     /** @var ContainerInterface */
     private $container;
 
+    /**
+     * StepFactory constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * @param string $name
+     * @param string $id
+     */
     public function addStepBuilder(string $name, string $id)
     {
         /** @var AbstractStepBuilder $stepBuilder */
@@ -31,6 +42,12 @@ class StepFactory
         $this->stepBuilders[$name] = $stepBuilder;
     }
 
+    /**
+     * @param $definition
+     * @param RunnerConfig $runnerConfig
+     * @return AbstractStep|null
+     * @throws Exception
+     */
     public function buildStep($definition, RunnerConfig $runnerConfig) :? AbstractStep
     {
         /** @var AbstractStep|null $step */
@@ -39,10 +56,7 @@ class StepFactory
         /** @var AbstractStepBuilder $stepBuilder */
         foreach ($this->stepBuilders as $stepBuilder) {
             if ($stepBuilder->isValid($definition)) {
-                $context = (is_array($definition) && array_key_exists('options', $definition))
-                    ? $runnerConfig->merge($definition['options'])
-                    : $runnerConfig->clone()
-                ;
+                $context = $this->extendsConfig($runnerConfig, is_array($definition) ? $definition : []);
                 $step = $stepBuilder->build($definition, $context);
                 break;
             }
@@ -61,5 +75,29 @@ class StepFactory
         }
 
         return $step;
+    }
+
+    /**
+     * @param RunnerConfig $runnerConfig
+     * @param array $definition
+     * @return RunnerConfig
+     */
+    protected function extendsConfig(RunnerConfig $runnerConfig, array $definition)
+    {
+        $config = [];
+
+        foreach (self::INHERITED_BASIC_OPTIONS as $name) {
+            if (array_key_exists($name, $definition)) {
+                $config[$name] = $definition[$name];
+            }
+        }
+
+        foreach (self::INHERITED_ARRAY_OPTIONS as $name) {
+            if (array_key_exists($name, $definition) && is_array($definition[$name])) {
+                $config = array_merge($config, $definition[$name]);
+            }
+        }
+
+        return $runnerConfig->merge($config);
     }
 }

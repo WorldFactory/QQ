@@ -23,7 +23,7 @@ class ArrayStep extends AbstractStep
         parent::__construct($stepFactory, $runnerConfig);
 
         foreach($definition as $line) {
-            $this->children[] = $stepFactory->buildStep($line, $runnerConfig);
+            $this->children[] = $stepFactory->buildStep($line, $this->getRunnerConfig());
         }
     }
 

@@ -22,7 +22,7 @@ class LegStep extends AbstractStep
     {
         parent::__construct($stepFactory, $runnerConfig);
 
-        $this->child = $stepFactory->buildStep($definition['script'], $runnerConfig);
+        $this->child = $stepFactory->buildStep($definition['script'], $this->getRunnerConfig());
     }
 
     /**
