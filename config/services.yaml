@@ -30,11 +30,6 @@ services:
         arguments: ["@service_container"]
         shared: false
 
-    qq.formatter.script:
-        class: WorldFactory\QQ\Services\ScriptFormatter
-        arguments: ["@qq.loader.config"]
-        shared: false
-
     qq.command.about:
         class: WorldFactory\QQ\Services\Commands\AboutCommand
         tags:
@@ -52,10 +47,6 @@ services:
 
     qq.handler.deprecation:
         class: WorldFactory\QQ\Services\DeprecationHandler
-
-    qq.iterator.script:
-        class: WorldFactory\QQ\Services\ScriptIterator
-        arguments: ["@service_container", "@qq.factory.runners"]
 
     qq.factory.step:
         class: WorldFactory\QQ\Services\StepFactory
