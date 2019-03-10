@@ -15,6 +15,13 @@ class ConditionStep extends AbstractStep
 
     private $else = null;
 
+    /**
+     * ConditionStep constructor.
+     * @param StepFactory $stepFactory
+     * @param RunnerConfig $runnerConfig
+     * @param array $definition
+     * @throws Exception
+     */
     public function __construct(StepFactory $stepFactory, RunnerConfig $runnerConfig, array $definition)
     {
         parent::__construct($stepFactory, $runnerConfig);
