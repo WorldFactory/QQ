@@ -11,7 +11,7 @@ commands:
             target: "%1%"
         shortDescription: Open shell in target container.
         longDescription: Need a target environment name.
-        aliases: [bash, open, "docker:bash"]
+        aliases: [open]
 
     "docker:log":
         script: docker-compose logs -f %_all%
