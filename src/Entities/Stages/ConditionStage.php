@@ -36,10 +36,15 @@ class ConditionStage extends AbstractStage
      */
     public function execute(StepWalker $stepWalker) : bool
     {
-        if ($this->accreditor->test()) {
-            $stepWalker->walk($this->getStep()->getThen());
-        } else {
-            $stepWalker->walk($this->getStep()->getElse());
+        $test = $this->accreditor->test();
+
+        $then = $this->getStep()->getThen();
+        $else = $this->getStep()->getElse();
+
+        if ($test) {
+            $stepWalker->walk($then);
+        } elseif ($else !== null) {
+            $stepWalker->walk($else);
         }
 
         return true;

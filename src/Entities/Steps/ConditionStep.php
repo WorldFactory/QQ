@@ -28,12 +28,12 @@ class ConditionStep extends AbstractStep
         }
 
         if (array_key_exists('else', $definition)) {
-            $this->then = $stepFactory->buildStep($definition['else'], $runnerConfig);
+            $this->else = $stepFactory->buildStep($definition['else'], $runnerConfig);
         }
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIf()
     {
@@ -43,15 +43,15 @@ class ConditionStep extends AbstractStep
     /**
      * @return AbstractStep|null
      */
-    public function getThen(): ?AbstractStep
+    public function getThen() :? AbstractStep
     {
         return $this->then;
     }
 
     /**
-     * @return null
+     * @return AbstractStep|null
      */
-    public function getElse()
+    public function getElse() :? AbstractStep
     {
         return $this->else;
     }

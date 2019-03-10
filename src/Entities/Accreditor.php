@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Entities;
 
+use Exception;
 use DateTime;
 use RuntimeException;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
