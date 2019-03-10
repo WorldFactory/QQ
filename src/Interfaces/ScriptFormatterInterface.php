@@ -5,8 +5,6 @@ namespace WorldFactory\QQ\Interfaces;
 
 interface ScriptFormatterInterface
 {
-    public function setTokens(array $tokens) : void;
-
     public function sanitize(string $var) : string;
 
     public function format(string $var) : string;

@@ -74,7 +74,7 @@ class LeafStageBuilder extends AbstractStageBuilder
         return $runner;
     }
 
-    protected function compileScript(LeafStep $step, ContextualizedFormatter $formatter, RunnerInterface $runner) : string
+    protected function compileScript(LeafStep $step, ScriptFormatterInterface $formatter, RunnerInterface $runner) : string
     {
         $compiledScript = $step->getScript();
 

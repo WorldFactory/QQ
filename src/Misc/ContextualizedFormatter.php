@@ -4,13 +4,14 @@ namespace WorldFactory\QQ\Misc;
 
 use Exception;
 use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 
 /**
  * Class ContextualizedFormatter
  * @package WorldFactory\QQ\Misc
  */
-class ContextualizedFormatter
+class ContextualizedFormatter implements ScriptFormatterInterface
 {
     const REGEX_ENV_VAR_MATCH = '/(^|[^\\\\])(?<match>\$\{(?<key>[a-zA-Z0-9_]+)\})/';
     const REGEX_ENV_VAR_REPLACE = '/(^|[^\\\\])(\$\{%s\})/';
