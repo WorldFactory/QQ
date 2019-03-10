@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Misc;
 
+use Exception;
 use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Services\RunnerFactory;
 
@@ -11,6 +12,10 @@ use WorldFactory\QQ\Services\RunnerFactory;
  */
 class ContextualizedFormatter
 {
+    const REGEX_ENV_VAR_MATCH = '/(^|[^\\\\])(?<match>\$\{(?<key>[a-zA-Z0-9_]+)\})/';
+    const REGEX_ENV_VAR_REPLACE = '/(^|[^\\\\])(\$\{%s\})/';
+    const REGEX_ENV_VAR_CLEANING = '/(\\\\)(\$\{[a-zA-Z0-9_]+\})/';
+
     /** @var Context */
     private $context;
 
@@ -110,9 +115,20 @@ class ContextualizedFormatter
      */
     protected function injectEnvVars($var) : string
     {
-        foreach ($_ENV as $key => $val) {
-            $var = str_replace('%ENV:' . $key . '%', $val, $var);
+        if (preg_match_all(self::REGEX_ENV_VAR_MATCH, $var, $matches)) {
+            $combined = array_combine($matches['key'], $matches['match']);
+
+            foreach ($combined as $key => $match) {
+                if (!array_key_exists($key, $_ENV)) {
+                    throw new Exception("Target env var '$key' is not defined.");
+                }
+
+                $pattern = sprintf(self::REGEX_ENV_VAR_REPLACE, $key);
+                $var = preg_replace($pattern, '${1}' . $_ENV[$key], $var);
+            }
         }
+
+        $var = preg_replace(self::REGEX_ENV_VAR_CLEANING, '$2', $var);
 
         return $var;
     }
