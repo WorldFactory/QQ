@@ -3,18 +3,22 @@
 namespace WorldFactory\QQ\Entities;
 
 use ArrayAccess;
+use Symfony\Component\Console\Output\OutputInterface;
+use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 
 class Context implements ArrayAccess
 {
     private $parameters = [];
 
+    /** @var TokenizedInputInterface */
     private $input;
 
+    /** @var OutputInterface */
     private $output;
 
     private $tokens = [];
 
-    public function __construct(array $parameters, array $tokens, $input, $output)
+    public function __construct(array $parameters, array $tokens, TokenizedInputInterface $input, OutputInterface $output)
     {
         $this->parameters = $parameters;
         $this->tokens = $tokens;
@@ -23,7 +27,7 @@ class Context implements ArrayAccess
     }
 
     /**
-     * @return mixed
+     * @return TokenizedInputInterface
      */
     public function getInput()
     {
@@ -31,7 +35,7 @@ class Context implements ArrayAccess
     }
 
     /**
-     * @return mixed
+     * @return OutputInterface
      */
     public function getOutput()
     {
