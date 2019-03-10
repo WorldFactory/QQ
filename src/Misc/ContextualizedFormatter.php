@@ -80,7 +80,7 @@ class ContextualizedFormatter
      * @param string $var
      * @return string
      */
-    protected function injectTokens($var) : string
+    protected function injectTokens(string $var) : string
     {
         foreach ($this->tokens as $i => $arg) {
             $index = $i + 1;
@@ -97,7 +97,7 @@ class ContextualizedFormatter
      * @param string $var
      * @return string
      */
-    protected function injectParameters($var) : string
+    protected function injectParameters(string $var) : string
     {
         $parameters = $this->context->getParameters();
 
@@ -113,7 +113,7 @@ class ContextualizedFormatter
      * @return string
      * @throws Exception
      */
-    protected function injectEnvVars($var) : string
+    protected function injectEnvVars(string $var) : string
     {
         if (preg_match_all(self::REGEX_ENV_VAR_MATCH, $var, $matches)) {
             $combined = array_combine($matches['key'], $matches['match']);
@@ -137,7 +137,7 @@ class ContextualizedFormatter
      * @param string $var
      * @return string
      */
-    protected function injectAllArguments($var) : string
+    protected function injectAllArguments(string $var) : string
     {
         if (preg_match("/%_all%/", $var)) {
             $var = str_replace('%_all%', implode(' ', $this->tokens), $var);
@@ -150,7 +150,7 @@ class ContextualizedFormatter
      * @param string $var
      * @return string
      */
-    protected function injectLeftArguments($var) : string
+    protected function injectLeftArguments(string $var) : string
     {
         if (preg_match("/%_left%/", $var)) {
             $leftArgs = [];
