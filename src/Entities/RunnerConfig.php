@@ -69,50 +69,48 @@ class RunnerConfig implements ArrayAccess
 
     protected function verifyOption($name, $value)
     {
-        if (!array_key_exists($name, $this->optionDefinitions)) {
-            throw new InvalidArgumentException("Unknown option '$name'.");
-        }
+        if (array_key_exists($name, $this->optionDefinitions)) {
+            if (in_array($value, [null, false, '', []]) && $this->isRequired($name)) {
+                throw new InvalidArgumentException("The '$name' option must be set.");
+            }
 
-        if (in_array($value, [null, false, '', []]) && $this->isRequired($name)) {
-            throw new InvalidArgumentException("The '$name' option must be set.");
-        }
-
-        if (array_key_exists('type', $this->optionDefinitions[$name])) {
-            switch($this->optionDefinitions[$name]['type']) {
-                case 'array':
-                    if (!is_array($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be an array.");
-                    }
-                    break;
-                case 'string':
-                    if (!is_string($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be a string.");
-                    }
-                    break;
-                case 'int':
-                case 'integer':
-                    if (!is_int($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be an integer.");
-                    }
-                    break;
-                case 'float':
-                    if (!is_float($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be a float.");
-                    }
-                    break;
-                case 'numeric':
-                    if (!is_numeric($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be numeric.");
-                    }
-                    break;
-                case 'bool':
-                case 'boolean':
-                    if (!is_bool($value)) {
-                        throw new InvalidArgumentException("The '$name' option must be a boolean.");
-                    }
-                    break;
-                default:
-                    throw new InvalidArgumentException("The '$name' option has an invalid type : '{$this->optionDefinitions[$name]['type']}'.");
+            if (array_key_exists('type', $this->optionDefinitions[$name])) {
+                switch ($this->optionDefinitions[$name]['type']) {
+                    case 'array':
+                        if (!is_array($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be an array.");
+                        }
+                        break;
+                    case 'string':
+                        if (!is_string($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be a string.");
+                        }
+                        break;
+                    case 'int':
+                    case 'integer':
+                        if (!is_int($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be an integer.");
+                        }
+                        break;
+                    case 'float':
+                        if (!is_float($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be a float.");
+                        }
+                        break;
+                    case 'numeric':
+                        if (!is_numeric($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be numeric.");
+                        }
+                        break;
+                    case 'bool':
+                    case 'boolean':
+                        if (!is_bool($value)) {
+                            throw new InvalidArgumentException("The '$name' option must be a boolean.");
+                        }
+                        break;
+                    default:
+                        throw new InvalidArgumentException("The '$name' option has an invalid type : '{$this->optionDefinitions[$name]['type']}'.");
+                }
             }
         }
     }
