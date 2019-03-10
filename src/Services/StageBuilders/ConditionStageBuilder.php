@@ -31,6 +31,6 @@ class ConditionStageBuilder extends AbstractStageBuilder
 
         $accreditor->compile($formatter);
 
-        return new ConditionStage($step, $accreditor);
+        return new ConditionStage($step, $accreditor, $context->getOutput());
     }
 }

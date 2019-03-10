@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Entities\Stages;
 
+use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Steps\ConditionStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
@@ -19,16 +20,20 @@ class ConditionStage extends AbstractStage
     /** @var Accreditor Entity used to define if runner should execute 'then' statement, or 'else' statement */
     private $accreditor;
 
+    /** @var OutputInterface */
+    private $output;
+
     /**
      * ConditionStage constructor.
      * @param AbstractStep $step
      * @param Accreditor $accreditor
      */
-    public function __construct(AbstractStep $step, Accreditor $accreditor)
+    public function __construct(AbstractStep $step, Accreditor $accreditor, OutputInterface $output)
     {
         parent::__construct($step);
 
         $this->accreditor = $accreditor;
+        $this->output = $output;
     }
 
     /**
