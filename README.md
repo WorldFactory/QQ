@@ -17,6 +17,7 @@ Its purpose is to be the keystone of your development environment.
 * [Use command line arguments](./doc/arguments.md)
 * [Runners and Runner options](./doc/runners.md)
 * [Using environment variables](./doc/envvars.md)
+* [Recursive script configuration form](./doc/recursive-form.md)
 
 ## Installation
 
