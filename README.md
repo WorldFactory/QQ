@@ -16,6 +16,7 @@ Its purpose is to be the keystone of your development environment.
 * [How to create a script ?](./doc/scripts.md)
 * [Use command line arguments](./doc/arguments.md)
 * [Runners and Runner options](./doc/runners.md)
+* [Using environment variables](./doc/envvars.md)
 
 ## Installation
 
