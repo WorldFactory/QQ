@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Services\StepFactory;
 
 abstract class AbstractStepBuilder
@@ -27,5 +27,5 @@ abstract class AbstractStepBuilder
 
     abstract public function isValid($definition) : bool;
 
-    abstract public function build($definition, RunnerConfig $runnerConfig) : AbstractStep;
+    abstract public function build($definition, OptionBag $config) : AbstractStep;
 }

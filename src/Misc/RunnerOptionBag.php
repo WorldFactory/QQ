@@ -1,12 +1,11 @@
 <?php
 
-namespace WorldFactory\QQ\Entities;
+namespace WorldFactory\QQ\Misc;
 
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
-use WorldFactory\QQ\Misc\OptionBag;
 
-class RunnerConfig extends OptionBag
+class RunnerOptionBag extends OptionBag
 {
     /** @var array  */
     private $compiledOptions = [];

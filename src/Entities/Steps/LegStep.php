@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Entities\Steps;
 
 use Exception;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
@@ -14,15 +14,15 @@ class LegStep extends AbstractStep
     /**
      * LegStep constructor.
      * @param StepFactory $stepFactory
-     * @param RunnerConfig $runnerConfig
+     * @param OptionBag $config
      * @param array $definition
      * @throws Exception
      */
-    public function __construct(StepFactory $stepFactory, RunnerConfig $runnerConfig, array $definition)
+    public function __construct(StepFactory $stepFactory, OptionBag $config, array $definition)
     {
-        parent::__construct($stepFactory, $runnerConfig);
+        parent::__construct($stepFactory, $config);
 
-        $this->child = $stepFactory->buildStep($definition['script'], $this->getRunnerConfig());
+        $this->child = $stepFactory->buildStep($definition['script'], $this->getOptionBag());
     }
 
     /**

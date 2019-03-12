@@ -5,7 +5,6 @@ namespace WorldFactory\QQ\Misc;
 use Exception;
 use function get_class;
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\RunnerConfig;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Services\DeprecationHandler;
@@ -133,7 +132,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
 
         return $stepFactory->buildStep(
             $this->config,
-            new RunnerConfig([
+            new OptionBag([
                 'type' => $this->config['type'] ?? 'shell'
             ])
         );

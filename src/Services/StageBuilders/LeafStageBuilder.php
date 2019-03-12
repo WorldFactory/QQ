@@ -3,8 +3,8 @@
 namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\RunnerConfig;
-use WorldFactory\QQ\Entities\Script;
+use WorldFactory\QQ\Misc\OptionBag;
+use WorldFactory\QQ\Misc\RunnerOptionBag;
 use WorldFactory\QQ\Entities\Stages\LeafStage;
 use WorldFactory\QQ\Entities\Steps\LeafStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
@@ -54,8 +54,8 @@ class LeafStageBuilder extends AbstractStageBuilder
      */
     protected function buildRunner(LeafStep $leafStep, Context $context, ScriptFormatterInterface $formatter) : RunnerInterface
     {
-        /** @var RunnerConfig $config */
-        $config = $leafStep->getRunnerConfig();
+        /** @var OptionBag $config */
+        $config = $leafStep->getOptionBag();
 
         /** @var string $type */
         $type = $config['type'];
@@ -71,7 +71,7 @@ class LeafStageBuilder extends AbstractStageBuilder
             ->setOutput($context->getOutput())
         ;
 
-        $runnerConfig = new RunnerConfig(isset($config['runner']) ? $config['runner'] : []);
+        $runnerConfig = new RunnerOptionBag(isset($config['runner']) ? $config['runner'] : []);
 
         $runnerConfig->link($runner);
 

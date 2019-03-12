@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Services\StepBuilders;
 
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Entities\Steps\LeafStep;
 use WorldFactory\QQ\Foundations\AbstractStepBuilder;
@@ -14,8 +14,8 @@ class LeafStepBuilder extends  AbstractStepBuilder
         return is_string($definition);
     }
 
-    public function build($definition, RunnerConfig $runnerConfig) : AbstractStep
+    public function build($definition, OptionBag $config) : AbstractStep
     {
-        return new LeafStep($this->getStepFactory(), $runnerConfig, $definition);
+        return new LeafStep($this->getStepFactory(), $config, $definition);
     }
 }
