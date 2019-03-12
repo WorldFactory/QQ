@@ -130,12 +130,30 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var StepFactory $stepFactory */
         $stepFactory = $this->container->get('qq.factory.step');
 
-        return $stepFactory->buildStep(
-            $this->config,
-            new OptionBag([
-                'type' => $this->config['type'] ?? 'shell'
-            ])
-        );
+        $rawOptions = [
+            'type' => $this->config['type'] ?? 'shell'
+        ];
+
+        if (array_key_exists('runner', $this->config)) {
+            $rawOptions['runner'] = $this->config['runner'];
+        }
+
+        $options = new OptionBag($rawOptions);
+
+        $options->addOptionDefinitions([
+            'type'     => [
+                'type' => 'string',
+                'required' => true,
+                'description' => "The default type to define which runner to be used."
+            ],
+            'runner'     => [
+                'type' => 'array',
+                'required' => false,
+                'description' => "List of the Runner options."
+            ]
+        ]);
+
+        return $stepFactory->buildStep($this->config, $options);
     }
 
     protected function buildContext() : Context

@@ -13,13 +13,7 @@ class OptionBag implements ArrayAccess
     /** @var array */
     private $defaultOptions = [];
 
-    private $optionDefinitions = [
-        'type'     => [
-            'type' => 'string',
-            'required' => true,
-            'description' => "The default type to define which runner to be used."
-        ]
-    ];
+    private $optionDefinitions = [];
 
     public function __construct(array $options = [])
     {
@@ -140,12 +134,20 @@ class OptionBag implements ArrayAccess
 
     public function merge(array $options)
     {
-        return new static(array_merge($this->options, $options));
+        $optionBag = new static(array_merge($this->options, $options));
+
+        $optionBag->addOptionDefinitions($this->optionDefinitions);
+
+        return $optionBag;
     }
 
     public function clone()
     {
-        return new static($this->options);
+        $optionBag = new static($this->options);
+
+        $optionBag->addOptionDefinitions($this->optionDefinitions);
+
+        return $optionBag;
     }
 
     public function toArray()
