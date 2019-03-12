@@ -10,19 +10,6 @@ class RunnerOptionBag extends OptionBag
     /** @var array  */
     private $compiledOptions = [];
 
-    public function __construct(array $options = [])
-    {
-        parent::__construct($options);
-
-        $this->addOptionDefinitions([
-            'type'     => [
-                'type' => 'string',
-                'required' => true,
-                'description' => "The default type to define which runner to be used."
-            ]
-        ]);
-    }
-
     public function link(RunnerInterface $runner)
     {
         $this->addOptionDefinitions($runner->getOptionDefinitions());
