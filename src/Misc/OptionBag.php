@@ -1,47 +1,29 @@
 <?php
 
-namespace WorldFactory\QQ\Entities;
+namespace WorldFactory\QQ\Misc;
 
 use ArrayAccess;
 use InvalidArgumentException;
-use WorldFactory\QQ\Interfaces\RunnerInterface;
-use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 
-class RunnerConfig implements ArrayAccess
+class OptionBag implements ArrayAccess
 {
-    /** @var array  */
-    private $compiledOptions = [];
-
     /** @var array */
     private $options = [];
 
     /** @var array */
     private $defaultOptions = [];
 
-    private $optionDefinitions = [
-        'type'     => [
-            'type' => 'string',
-            'required' => true,
-            'description' => "The default type to define which runner to be used."
-        ]
-    ];
+    private $optionDefinitions = [];
 
     public function __construct(array $options = [])
     {
         $this->options = $options;
     }
 
-    public function link(RunnerInterface $runner)
-    {
-        $this->setOptionDefinitions($runner->getOptionDefinitions());
-
-        $runner->setOptions($this);
-    }
-
     /**
      * @param array $optionDefinitions
      */
-    protected function setOptionDefinitions(array $optionDefinitions): void
+    public function addOptionDefinitions(array $optionDefinitions): void
     {
         $this->optionDefinitions = array_merge($this->optionDefinitions, $optionDefinitions);
 
@@ -54,17 +36,38 @@ class RunnerConfig implements ArrayAccess
 
     protected function get(string $name)
     {
-        $value = array_key_exists($name, $this->compiledOptions) ?
-            $this->compiledOptions[$name] :
-            (array_key_exists($name, $this->options) ?
-                $this->options[$name] :
-                (array_key_exists($name, $this->defaultOptions) ?
-                    $this->defaultOptions[$name] :
-                    null));
+        $value = $this->getOption($name);
 
         $this->verifyOption($name, $value);
 
         return $value;
+    }
+
+    protected function getOption(string $name)
+    {
+        $value = array_key_exists($name, $this->options) ?
+            $this->options[$name] :
+            (array_key_exists($name, $this->defaultOptions) ?
+                $this->defaultOptions[$name] :
+                null);
+
+        return $value;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getDefaultOptions(): array
+    {
+        return $this->defaultOptions;
     }
 
     protected function verifyOption($name, $value)
@@ -117,7 +120,7 @@ class RunnerConfig implements ArrayAccess
 
     protected function has(string $name)
     {
-        return (array_key_exists($name, $this->compiledOptions) || array_key_exists($name, $this->options) || array_key_exists($name, $this->defaultOptions));
+        return (array_key_exists($name, $this->options) || array_key_exists($name, $this->defaultOptions));
     }
 
     protected function isRequired(string $name)
@@ -131,24 +134,25 @@ class RunnerConfig implements ArrayAccess
 
     public function merge(array $options)
     {
-        return new RunnerConfig(array_merge($this->options, $options));
+        $optionBag = new static(array_merge($this->options, $options));
+
+        $optionBag->addOptionDefinitions($this->optionDefinitions);
+
+        return $optionBag;
     }
 
     public function clone()
     {
-        return new RunnerConfig($this->options);
+        $optionBag = new static($this->options);
+
+        $optionBag->addOptionDefinitions($this->optionDefinitions);
+
+        return $optionBag;
     }
 
-    /**
-     * @param ScriptFormatterInterface $formatter
-     */
-    public function compile(ScriptFormatterInterface $formatter)
+    public function toArray()
     {
-        $options = array_merge($this->defaultOptions, $this->options);
-
-        foreach ($options as $name => $option) {
-            $this->compiledOptions[$name] = is_string($option) ? $formatter->format($option) : $option;
-        }
+        return $this->options;
     }
 
     /**

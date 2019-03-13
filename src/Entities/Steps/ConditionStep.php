@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Entities\Steps;
 
 use Exception;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
@@ -18,24 +18,24 @@ class ConditionStep extends AbstractStep
     /**
      * ConditionStep constructor.
      * @param StepFactory $stepFactory
-     * @param RunnerConfig $runnerConfig
+     * @param OptionBag $config
      * @param array $definition
      * @throws Exception
      */
-    public function __construct(StepFactory $stepFactory, RunnerConfig $runnerConfig, array $definition)
+    public function __construct(StepFactory $stepFactory, OptionBag $config, array $definition)
     {
-        parent::__construct($stepFactory, $runnerConfig);
+        parent::__construct($stepFactory, $config);
 
         $this->if = $definition['if'];
 
         if (array_key_exists('then', $definition)) {
-            $this->then = $stepFactory->buildStep($definition['then'], $this->getRunnerConfig());
+            $this->then = $stepFactory->buildStep($definition['then'], $this->getOptionBag());
         } else {
             throw new Exception("'Then' statement not provided.");
         }
 
         if (array_key_exists('else', $definition)) {
-            $this->else = $stepFactory->buildStep($definition['else'], $this->getRunnerConfig());
+            $this->else = $stepFactory->buildStep($definition['else'], $this->getOptionBag());
         }
     }
 

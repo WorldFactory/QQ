@@ -3,13 +3,13 @@
 namespace WorldFactory\QQ\Interfaces;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\RunnerOptionBag;
 
 interface RunnerInterface
 {
     public function getOptionDefinitions() : array;
 
-    public function setOptions(RunnerConfig $options);
+    public function setOptions(RunnerOptionBag $options);
 
     public function getShortDescription() : string;
 

@@ -4,7 +4,7 @@ namespace WorldFactory\QQ\Foundations;
 
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\RunnerOptionBag;
 use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractRunner implements RunnerInterface
@@ -13,7 +13,7 @@ abstract class AbstractRunner implements RunnerInterface
     protected const SHORT_DESCRIPTION = "No short description provided.";
     protected const LONG_DESCRIPTION = "No long description provided.";
 
-    /** @var RunnerConfig */
+    /** @var RunnerOptionBag */
     private $options;
 
     /** @var OutputInterface */
@@ -82,15 +82,15 @@ abstract class AbstractRunner implements RunnerInterface
         return $this->output;
     }
 
-    public function setOptions(RunnerConfig $options)
+    public function setOptions(RunnerOptionBag $options)
     {
         $this->options = $options;
     }
 
     /**
-     * @return RunnerConfig
+     * @return RunnerOptionBag
      */
-    public function getOptions() : RunnerConfig
+    public function getOptions() : RunnerOptionBag
     {
         return $this->options;
     }

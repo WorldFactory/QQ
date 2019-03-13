@@ -4,7 +4,7 @@ namespace WorldFactory\QQ\Services;
 
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
@@ -43,11 +43,11 @@ class StepFactory
 
     /**
      * @param $definition
-     * @param RunnerConfig $runnerConfig
+     * @param OptionBag $config
      * @return AbstractStep|null
      * @throws Exception
      */
-    public function buildStep($definition, RunnerConfig $runnerConfig) :? AbstractStep
+    public function buildStep($definition, OptionBag $config) :? AbstractStep
     {
         /** @var AbstractStep|null $step */
         $step = null;
@@ -55,8 +55,8 @@ class StepFactory
         /** @var AbstractStepBuilder $stepBuilder */
         foreach ($this->stepBuilders as $stepBuilder) {
             if ($stepBuilder->isValid($definition)) {
-                $config = $this->extendsConfig($runnerConfig, is_array($definition) ? $definition : []);
-                $step = $stepBuilder->build($definition, $config);
+                $extendedConfig = $this->extendsConfig($config, is_array($definition) ? $definition : []);
+                $step = $stepBuilder->build($definition, $extendedConfig);
                 break;
             }
         }
@@ -77,20 +77,20 @@ class StepFactory
     }
 
     /**
-     * @param RunnerConfig $runnerConfig
+     * @param OptionBag $config
      * @param array $definition
-     * @return RunnerConfig
+     * @return OptionBag
      */
-    protected function extendsConfig(RunnerConfig $runnerConfig, array $definition)
+    protected function extendsConfig(OptionBag $config, array $definition)
     {
-        $config = [];
+        $extendedConfig = [];
 
         foreach (self::INHERITED_OPTIONS as $name) {
             if (array_key_exists($name, $definition)) {
-                $config[$name] = $definition[$name];
+                $extendedConfig[$name] = $definition[$name];
             }
         }
 
-        return $runnerConfig->merge($config);
+        return $config->merge($extendedConfig);
     }
 }

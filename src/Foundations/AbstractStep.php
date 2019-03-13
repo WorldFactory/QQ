@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Services\StepFactory;
 
 abstract class AbstractStep
@@ -10,13 +10,13 @@ abstract class AbstractStep
     /** @var StepFactory */
     private $stepFactory;
 
-    /** @var RunnerConfig */
-    private $runnerConfig;
+    /** @var OptionBag */
+    private $config;
 
-    public function __construct(StepFactory $stepFactory, RunnerConfig $runnerConfig)
+    public function __construct(StepFactory $stepFactory, OptionBag $config)
     {
         $this->stepFactory = $stepFactory;
-        $this->runnerConfig = $runnerConfig;
+        $this->config = $config;
     }
 
     /**
@@ -28,10 +28,10 @@ abstract class AbstractStep
     }
 
     /**
-     * @return RunnerConfig
+     * @return OptionBag
      */
-    public function getRunnerConfig(): RunnerConfig
+    public function getOptionBag(): OptionBag
     {
-        return $this->runnerConfig;
+        return $this->config;
     }
 }

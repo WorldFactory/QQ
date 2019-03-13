@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Entities\Steps;
 
 use Exception;
-use WorldFactory\QQ\Entities\RunnerConfig;
+use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
@@ -14,12 +14,12 @@ class LeafStep extends AbstractStep
     /**
      * LeafStep constructor.
      * @param StepFactory $stepFactory
-     * @param RunnerConfig $runnerConfig
+     * @param OptionBag $config
      * @param string $script
      */
-    public function __construct(StepFactory $stepFactory, RunnerConfig $runnerConfig, string $script)
+    public function __construct(StepFactory $stepFactory, OptionBag $config, string $script)
     {
-        parent::__construct($stepFactory, $runnerConfig);
+        parent::__construct($stepFactory, $config);
 
         $this->script = $script;
     }
