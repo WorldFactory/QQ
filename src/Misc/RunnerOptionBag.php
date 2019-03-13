@@ -36,10 +36,31 @@ class RunnerOptionBag extends OptionBag
      */
     public function compile(ScriptFormatterInterface $formatter)
     {
-        $options = array_merge($this->getDefaultOptions(), $this->getOptions());
+        $this->compiledOptions = $this->compileArray(
+            $formatter,
+            array_merge($this->getDefaultOptions(), $this->getOptions())
+        );
+    }
 
-        foreach ($options as $name => $option) {
-            $this->compiledOptions[$name] = is_string($option) ? $formatter->format($option) : $option;
+    /**
+     * @param ScriptFormatterInterface $formatter
+     * @param array $data
+     * @return array
+     */
+    protected function compileArray(ScriptFormatterInterface $formatter, array $data)
+    {
+        $compiledData = [];
+
+        foreach ($data as $key => $val) {
+            if (is_string($val)) {
+                $val = $formatter->format($val);
+            } elseif (is_array($val)) {
+                $val = $this->compileArray($formatter, $val);
+            }
+
+            $compiledData[$key] = $val;
         }
+
+        return $compiledData;
     }
 }
