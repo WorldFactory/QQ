@@ -23,7 +23,7 @@ class ConditionStageBuilder extends AbstractStageBuilder
      * @param Context $context
      * @return AbstractStage
      */
-    public function build(AbstractStep $step, Context $context) : AbstractStage
+    public function buildStage($step, Context $context) : AbstractStage
     {
         $formatter = new ContextualizedFormatter($context);
 

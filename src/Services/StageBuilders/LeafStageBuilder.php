@@ -36,7 +36,7 @@ class LeafStageBuilder extends AbstractStageBuilder
      * @return AbstractStage
      * @throws \Exception
      */
-    public function build(AbstractStep $step, Context $context): AbstractStage
+    public function buildStage($step, Context $context): AbstractStage
     {
         $formatter = new ContextualizedFormatter($context);
 

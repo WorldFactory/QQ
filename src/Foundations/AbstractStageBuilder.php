@@ -17,5 +17,19 @@ abstract class AbstractStageBuilder
      * @param Context $context
      * @return AbstractStage
      */
-    abstract public function build(AbstractStep $step, Context $context) : AbstractStage;
+    public function build(AbstractStep $step, Context $context): AbstractStage
+    {
+        if ($this->isValid($step)) {
+            return $this->buildStage($step, $context);
+        } else {
+            throw new \LogicException("Unrecognized step : " . get_class($step));
+        }
+    }
+
+    /**
+     * @param AbstractStep $step
+     * @param Context $context
+     * @return AbstractStage
+     */
+    abstract protected function buildStage($step, Context $context) : AbstractStage;
 }

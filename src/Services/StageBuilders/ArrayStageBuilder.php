@@ -16,7 +16,7 @@ class ArrayStageBuilder extends AbstractStageBuilder
         return $step instanceof ArrayStep;
     }
 
-    public function build(AbstractStep $step, Context $context): AbstractStage
+    public function buildStage($step, Context $context): AbstractStage
     {
         return new ArrayStage($step);
     }

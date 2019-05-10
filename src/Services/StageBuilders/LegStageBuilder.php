@@ -16,7 +16,7 @@ class LegStageBuilder extends AbstractStageBuilder
         return $step instanceof LegStep;
     }
 
-    public function build(AbstractStep $step, Context $context): AbstractStage
+    public function buildStage($step, Context $context): AbstractStage
     {
         return new LegStage($step);
     }
