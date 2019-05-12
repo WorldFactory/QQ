@@ -28,4 +28,6 @@ interface RunnerInterface
     public function getOutput() : OutputInterface;
 
     public function isHeaderDisplayed() : bool;
+
+    public function getResult() : string;
 }

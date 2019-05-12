@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Foundations;
 
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
+use WorldFactory\QQ\Misc\Buffer;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -21,6 +22,14 @@ abstract class AbstractRunner implements RunnerInterface
 
     /** @var TokenizedInputInterface */
     private $input;
+
+    /** @var Buffer The output of the command */
+    private $buffer;
+
+    public function __construct()
+    {
+        $this->buffer = new Buffer;
+    }
 
     public function getOptionDefinitions() : array
     {
@@ -44,6 +53,8 @@ abstract class AbstractRunner implements RunnerInterface
 
     public function run(string $script): void
     {
+        $this->buffer->reset();
+
         if ($this->getOutput()->isVerbose()) {
             $class = get_class($this);
             $this->getOutput()->writeln("-> Runner : <fg=magenta>{$class}</>");
@@ -108,5 +119,21 @@ abstract class AbstractRunner implements RunnerInterface
     public function isHeaderDisplayed() : bool
     {
         return true;
+    }
+
+    /**
+     * @return Buffer
+     */
+    protected function getBuffer() : Buffer
+    {
+        return $this->buffer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResult() : string
+    {
+        return (string) $this->buffer;
     }
 }
