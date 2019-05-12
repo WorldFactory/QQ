@@ -55,7 +55,7 @@ EOT;
         $returnCode = $command->run($input, $this->getOutput());
 
         if ($returnCode !== 0) {
-            throw new Exception("An error occur when running command : {$script}");
+            throw new Exception("Unknown system error : '$returnCode' for command :  {$script}");
         }
     }
 }

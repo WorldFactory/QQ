@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use Exception;
 use DateTime;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
@@ -23,6 +24,7 @@ EOT;
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function execute(string $script) : void
     {
@@ -53,10 +55,14 @@ EOT;
 
         file_put_contents($tmpScriptName, $extendedScript);
 
-        chmod($tmpScriptName, 0755);
+        try {
+            chmod($tmpScriptName, 0755);
 
-        passthru($tmpScriptName);
-
-        unlink($tmpScriptName);
+            passthru($tmpScriptName);
+        } catch (Exception $exception) {
+            throw $exception;
+        } finally {
+            unlink($tmpScriptName);
+        }
     }
 }

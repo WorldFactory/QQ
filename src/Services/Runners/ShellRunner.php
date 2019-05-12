@@ -57,9 +57,7 @@ EOT;
         $process->run([$this, 'displayCallback']);
 
         if (!$process->isSuccessful()) {
-            $exception = new Exception("Unknown system error : '{$process->getExitCode()}' for command :  \"{$script}\"");
-
-            throw $exception;
+            throw new Exception("Unknown system error : '{$process->getExitCode()}' for command :  {$script}");
         }
     }
 
