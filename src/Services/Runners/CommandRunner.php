@@ -10,6 +10,7 @@ use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
+use WorldFactory\QQ\Misc\Outputs\ReplicatedOutput;
 
 class CommandRunner extends AbstractRunner
 {
@@ -52,10 +53,21 @@ EOT;
 
         $this->getOutput()->writeln("Running sub-command...");
 
-        $returnCode = $command->run($input, $this->getOutput());
+        $returnCode = $command->run($input, $this->getReplicatedOutput());
 
         if ($returnCode !== 0) {
             throw new Exception("Unknown system error : '$returnCode' for command :  {$script}");
         }
+    }
+
+    protected function getReplicatedOutput()
+    {
+        $output = $this->getOutput();
+
+        if ($output instanceof ReplicatedOutput) {
+            $output = $output->getOriginalOutput();
+        }
+
+        return new ReplicatedOutput($output, $this->getBuffer());
     }
 }

@@ -36,6 +36,8 @@ EOT;
         );
 
         $this->getOutput()->writeln($message);
+
+        $this->getBuffer()->setResult($script);
     }
 
     public function isHeaderDisplayed() : bool

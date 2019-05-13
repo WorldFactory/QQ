@@ -157,6 +157,8 @@ EOT;
         ;
 
         $runner->run($script);
+
+        $this->getBuffer()->setResult($runner->getResult());
     }
 
     /**

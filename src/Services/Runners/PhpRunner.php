@@ -2,7 +2,9 @@
 
 namespace WorldFactory\QQ\Services\Runners;
 
+use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
+use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class PhpRunner extends AbstractRunner
 {
@@ -16,10 +18,15 @@ EOT;
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function execute(string $script) : void
     {
-        eval($script);
+        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($script) {
+            eval($script);
+        });
+
+        $execution->execute();
 
         $this->getOutput()->writeln('');
     }

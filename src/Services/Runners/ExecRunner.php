@@ -4,6 +4,7 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
+use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class ExecRunner extends AbstractRunner
 {
@@ -22,10 +23,14 @@ EOT;
      */
     public function execute(string $script) : void
     {
-        passthru($script, $returnCode);
+        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($script) {
+            passthru($script, $returnCode);
 
-        if ($returnCode) {
-            throw new Exception("Unknown system error : '$returnCode' for command :  {$script}");
-        }
+            if ($returnCode) {
+                throw new Exception("Unknown system error : '$returnCode' for command : $script");
+            }
+        });
+
+        $execution->execute();
     }
 }

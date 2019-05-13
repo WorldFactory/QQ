@@ -57,11 +57,16 @@ EOT;
         $process->run([$this, 'displayCallback']);
 
         if (!$process->isSuccessful()) {
-            throw new Exception("Unknown system error : '{$process->getExitCode()}' for command :  {$script}");
+            throw new Exception("Unknown system error : '{$process->getExitCode()}' for command : {$script}");
         }
     }
 
-    public function displayCallback ($type, $buffer) {
+    public function displayCallback ($type, $buffer)
+    {
         $this->getOutput()->writeln($buffer);
+
+        if ($type === Process::OUT) {
+            $this->getBuffer()->addResult($buffer . PHP_EOL);
+        }
     }
 }

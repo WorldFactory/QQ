@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Services\Runners;
 use Exception;
 use DateTime;
 use WorldFactory\QQ\Foundations\AbstractRunner;
+use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class FileRunner extends AbstractRunner
 {
@@ -28,16 +29,37 @@ EOT;
      */
     public function execute(string $script) : void
     {
+        $filename = $this->getFilename();
+
+        $this->writeScript($script, $filename);
+
+        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($filename) {
+            chmod($filename, 0755);
+            passthru($filename);
+        });
+
+        $execution->setFinallyHook(function() use ($filename) {
+            unlink($filename);
+        });
+
+        $execution->execute();
+    }
+
+    protected function getFilename() : string
+    {
         $varDir = getcwd() . '/var/tmp';
 
         if (!is_dir($varDir)) {
-            mkdir($varDir);
+            mkdir($varDir, 0777, true);
         }
 
         $hash = sha1((DateTime::createFromFormat('U.u', microtime(TRUE)))->format('Y-m-d H:i:s:u'));
 
-        $tmpScriptName = $varDir . '/' . $hash . '.sh';
+        return "$varDir/$hash.sh";
+    }
 
+    protected function writeScript(string $script, string $filename) : void
+    {
         $extendedScript = <<<EOT
 #!/usr/bin/env bash
 
@@ -53,16 +75,6 @@ EOT;
         }
 
 
-        file_put_contents($tmpScriptName, $extendedScript);
-
-        try {
-            chmod($tmpScriptName, 0755);
-
-            passthru($tmpScriptName);
-        } catch (Exception $exception) {
-            throw $exception;
-        } finally {
-            unlink($tmpScriptName);
-        }
+        file_put_contents($filename, $extendedScript);
     }
 }
