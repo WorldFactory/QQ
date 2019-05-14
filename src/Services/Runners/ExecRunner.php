@@ -4,17 +4,20 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
+use WorldFactory\QQ\Misc\Buffer;
 use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class ExecRunner extends AbstractRunner
 {
-    protected const SHORT_DESCRIPTION = "Run script in CLI with 'passthru' PHP function.";
+    protected const SHORT_DESCRIPTION = "Run script in CLI with 'exec' PHP function.";
 
     protected const LONG_DESCRIPTION = <<<EOT
-Run script using 'passthru' PHP function.
-Historically, this Runner was created to overcome some cases where the Runner Shell was struggling to function.
-In the meantime, the Runner Shell has been greatly improved and the cases where the Runner Exec is useful have become very rare.
-This Runner has still been preserved to provide an alternative in case of trouble.
+Run script using 'exec' PHP function.
+This Runner is different from other PHP-based Runner system because it does not allow a progressive display of the return of the executed command.
+In other words, you will only get a display once the command is complete.
+It is not suitable for long process.
+On the other hand, the output is cleaned and can more easily be recovered for subsequent treatments.
+It is always recommended to use the ShellRunner to execute a system command. This runner exists to mitigate any special cases.
 EOT;
 
     /**
@@ -23,14 +26,13 @@ EOT;
      */
     public function execute(string $script) : void
     {
-        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($script) {
-            passthru($script, $returnCode);
+        exec($script, $output, $returnCode);
 
-            if ($returnCode) {
-                throw new Exception("Unknown system error : '$returnCode' for command : $script");
-            }
-        });
+        $this->getOutput()->writeln($output);
+        $this->getBuffer()->setResult(join(PHP_EOL, $output));
 
-        $execution->execute();
+        if ($returnCode) {
+            throw new Exception("Unknown system error : '$returnCode' for command : $script");
+        }
     }
 }

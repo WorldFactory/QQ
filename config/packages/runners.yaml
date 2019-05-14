@@ -30,6 +30,18 @@ services:
         tags:
             - { name: qq.runner, type: exec }
 
+    qq.runner.pass:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\PassRunner
+        tags:
+            - { name: qq.runner, type: pass }
+
+    qq.runner.sys:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\SysRunner
+        tags:
+            - { name: qq.runner, type: sys }
+
     qq.runner.php:
         parent: qq.runner.abstract
         class: WorldFactory\QQ\Services\Runners\PhpRunner
