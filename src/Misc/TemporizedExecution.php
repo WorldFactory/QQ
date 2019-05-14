@@ -22,6 +22,9 @@ class TemporizedExecution
     /** @var callable */
     private $finallyHook;
 
+    /** @var int Buffer chunk size, in octets. */
+    private $chunkSize = 2;
+
     /**
      * TemporizedExecution constructor.
      * @param Buffer $buffer
@@ -61,12 +64,20 @@ class TemporizedExecution
     }
 
     /**
+     * @param int $chunkSize
+     */
+    public function setChunkSize(int $chunkSize) : void
+    {
+        $this->chunkSize = $chunkSize;
+    }
+
+    /**
      * @param null $data
      * @throws Exception
      */
     public function execute()
     {
-        ob_start([$this, 'displayCallback'], 2);
+        ob_start([$this, 'displayCallback'], $this->chunkSize);
 
         try {
             call_user_func($this->executionHook);
