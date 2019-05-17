@@ -79,3 +79,10 @@ services:
         class: WorldFactory\QQ\Services\Runners\NullRunner
         tags:
             - { name: qq.runner, type: "null" }
+
+    qq.runner.pdo:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\PDORunner
+        arguments: ["%qq.pdo%"]
+        tags:
+            - { name: qq.runner, type: "pdo" }
