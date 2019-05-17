@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ;
 
+use WorldFactory\QQ\DependencyInjection\PDOExtension;
 use WorldFactory\QQ\DependencyInjection\RunnerCompilerPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -60,6 +61,8 @@ class Kernel extends BaseKernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
     {
+        $container->registerExtension(new PDOExtension());
+
         $container->addResource(new FileResource($this->getProjectDir().'/config/bundles.php'));
         $container->addResource(new FileResource(getcwd().'/config/bundles.php'));
         // Feel free to remove the "container.autowiring.strict_mode" parameter
