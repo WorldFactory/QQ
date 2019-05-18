@@ -106,7 +106,7 @@ EOT;
         if (isset($this->config['connections'][$target])) {
             $config = $this->config['connections'][$target];
 
-            return $this->buildConnection($target, $config['dsn'], $config['user'], $config['pass'], $config['options']);
+            return $this->buildConnection($target, $config['dsn'], $config['user'], $config['pass'], $config['options'] ?? []);
         }
 
         throw new Exception("Unable to retrieve database connection : '$target'.");
@@ -143,7 +143,7 @@ EOT;
      * @return PDO
      * @throws Exception
      */
-    protected function buildConnection(string $target, string $dsn, string $user = null, string $pass = null, array $options = null)
+    protected function buildConnection(string $target, string $dsn, string $user = null, string $pass = null, array $options = [])
     {
         $connection = new PDO($dsn, $user, $pass, $options);
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
