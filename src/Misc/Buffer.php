@@ -23,7 +23,7 @@ class Buffer
     /**
      * @param string $result
      */
-    public function setResult(string $result) : void
+    public function setResult($result) : void
     {
         $this->result = $result;
     }
