@@ -71,6 +71,7 @@ EOT;
         if (isset($options['fetch']) && !empty($options['fetch'])) {
             $result = call_user_func(array($connection, 'query'), $script);
         } else {
+            /** @var int $result */
             $result = call_user_func(array($connection, 'exec'), $script);
 
             $this->getOutput()->writeln("$result affected row(s).");
@@ -107,6 +108,10 @@ EOT;
         throw new Exception("Unable to retrieve database connection : '$target'.");
     }
 
+    /**
+     * @param string $target
+     * @return bool
+     */
     protected function hasConnection(string $target)
     {
         return isset($this->connections[$target]);
@@ -146,6 +151,10 @@ EOT;
         return $connection;
     }
 
+    /**
+     * @param string $target
+     * @return bool
+     */
     protected function isPersisted(string $target)
     {
         return (isset($this->config['connections'][$target]) && $this->config['connections'][$target]['persist']);
