@@ -1,3 +1,5 @@
 
 qq_pdo:
-    connections: []
+    connections:
+        default:
+            persist: true
