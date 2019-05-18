@@ -4,10 +4,10 @@ namespace WorldFactory\QQ\Services\StepBuilders;
 
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
-use WorldFactory\QQ\Entities\Steps\LegStep;
+use WorldFactory\QQ\Entities\Steps\ChildStep;
 use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
-class LegStepBuilder extends  AbstractStepBuilder
+class ChildStepBuilder extends  AbstractStepBuilder
 {
     public function isValid($definition) : bool
     {
@@ -16,6 +16,6 @@ class LegStepBuilder extends  AbstractStepBuilder
 
     public function build($definition, OptionBag $config) : AbstractStep
     {
-        return new LegStep($this->getStepFactory(), $config, $definition);
+        return new ChildStep($this->getStepFactory(), $config, $definition);
     }
 }

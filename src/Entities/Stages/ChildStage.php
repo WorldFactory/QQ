@@ -2,17 +2,17 @@
 
 namespace WorldFactory\QQ\Entities\Stages;
 
-use WorldFactory\QQ\Entities\Steps\LegStep;
+use WorldFactory\QQ\Entities\Steps\ChildStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
- * Class ArrayStage
+ * Class ChildStage
  * @package WorldFactory\QQ\Entities\Stages
  *
- * @method LegStep getStep()
+ * @method ChildStep getStep()
  */
-class LegStage extends AbstractStage
+class ChildStage extends AbstractStage
 {
     /**
      * @inheritdoc
