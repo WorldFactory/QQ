@@ -17,19 +17,19 @@ class PDORunner extends AbstractRunner
         ],
         'fetch' => [
             'type' => 'string',
-            'description' => "Set how to fetch data. Values : val, one, all, col"
+            'description' => "Set how to fetch data. Values : VAL, ONE, ALL, COL"
         ],
         'dsn' => [
             'type' => 'string',
-            'description' => "Set how to fetch data. Values : val, one, all, col"
+            'description' => "Data Source Name of the target database."
         ],
         'user' => [
             'type' => 'string',
-            'description' => "Set how to fetch data. Values : val, one, all, col"
+            'description' => "User to be use with this DSN."
         ],
         'pass' => [
             'type' => 'string',
-            'description' => "Set how to fetch data. Values : val, one, all, col"
+            'description' => "Password to be use with this DSN."
         ]
     ];
 
