@@ -147,6 +147,7 @@ EOT;
     {
         $connection = new PDO($dsn, $user, $pass, $options);
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 
         if ($this->isPersisted($target)) {
             $this->connections[$target] = $connection;
@@ -174,22 +175,22 @@ EOT;
     {
         switch(strtoupper($fetchMode)) {
             case 'VAL':
-                $data = $statement->fetchColumn();
-                $result = array_shift($data);
+                $result = $statement->fetchColumn();
                 break;
             case 'ONE':
-                $data = $statement->fetchAll();
-                $result = array_shift($data);
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
                 break;
             case 'ALL':
-                $result = $statement->fetchAll();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
                 break;
             case 'COL':
-                $result = $statement->fetchColumn();
+                $result = $statement->fetchAll(PDO::FETCH_COLUMN);
                 break;
             default:
                 throw new Exception("Unknown fetch mode : '$fetchMode'.");
         }
+
+        $statement->closeCursor();
 
         return $result;
     }
