@@ -136,10 +136,6 @@ EOT;
      */
     protected function buildConnection(string $target, string $dsn, string $user = null, string $pass = null, array $options = null)
     {
-        if ($user === null) {
-            throw new Exception("Build database connection require USER parameter.");
-        }
-
         $connection = new PDO($dsn, $user, $pass, $options);
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
