@@ -4,8 +4,6 @@ namespace WorldFactory\QQ\Services\Runners;
 
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
-use WorldFactory\QQ\Misc\Buffer;
-use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class ExecRunner extends AbstractRunner
 {
