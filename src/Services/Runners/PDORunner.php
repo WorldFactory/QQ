@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Services\Runners;
 
 use PDO;
+use PDOStatement;
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
@@ -69,7 +70,10 @@ EOT;
         $options = $this->getOptions();
 
         if (isset($options['fetch']) && !empty($options['fetch'])) {
-            $result = call_user_func(array($connection, 'query'), $script);
+            /** @var PDOStatement $statement */
+            $statement = call_user_func(array($connection, 'query'), $script);
+
+            $result = $this->formatResult($statement, $options['fetch']);
         } else {
             /** @var int $result */
             $result = call_user_func(array($connection, 'exec'), $script);
@@ -158,5 +162,35 @@ EOT;
     protected function isPersisted(string $target)
     {
         return (isset($this->config['connections'][$target]) && $this->config['connections'][$target]['persist']);
+    }
+
+    /**
+     * @param PDOStatement $statement
+     * @param string $fetchMode
+     * @return array|mixed
+     * @throws Exception
+     */
+    protected function formatResult(PDOStatement $statement, $fetchMode)
+    {
+        switch(strtoupper($fetchMode)) {
+            case 'VAL':
+                $data = $statement->fetchColumn();
+                $result = array_shift($data);
+                break;
+            case 'ONE':
+                $data = $statement->fetchAll();
+                $result = array_shift($data);
+                break;
+            case 'ALL':
+                $result = $statement->fetchAll();
+                break;
+            case 'COL':
+                $result = $statement->fetchColumn();
+                break;
+            default:
+                throw new Exception("Unknown fetch mode : '$fetchMode'.");
+        }
+
+        return $result;
     }
 }
