@@ -62,7 +62,7 @@ EOT;
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         $connection = $this->connect();
 
@@ -88,7 +88,7 @@ EOT;
             $this->getOutput()->writeln("$result affected row(s).");
         }
 
-        $this->getBuffer()->setResult($result);
+        return $result;
     }
 
     /**

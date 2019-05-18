@@ -15,7 +15,7 @@ interface RunnerInterface
 
     public function getLongDescription() : string;
 
-    public function run(string $script) : void;
+    public function run(string $script);
 
     public function format(string $compiledScript) : string;
 
@@ -28,6 +28,4 @@ interface RunnerInterface
     public function getOutput() : OutputInterface;
 
     public function isHeaderDisplayed() : bool;
-
-    public function getResult() : string;
 }

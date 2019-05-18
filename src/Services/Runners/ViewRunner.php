@@ -25,7 +25,7 @@ EOT;
     /**
      * @inheritdoc
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         $formatter = new FormatterHelper();
 
@@ -37,7 +37,7 @@ EOT;
 
         $this->getOutput()->writeln($message);
 
-        $this->getBuffer()->setResult($script);
+        return true;
     }
 
     public function isHeaderDisplayed() : bool

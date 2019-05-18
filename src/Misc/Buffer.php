@@ -5,31 +5,31 @@ namespace WorldFactory\QQ\Misc;
 class Buffer
 {
     /** @var string The output of the command */
-    private $result = '';
+    private $content = '';
+
+    public function reset()
+    {
+        $this->content = '';
+    }
 
     /**
      * @return string
      */
-    public function __toString() : string
+    public function get() : string
     {
-        return $this->result;
-    }
-
-    public function reset()
-    {
-        $this->result = '';
+        return $this->content;
     }
 
     /**
      * @param string $result
      */
-    public function setResult($result) : void
+    public function set(string $result) : void
     {
-        $this->result = $result;
+        $this->content = $result;
     }
 
-    public function addResult(string $result) : void
+    public function add(string $result) : void
     {
-        $this->result .= $result;
+        $this->content .= $result;
     }
 }

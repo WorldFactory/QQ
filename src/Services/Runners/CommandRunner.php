@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\StringInput;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\BasicCommand;
+use WorldFactory\QQ\Misc\Buffer;
 use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
 use WorldFactory\QQ\Misc\Outputs\ReplicatedOutput;
 
@@ -35,11 +36,14 @@ EOT;
     /**
      * @inheritdoc
      * @throws Exception
+     * @todo Improve result for BasicCommand.
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         $arguments = explode(' ', $script);
         $commandName = array_shift($arguments);
+
+        $this->getOutput()->writeln("Running sub-command...");
 
         $command = $this->application->find($commandName);
 
@@ -47,17 +51,25 @@ EOT;
             $command->setDisplayHeader(false);
 
             $input = new StringTokenizedInput($script);
+
+            $returnCode = $command->run($input, $this->getOutput());
+
+            $result = true;
         } else {
             $input = new StringInput($script);
+
+            $replicatedOutput = $this->getReplicatedOutput();
+
+            $returnCode = $command->run($input, $replicatedOutput);
+
+            $result = $replicatedOutput->getBuffer()->get();
         }
-
-        $this->getOutput()->writeln("Running sub-command...");
-
-        $returnCode = $command->run($input, $this->getReplicatedOutput());
 
         if ($returnCode !== 0) {
             throw new Exception("Unknown system error : '$returnCode' for command :  {$script}");
         }
+
+        return $result;
     }
 
     protected function getReplicatedOutput()
@@ -68,6 +80,6 @@ EOT;
             $output = $output->getOriginalOutput();
         }
 
-        return new ReplicatedOutput($output, $this->getBuffer());
+        return new ReplicatedOutput($output);
     }
 }

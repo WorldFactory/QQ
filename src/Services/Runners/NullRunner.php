@@ -18,8 +18,9 @@ EOT;
      * Do nothing !!
      * @inheritdoc
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
+        return null;
     }
 
     public function isHeaderDisplayed() : bool

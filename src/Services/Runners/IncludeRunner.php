@@ -21,12 +21,14 @@ EOT;
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
-        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($script) {
+        $execution = new TemporizedExecution($this->getOutput(), function() use ($script) {
             require($script);
         });
 
         $execution->execute();
+
+        return $execution->getBuffer()->get();
     }
 }

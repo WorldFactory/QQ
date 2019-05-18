@@ -26,15 +26,23 @@ class ReplicatedOutput implements ConsoleOutputInterface
 
     private $buffer;
 
-    public function __construct(OutputInterface $output, Buffer $buffer)
+    public function __construct(OutputInterface $output)
     {
         $this->output = $output;
-        $this->buffer = $buffer;
+        $this->buffer = new Buffer();
     }
 
     public function getOriginalOutput() : OutputInterface
     {
         return $this->output;
+    }
+
+    /**
+     * @return Buffer
+     */
+    public function getBuffer(): Buffer
+    {
+        return $this->buffer;
     }
 
     /**
@@ -48,7 +56,7 @@ class ReplicatedOutput implements ConsoleOutputInterface
             $messages = join(PHP_EOL, $messages);
         }
 
-        $this->buffer->addResult($messages . ($newline ? PHP_EOL : ''));
+        $this->buffer->add($messages . ($newline ? PHP_EOL : ''));
     }
 
     /**
@@ -62,7 +70,7 @@ class ReplicatedOutput implements ConsoleOutputInterface
             $messages = join(PHP_EOL, $messages);
         }
 
-        $this->buffer->addResult($messages . PHP_EOL);
+        $this->buffer->add($messages . PHP_EOL);
     }
 
     /**

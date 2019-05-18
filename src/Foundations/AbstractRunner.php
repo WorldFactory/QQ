@@ -23,14 +23,6 @@ abstract class AbstractRunner implements RunnerInterface
     /** @var TokenizedInputInterface */
     private $input;
 
-    /** @var Buffer The output of the command */
-    private $buffer;
-
-    public function __construct()
-    {
-        $this->buffer = new Buffer;
-    }
-
     public function getOptionDefinitions() : array
     {
         return static::OPTION_DEFINITIONS;
@@ -51,10 +43,8 @@ abstract class AbstractRunner implements RunnerInterface
         return $compiledScript;
     }
 
-    public function run(string $script): void
+    public function run(string $script)
     {
-        $this->buffer->reset();
-
         if ($this->getOutput()->isVerbose()) {
             $class = get_class($this);
             $this->getOutput()->writeln("-> Runner : <fg=magenta>{$class}</>");
@@ -64,10 +54,10 @@ abstract class AbstractRunner implements RunnerInterface
             $this->getOutput()->writeln("-> <fg=black;bg=green>{$script}</>");
         }
 
-        $this->execute($script);
+        return $this->execute($script);
     }
 
-    abstract public function execute(string $script) : void;
+    abstract public function execute(string $script);
 
     public function setInput(TokenizedInputInterface $input) : RunnerInterface
     {
@@ -119,21 +109,5 @@ abstract class AbstractRunner implements RunnerInterface
     public function isHeaderDisplayed() : bool
     {
         return true;
-    }
-
-    /**
-     * @return Buffer
-     */
-    protected function getBuffer() : Buffer
-    {
-        return $this->buffer;
-    }
-
-    /**
-     * @return string
-     */
-    public function getResult() : string
-    {
-        return (string) $this->buffer;
     }
 }

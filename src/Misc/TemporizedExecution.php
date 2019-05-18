@@ -31,9 +31,9 @@ class TemporizedExecution
      * @param OutputInterface $output
      * @param callable $executionHook
      */
-    public function __construct(Buffer $buffer, OutputInterface $output, callable $executionHook)
+    public function __construct(OutputInterface $output, callable $executionHook)
     {
-        $this->buffer = $buffer;
+        $this->buffer = new Buffer();
         $this->output = $output;
 
         $this->executionHook = $executionHook;
@@ -72,6 +72,14 @@ class TemporizedExecution
     }
 
     /**
+     * @return Buffer
+     */
+    public function getBuffer(): Buffer
+    {
+        return $this->buffer;
+    }
+
+    /**
      * @param null $data
      * @throws Exception
      */
@@ -97,7 +105,7 @@ class TemporizedExecution
      */
     public function displayCallback(string $buffer , int $phase = null) : bool
     {
-        $this->buffer->addResult($buffer);
+        $this->buffer->add($buffer);
 
         $this->output->write($buffer);
 

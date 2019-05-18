@@ -22,15 +22,16 @@ EOT;
      * @inheritdoc
      * @throws \Exception
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         exec($script, $output, $returnCode);
 
         $this->getOutput()->writeln($output);
-        $this->getBuffer()->setResult(join(PHP_EOL, $output));
 
         if ($returnCode) {
             throw new Exception("Unknown system error : '$returnCode' for command : $script");
         }
+
+        return $output;
     }
 }

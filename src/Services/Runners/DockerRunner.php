@@ -140,7 +140,7 @@ EOT;
      * @param string $script
      * @throws Exception
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         /** @var RunnerInterface $runner */
         $runner = null;
@@ -156,9 +156,7 @@ EOT;
             ->setOutput($this->getOutput())
         ;
 
-        $runner->run($script);
-
-        $this->getBuffer()->setResult($runner->getResult());
+        return $runner->run($script);
     }
 
     /**

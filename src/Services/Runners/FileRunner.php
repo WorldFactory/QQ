@@ -27,13 +27,13 @@ EOT;
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(string $script) : void
+    public function execute(string $script)
     {
         $filename = $this->getFilename();
 
         $this->writeScript($script, $filename);
 
-        $execution = new TemporizedExecution($this->getBuffer(), $this->getOutput(), function() use ($filename) {
+        $execution = new TemporizedExecution($this->getOutput(), function() use ($filename) {
             chmod($filename, 0755);
             passthru($filename);
         });
@@ -43,6 +43,8 @@ EOT;
         });
 
         $execution->execute();
+
+        return $execution->getBuffer()->get();
     }
 
     protected function getFilename() : string
