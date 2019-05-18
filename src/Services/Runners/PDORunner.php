@@ -74,6 +74,13 @@ EOT;
             $statement = call_user_func(array($connection, 'query'), $script);
 
             $result = $this->formatResult($statement, $options['fetch']);
+
+            if (is_array($result)) {
+                $count = count($result);
+                $this->getOutput()->writeln("$count finded row(s).");
+            } else {
+                $this->getOutput()->writeln("Finded value : " . $result);
+            }
         } else {
             /** @var int $result */
             $result = call_user_func(array($connection, 'exec'), $script);
