@@ -20,6 +20,7 @@ class PDOConfiguration implements ConfigurationInterface
                             ->scalarNode('dsn')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('user')->defaultValue('root')->end()
                             ->scalarNode('pass')->defaultNull()->end()
+                            ->arrayNode('options')->end()
                             ->booleanNode('persist')->defaultTrue()->end()
                         ->end()
                     ->end()

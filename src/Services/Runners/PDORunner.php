@@ -30,6 +30,10 @@ class PDORunner extends AbstractRunner
         'pass' => [
             'type' => 'string',
             'description' => "Password to be use with this DSN."
+        ],
+        'options' => [
+            'type' => 'array',
+            'description' => "An array of options to be use with this DSN."
         ]
     ];
 
@@ -91,13 +95,13 @@ EOT;
         }
 
         if (isset($options['dsn'])) {
-            return $this->buildConnection($target, $options['dsn'], $options['user'], $options['pass']);
+            return $this->buildConnection($target, $options['dsn'], $options['user'], $options['pass'], $options['options']);
         }
 
         if (isset($this->config['connections'][$target])) {
             $config = $this->config['connections'][$target];
 
-            return $this->buildConnection($target, $config['dsn'], $config['user'], $config['pass']);
+            return $this->buildConnection($target, $config['dsn'], $config['user'], $config['pass'], $config['options']);
         }
 
         throw new Exception("Unable to retrieve database connection : '$target'.");
@@ -130,13 +134,13 @@ EOT;
      * @return PDO
      * @throws Exception
      */
-    protected function buildConnection(string $target, string $dsn, string $user = null, string $pass = null)
+    protected function buildConnection(string $target, string $dsn, string $user = null, string $pass = null, array $options = null)
     {
         if ($user === null) {
             throw new Exception("Build database connection require USER parameter.");
         }
 
-        $connection = new PDO($dsn, $user, $pass);
+        $connection = new PDO($dsn, $user, $pass, $options);
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         if ($this->isPersisted($target)) {
