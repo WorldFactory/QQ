@@ -69,7 +69,7 @@ EOT;
         /** @var RunnerOptionBag $options */
         $options = $this->getOptions();
 
-        if (isset($options['fetch']) && !empty($options['fetch'])) {
+        if (isset($options['fetch'])) {
             /** @var PDOStatement $statement */
             $statement = call_user_func(array($connection, 'query'), $script);
 
