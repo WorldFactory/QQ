@@ -36,7 +36,6 @@ EOT;
     /**
      * @inheritdoc
      * @throws Exception
-     * @todo Improve result for BasicCommand.
      */
     public function execute(string $script)
     {
@@ -54,7 +53,7 @@ EOT;
 
             $returnCode = $command->run($input, $this->getOutput());
 
-            $result = true;
+            $result = $command->getResult();
         } else {
             $input = new StringInput($script);
 

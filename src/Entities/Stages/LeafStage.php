@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Entities\Stages;
 
+use Exception;
 use WorldFactory\QQ\Entities\Steps\LeafStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -38,11 +39,10 @@ class LeafStage extends AbstractStage
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function execute(StepWalker $stepWalker) : bool
     {
-        $this->runner->run($this->compiledScript);
-
-        return true;
+        return $this->runner->run($this->compiledScript);
     }
 }

@@ -34,6 +34,9 @@ class BasicCommand extends Command implements ContainerAwareInterface
     /** @var ContainerInterface */
     private $container;
 
+    /** @var mixed */
+    private $result;
+
     /**
      * BasicCommand constructor.
      * @param array $config
@@ -48,6 +51,14 @@ class BasicCommand extends Command implements ContainerAwareInterface
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 
     /**
@@ -112,7 +123,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
             $this->writeHeader();
         }
 
-        $stepWalker->walk($root);
+        $this->result = $stepWalker->walk($root);
 
         if ($this->displayHeader) {
             $this->writeFooter();

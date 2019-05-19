@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Misc;
 
-
+use Exception;
 use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -22,13 +22,16 @@ class StepWalker
         $this->context = $context;
     }
 
+    /**
+     * @param AbstractStep $step
+     * @return mixed
+     * @throws Exception
+     */
     public function walk(AbstractStep $step)
     {
         /** @var AbstractStage $stage */
         $stage = $this->stageFactory->buildStage($step, $this->context);
 
-        $report = $stage->execute($this);
-
-        return $report;
+        return $stage->execute($this);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Entities\Stages;
 
+use Exception;
 use WorldFactory\QQ\Entities\Steps\ChildStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Misc\StepWalker;
@@ -16,11 +17,10 @@ class ChildStage extends AbstractStage
 {
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function execute(StepWalker $stepWalker) : bool
     {
-        $stepWalker->walk($this->getStep()->getChild());
-
-        return true;
+        return $stepWalker->walk($this->getStep()->getChild());
     }
 }

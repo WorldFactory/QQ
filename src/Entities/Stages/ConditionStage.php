@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ\Entities\Stages;
 
+use Exception;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Steps\ConditionStep;
@@ -38,6 +39,7 @@ class ConditionStage extends AbstractStage
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function execute(StepWalker $stepWalker) : bool
     {
@@ -46,19 +48,21 @@ class ConditionStage extends AbstractStage
         $then = $this->getStep()->getThen();
         $else = $this->getStep()->getElse();
 
+        $result = null;
+
         $this->output->write("-> <fg=black;bg=cyan>{$this->accreditor->getCompiledCondition()}</> : ");
 
         if ($test) {
             $this->output->writeln("<fg=white;bg=green>TRUE</>");
-            $stepWalker->walk($then);
+            $result = $stepWalker->walk($then);
         } else {
             $this->output->writeln("<fg=white;bg=red>FALSE</>");
 
             if ($else !== null) {
-                $stepWalker->walk($else);
+                $result = $stepWalker->walk($else);
             }
         }
 
-        return true;
+        return $result;
     }
 }

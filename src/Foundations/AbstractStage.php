@@ -27,7 +27,7 @@ abstract class AbstractStage
 
     /**
      * @param StepWalker $stepWalker
-     * @return bool
+     * @return mixed
      */
-    abstract public function execute(StepWalker $stepWalker) : bool;
+    abstract public function execute(StepWalker $stepWalker);
 }
