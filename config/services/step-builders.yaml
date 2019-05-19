@@ -16,11 +16,11 @@ services:
         tags:
             - { name: qq.builder.step, type: array }
 
-    qq.builder.step.leg:
+    qq.builder.step.child:
         parent: qq.builder.step.abstract
-        class: WorldFactory\QQ\Services\StepBuilders\LegStepBuilder
+        class: WorldFactory\QQ\Services\StepBuilders\ChildStepBuilder
         tags:
-            - { name: qq.builder.step, type: leg }
+            - { name: qq.builder.step, type: child }
 
     qq.builder.step.leaf:
         parent: qq.builder.step.abstract
