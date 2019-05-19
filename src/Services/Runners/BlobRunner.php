@@ -45,7 +45,7 @@ EOT;
 
         $execution->execute();
 
-        $output->writeln(' <fg=white;bg=green>OK</>');
+        $output->writeln('<fg=white;bg=green> OK </>');
         $output->writeln('Data length : ' . $this->formatBytes(strlen($buffer->get())));
 
         return $buffer->get();
