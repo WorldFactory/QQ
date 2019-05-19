@@ -30,11 +30,11 @@ services:
         tags:
             - { name: qq.runner, type: exec }
 
-    qq.runner.pass:
+    qq.runner.blob:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\PassRunner
+        class: WorldFactory\QQ\Services\Runners\BlobRunner
         tags:
-            - { name: qq.runner, type: pass }
+            - { name: qq.runner, type: blob }
 
     qq.runner.sys:
         parent: qq.runner.abstract
