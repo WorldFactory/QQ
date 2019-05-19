@@ -36,11 +36,11 @@ services:
         tags:
             - { name: qq.runner, type: blob }
 
-    qq.runner.sys:
+    qq.runner.bool:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\SysRunner
+        class: WorldFactory\QQ\Services\Runners\BoolRunner
         tags:
-            - { name: qq.runner, type: sys }
+            - { name: qq.runner, type: bool }
 
     qq.runner.php:
         parent: qq.runner.abstract

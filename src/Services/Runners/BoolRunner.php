@@ -6,16 +6,14 @@ use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\TemporizedExecution;
 
-class SysRunner extends AbstractRunner
+class BoolRunner extends AbstractRunner
 {
     protected const SHORT_DESCRIPTION = "Run script in CLI with 'system' PHP function.";
 
     protected const LONG_DESCRIPTION = <<<EOT
 Run script using 'system' PHP function.
-Historically, this Runner was created to overcome some cases where the Runner Shell was struggling to function.
-In the meantime, the Runner Shell has been greatly improved and the cases where the Runner Exec is useful have become very rare.
-This Runner has still been preserved to provide an alternative in case of trouble.
-It is always recommended to use the ShellRunner to execute a system command. This runner exists to mitigate any special cases.
+The result of the command will depend on the error code returned by the script.
+If an error is detected, it will not be blocking and will only give rise to an error message.
 EOT;
 
     /**
@@ -32,8 +30,16 @@ EOT;
             }
         });
 
-        $execution->execute();
+        $result = true;
 
-        return $execution->getBuffer()->get();
+        try {
+            $execution->execute();
+        } catch (Exception $exception) {
+            $result = false;
+
+            $this->getOutput()->writeln("<error>Catched error : {$exception->getMessage()}</error>");
+        }
+
+        return $result;
     }
 }
