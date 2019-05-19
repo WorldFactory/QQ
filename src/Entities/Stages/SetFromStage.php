@@ -50,7 +50,7 @@ class SetFromStage extends AbstractStage
 
         $result = null;
 
-        $this->output->writeln("-> <fg=black;bg=cyan>Setting '$set' parameter.");
+        $this->output->writeln("-> <fg=black;bg=cyan>Setting '$set' parameter.</>");
 
         $result = $stepWalker->walk($from);
 
