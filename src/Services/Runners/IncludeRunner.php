@@ -13,9 +13,15 @@ class IncludeRunner extends AbstractRunner
     protected const LONG_DESCRIPTION = <<<EOT
 The script to run must be a valid PHP file.
 This is included with the 'require' function.
-The context is the 'run' method of the IncludeRunner class.
-You have at your disposal a \$script object of type WorldFactory\QQ\Entities\Script, as well as all the protected and private methods of the IncludeRunner.
+The context is the 'executeTemporized' method of the IncludeRunner class.
+You have at your disposal all parameters extracted in the current symbol table, as well as all the protected and private methods of the IncludeRunner.
 EOT;
+
+    /** @var string */
+    private $script;
+
+    /** @var mixed */
+    private $result;
 
     /**
      * @inheritdoc
@@ -23,12 +29,24 @@ EOT;
      */
     public function execute(string $script)
     {
-        $execution = new TemporizedExecution($this->getOutput(), function() use ($script) {
-            require($script);
-        });
+        $this->result = null;
+        $this->script = $script;
+
+        $execution = new TemporizedExecution($this->getOutput(), [$this, 'executeTemporized']);
 
         $execution->execute();
 
-        return $execution->getBuffer()->get();
+        $this->getOutput()->writeln('');
+
+        return $this->result;
+    }
+
+    public function executeTemporized()
+    {
+        $_parameters = $this->getContext()->getParameters();
+
+        extract($_parameters);
+
+        $this->result = require($this->script);
     }
 }

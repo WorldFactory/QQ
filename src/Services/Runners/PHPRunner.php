@@ -12,9 +12,15 @@ class PHPRunner extends AbstractRunner
 
     protected const LONG_DESCRIPTION = <<<EOT
 This Runner allows you to execute PHP code with the 'eval' function.
-The context is the 'run' method of the PHPRunner class.
-You have at your disposal a \$script object of type WorldFactory\QQ\Entities\Script, as well as all the protected and private methods of the PHPRunner.
+The context is the 'executeTemporized' method of the PHPRunner class.
+You have at your disposal all parameters extracted in the current symbol table, as well as all the protected and private methods of the PHPRunner.
 EOT;
+
+    /** @var string */
+    private $script;
+
+    /** @var mixed */
+    private $result;
 
     /**
      * @inheritdoc
@@ -22,14 +28,24 @@ EOT;
      */
     public function execute(string $script)
     {
-        $execution = new TemporizedExecution($this->getOutput(), function() use ($script) {
-            eval($script);
-        });
+        $this->result = null;
+        $this->script = $script;
+
+        $execution = new TemporizedExecution($this->getOutput(), [$this, 'executeTemporized']);
 
         $execution->execute();
 
         $this->getOutput()->writeln('');
 
-        return $execution->getBuffer()->get();
+        return $this->result;
+    }
+
+    public function executeTemporized()
+    {
+        $_parameters = $this->getContext()->getParameters();
+
+        extract($_parameters);
+
+        $this->result = eval($this->script);
     }
 }
