@@ -103,7 +103,9 @@ class ContextualizedFormatter implements ScriptFormatterInterface
         $parameters = $this->context->getParameters();
 
         foreach ($parameters as $key => $val) {
-            $var = str_replace('%' . $key . '%', $val, $var);
+            if (preg_match("/%$key%/", $var)) {
+                $var = str_replace('%' . $key . '%', $val, $var);
+            }
         }
 
         return $var;
