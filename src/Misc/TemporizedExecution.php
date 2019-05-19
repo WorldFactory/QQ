@@ -22,6 +22,9 @@ class TemporizedExecution
     /** @var callable */
     private $finallyHook;
 
+    /** @var callable */
+    private $displayCallback;
+
     /** @var int Buffer chunk size, in octets. */
     private $chunkSize = 2;
 
@@ -39,6 +42,8 @@ class TemporizedExecution
         $this->executionHook = $executionHook;
         $this->failureHook = function() {};
         $this->finallyHook = function() {};
+
+        $this->displayCallback = [$this, 'displayCallback'];
     }
 
     /**
@@ -64,6 +69,14 @@ class TemporizedExecution
     }
 
     /**
+     * @param callable $displayCallback
+     */
+    public function setDisplayCallback(callable $displayCallback): void
+    {
+        $this->displayCallback = $displayCallback;
+    }
+
+    /**
      * @param int $chunkSize
      */
     public function setChunkSize(int $chunkSize) : void
@@ -85,7 +98,7 @@ class TemporizedExecution
      */
     public function execute()
     {
-        ob_start([$this, 'displayCallback'], $this->chunkSize);
+        ob_start($this->displayCallback, $this->chunkSize);
 
         try {
             call_user_func($this->executionHook);
