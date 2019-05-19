@@ -19,7 +19,7 @@ class ArrayStage extends AbstractStage
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(StepWalker $stepWalker) : bool
+    public function execute(StepWalker $stepWalker)
     {
         $result = [];
 

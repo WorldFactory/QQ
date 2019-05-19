@@ -41,7 +41,7 @@ class LeafStage extends AbstractStage
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(StepWalker $stepWalker) : bool
+    public function execute(StepWalker $stepWalker)
     {
         return $this->runner->run($this->compiledScript);
     }

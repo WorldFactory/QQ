@@ -41,7 +41,7 @@ class ConditionStage extends AbstractStage
      * @inheritdoc
      * @throws Exception
      */
-    public function execute(StepWalker $stepWalker) : bool
+    public function execute(StepWalker $stepWalker)
     {
         $test = $this->accreditor->test();
 
