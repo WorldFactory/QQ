@@ -156,7 +156,7 @@ EOT;
             ->setOutput($this->getOutput())
         ;
 
-        return $runner->run($script);
+        return $runner->run($script, $this->getContext());
     }
 
     /**

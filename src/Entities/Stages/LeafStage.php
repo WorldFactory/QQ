@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Entities\Stages;
 
 use Exception;
+use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Entities\Steps\LeafStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -23,18 +24,22 @@ class LeafStage extends AbstractStage
     /** @var RunnerInterface Runner to be use to run script */
     private $runner;
 
+    /** @var Context */
+    private $context;
+
     /**
      * LeafStage constructor.
      * @param AbstractStep $step
      * @param string $compiledScript
      * @param RunnerInterface $runner
      */
-    public function __construct(AbstractStep $step, string $compiledScript, RunnerInterface $runner)
+    public function __construct(AbstractStep $step, string $compiledScript, RunnerInterface $runner, Context $context)
     {
         parent::__construct($step);
 
         $this->compiledScript = $compiledScript;
         $this->runner = $runner;
+        $this->context = $context;
     }
 
     /**
@@ -43,6 +48,6 @@ class LeafStage extends AbstractStage
      */
     public function execute(StepWalker $stepWalker)
     {
-        return $this->runner->run($this->compiledScript);
+        return $this->runner->run($this->compiledScript, $this->context);
     }
 }

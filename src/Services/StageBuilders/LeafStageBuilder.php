@@ -44,7 +44,7 @@ class LeafStageBuilder extends AbstractStageBuilder
 
         $compiledScript = $this->compileScript($step, $formatter, $runner);
 
-        return new LeafStage($step, $compiledScript, $runner);
+        return new LeafStage($step, $compiledScript, $runner, $context);
     }
 
     /**

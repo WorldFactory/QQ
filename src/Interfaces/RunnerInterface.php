@@ -3,6 +3,7 @@
 namespace WorldFactory\QQ\Interfaces;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
 
 interface RunnerInterface
@@ -15,7 +16,7 @@ interface RunnerInterface
 
     public function getLongDescription() : string;
 
-    public function run(string $script);
+    public function run(string $script, Context $context);
 
     public function format(string $compiledScript) : string;
 
