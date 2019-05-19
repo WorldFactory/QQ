@@ -86,3 +86,9 @@ services:
         arguments: ["%qq.pdo%"]
         tags:
             - { name: qq.runner, type: "pdo" }
+
+    qq.runner.json:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\JSONRunner
+        tags:
+            - { name: qq.runner, type: "json" }
