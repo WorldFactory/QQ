@@ -72,13 +72,6 @@ EOT;
             $statement = call_user_func(array($connection, 'query'), $script);
 
             $result = $this->formatResult($statement, $options['fetch']);
-
-            if (is_array($result)) {
-                $count = count($result);
-                $this->getOutput()->writeln("$count finded row(s).");
-            } else {
-                $this->getOutput()->writeln("Finded value : " . $result);
-            }
         } else {
             /** @var int $result */
             $result = call_user_func(array($connection, 'exec'), $script);
@@ -181,15 +174,39 @@ EOT;
         switch(strtoupper($fetchMode)) {
             case 'VAL':
                 $result = $statement->fetchColumn();
+
+                if($result === false) {
+                    $this->getOutput()->writeln("No finded value.");
+                } else {
+                    $this->getOutput()->writeln("Finded value : " . $result);
+                }
+
                 break;
             case 'ONE':
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+                if($result === false) {
+                    $this->getOutput()->writeln("No finded row.");
+                } else {
+                    $this->getOutput()->writeln("Row finded successfully.");
+                }
+
                 break;
             case 'ALL':
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                $count = count($result);
+                $s = ($count > 1) ? 's' : '';
+                $this->getOutput()->writeln("$count finded row$s.");
+
                 break;
             case 'COL':
                 $result = $statement->fetchAll(PDO::FETCH_COLUMN);
+
+                $count = count($result);
+                $s = ($count > 1) ? 's' : '';
+                $this->getOutput()->writeln("$count finded row$s.");
+
                 break;
             default:
                 throw new Exception("Unknown fetch mode : '$fetchMode'.");
