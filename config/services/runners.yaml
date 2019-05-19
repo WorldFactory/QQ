@@ -44,7 +44,7 @@ services:
 
     qq.runner.php:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\PhpRunner
+        class: WorldFactory\QQ\Services\Runners\PHPRunner
         tags:
             - { name: qq.runner, type: php }
 
