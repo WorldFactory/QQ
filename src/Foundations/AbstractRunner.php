@@ -91,22 +91,22 @@ abstract class AbstractRunner implements RunnerInterface
     /**
      * @return RunnerOptionBag
      */
-    public function getOptions() : RunnerOptionBag
+    protected function getOptions() : RunnerOptionBag
     {
         return $this->options;
     }
 
-    public function getOption(string $name)
+    protected function getOption(string $name)
     {
         return $this->options[$name];
     }
 
-    public function hasOption(string $name) : bool
+    protected function hasOption(string $name) : bool
     {
         return isset($this->options[$name]);
     }
 
-    public function isHeaderDisplayed() : bool
+    protected function isHeaderDisplayed() : bool
     {
         return true;
     }

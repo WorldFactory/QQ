@@ -23,7 +23,7 @@ EOT;
         return null;
     }
 
-    public function isHeaderDisplayed() : bool
+    protected function isHeaderDisplayed() : bool
     {
         return false;
     }

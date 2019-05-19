@@ -26,6 +26,4 @@ interface RunnerInterface
     public function setOutput(OutputInterface $output) : RunnerInterface;
 
     public function getOutput() : OutputInterface;
-
-    public function isHeaderDisplayed() : bool;
 }
