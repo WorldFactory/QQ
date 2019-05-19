@@ -34,3 +34,9 @@ services:
         class: WorldFactory\QQ\Services\StageBuilders\ConditionStageBuilder
         tags:
             - { name: qq.builder.stage, type: condition }
+
+    qq.builder.stage.set_from:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\SetFromStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: setfrom }

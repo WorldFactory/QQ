@@ -33,3 +33,9 @@ services:
         class: WorldFactory\QQ\Services\StepBuilders\ConditionStepBuilder
         tags:
             - { name: qq.builder.step, type: condition }
+
+    qq.builder.step.set_from:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\SetFromStepBuilder
+        tags:
+            - { name: qq.builder.step, type: setfrom }
