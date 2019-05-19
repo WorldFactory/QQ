@@ -145,8 +145,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
             'type' => $this->config['type'] ?? 'shell'
         ];
 
-        if (array_key_exists('runner', $this->config)) {
-            $rawOptions['runner'] = $this->config['runner'];
+        if (array_key_exists('options', $this->config)) {
+            $rawOptions['options'] = $this->config['options'];
         }
 
         $options = new OptionBag($rawOptions);
@@ -157,7 +157,7 @@ class BasicCommand extends Command implements ContainerAwareInterface
                 'required' => true,
                 'description' => "The default type to define which runner to be used."
             ],
-            'runner'     => [
+            'options'     => [
                 'type' => 'array',
                 'required' => false,
                 'description' => "List of the Runner options."
