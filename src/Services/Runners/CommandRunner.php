@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\StringInput;
 use WorldFactory\QQ\Application;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Misc\BasicCommand;
-use WorldFactory\QQ\Misc\Buffer;
 use WorldFactory\QQ\Misc\Inputs\StringTokenizedInput;
 use WorldFactory\QQ\Misc\Outputs\ReplicatedOutput;
 
