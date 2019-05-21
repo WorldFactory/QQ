@@ -2,7 +2,6 @@
 
 namespace WorldFactory\QQ\Entities\Steps;
 
-use Exception;
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
