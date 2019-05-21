@@ -44,7 +44,7 @@ EOT;
         $process
             ->setTimeout(0)
             ->setIdleTimeout(0)
-            ->setTty(Process::isPtySupported())
+            ->setTty(false)
         ;
 
         if ($this->hasOption('workingDir')) {
@@ -76,10 +76,10 @@ EOT;
 
     public function displayCallback ($type, $buffer)
     {
-        $this->getOutput()->writeln($buffer);
+        $this->getOutput()->write($buffer);
 
         if ($type === Process::OUT) {
-            $this->buffer->add($buffer . PHP_EOL);
+            $this->buffer->add($buffer);
         }
     }
 }
