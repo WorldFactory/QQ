@@ -22,7 +22,16 @@ class ChildStep extends AbstractStep
     {
         parent::__construct($stepFactory, $config);
 
-        $this->child = $stepFactory->buildStep($definition['run'], $this->getOptionBag());
+        if (array_key_exists('run', $definition)) {
+            $child = $definition['run'];
+        } elseif (array_key_exists('script', $definition)) {
+            $child = $definition['script'];
+
+            trigger_error("In your 'command.yml' file, 'script' key is deprecated. Consider to use 'run' key instead.", E_USER_DEPRECATED);
+        }
+
+
+        $this->child = $stepFactory->buildStep($child, $this->getOptionBag());
     }
 
     /**
