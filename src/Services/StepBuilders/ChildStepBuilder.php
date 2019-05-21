@@ -11,7 +11,7 @@ class ChildStepBuilder extends  AbstractStepBuilder
 {
     public function isValid($definition) : bool
     {
-        return (is_array($definition) && array_key_exists('script', $definition));
+        return (is_array($definition) && array_key_exists('run', $definition));
     }
 
     public function build($definition, OptionBag $config) : AbstractStep

@@ -22,7 +22,7 @@ class ChildStep extends AbstractStep
     {
         parent::__construct($stepFactory, $config);
 
-        $this->child = $stepFactory->buildStep($definition['script'], $this->getOptionBag());
+        $this->child = $stepFactory->buildStep($definition['run'], $this->getOptionBag());
     }
 
     /**

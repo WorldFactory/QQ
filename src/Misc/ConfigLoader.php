@@ -45,7 +45,7 @@ class ConfigLoader
     private function addCommand(string $taskName, $taskConfig)
     {
         if (!is_array($taskConfig)) {
-            $taskConfig = ['script' => $taskConfig];
+            $taskConfig = ['run' => $taskConfig];
         }
 
         if (array_key_exists($taskName, $this->commands)) {
