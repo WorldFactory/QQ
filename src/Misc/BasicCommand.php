@@ -4,6 +4,8 @@ namespace WorldFactory\QQ\Misc;
 
 use Exception;
 use function get_class;
+use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\Table;
 use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
@@ -214,10 +216,29 @@ class BasicCommand extends Command implements ContainerAwareInterface
         $deprecationHandler = $this->container->get('qq.handler.deprecation');
 
         if (count($deprecationHandler->getDeprecations()) > 0) {
-            $this->output->writeln("<error>Several deprecation messages were generated. Remember to change your code to make it easier for you to upgrade to the higher version of QQ.</error>");
-            foreach ($deprecationHandler->getDeprecations() as $deprecation) {
-                $this->output->writeln("* $deprecation");
-            }
+            $formatter = new FormatterHelper();
+
+            $message = [
+                "/!\\ Several deprecation messages were generated. /!\\",
+                "Remember to change your code to make it easier for you to upgrade to the higher version of QQ."
+            ];
+
+            $this->output->writeln($formatter->formatBlock($message, 'fg=black;bg=yellow', TRUE));
+
+            $this->output->write(PHP_EOL);
+
+            $deprecations = $deprecationHandler->getDeprecations();
+
+            array_walk($deprecations, function(&$deprecation) {
+                $deprecation = [$deprecation];
+            });
+
+            $table = new Table($this->output);
+            $table
+                ->setHeaders(['QQ deprecation list'])
+                ->setRows($deprecations)
+            ;
+            $table->render();
         }
     }
 }
