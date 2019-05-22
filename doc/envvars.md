@@ -10,7 +10,7 @@ To do this, simply use following syntax :
 commands:
     "my:script":
         type: php
-        script: $a = 1 + ${ENV_VAR}; echo $a;
+        run: $a = 1 + ${ENV_VAR}; echo $a;
 ```
 
 In the case where ENV_VAR environment variable is 3, then the previous script will simply display the value 4.
@@ -21,7 +21,7 @@ Many options can also containing environment variables like the 'target' option 
 commands:
     "my:other:script":
         type: docker
-        script: ls -la
+        run: ls -la
         options:
             target: ${TARGET_CONTAINER}
 ```
@@ -38,7 +38,7 @@ To do this, just comment on the $ symbol.
 commands:
     "my:script":
         type: php
-        script: echo "The env var syntax is \${ENV_VAR}";
+        run: echo "The env var syntax is \${ENV_VAR}";
 ```
 
 This script will display : _The env var syntax is ${ENV_VAR}_
@@ -56,7 +56,7 @@ To avoid any problem, you will need to add a second backslash in front of the $ 
 commands:
     "my:script":
         type: php
-        script: "echo 'The env var syntax is : \\${ENV_VAR}';"
+        run: "echo 'The env var syntax is : \\${ENV_VAR}';"
 ```
 
 This script will display : _The env var syntax is : ${ENV_VAR}_

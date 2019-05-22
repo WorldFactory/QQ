@@ -22,7 +22,7 @@ It's up to you to tell QQ how to handle the extra arguments.
 
 ## Indexed arguments
 
-In fact, QQ will take into account everything to the left of the name of your command.
+In fact, QQ will take into account everything to the right of the name of your command.
 The Symfony console offers several options common to all commands to control the verbosity of the script, the environment, etc ...
 All these options must be placed to the left of the name of your command.
 
@@ -110,7 +110,7 @@ You can also use the arguments used on the command line and inject them into the
 ```
 commands:
     lsl:
-        script: ls -l
+        run: ls -l
         options:
             workingDir: %1%
 ```

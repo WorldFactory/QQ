@@ -55,7 +55,7 @@ Type `qq list` to get all available commands.
 
 You can add as many commands as you want as a result of `phpv`.
 
-Use `script` parameters to indicate the cli command to execute.
+Use `run` parameters to indicate the cli command to execute.
 
 Add a description with the `shortDescription` parameter.
 

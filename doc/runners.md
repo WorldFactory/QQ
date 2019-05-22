@@ -15,7 +15,7 @@ Take the following command example :
 ```yaml
 commands:
     "my:script":
-        script: ls -l
+        run: ls -l
 ```
 
 By default, this command will use the ShellRunner to execute the script it contains.
@@ -26,7 +26,7 @@ The following example is exactly the same, except that the type of Runner to use
 commands:
     "my:script":
         type: shell
-        script: ls -l
+        run: ls -l
 ```
 
 The PHP Runner allows executing php code.
@@ -35,7 +35,7 @@ The PHP Runner allows executing php code.
 commands:
     "my:script":
         type: php
-        script: $a = 1 + 2; echo $a;
+        run: $a = 1 + 2; echo $a;
 ```
 
 This example will display the value 3.
@@ -105,7 +105,7 @@ You can use this option as follows :
 commands:
     "my:script":
         type: shell
-        script: ls -l
+        run: ls -l
         options:
             workingDir: ./repository/project
 ```
@@ -118,16 +118,16 @@ A command composed of multiple scripts can also specify options globally, using 
 commands:
     "my:script1":
         type: shell
-        script:
+        run:
             - ls -l
             - rm -rf ./var/cache
         options:
             workingDir: ./repository/project
     "my:script2":
         type: shell
-        script:
+        run:
             - ls -l
-            - { script: "rm -rf *", options: { workingDir: "./repository/project/var/cache" } }
+            - { run: "rm -rf *", options: { workingDir: "./repository/project/var/cache" } }
         options:
             workingDir: ./repository/project
 ```

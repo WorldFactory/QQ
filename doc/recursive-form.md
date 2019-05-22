@@ -16,12 +16,12 @@ commands:
     # Basic form
     "my:normal:script":
         type: php
-        script: echo 1 + 2;
+        run: echo 1 + 2;
 
     # Aggregated form
     "my:composed:script":
         type: php
-        script:
+        run:
             - $a = 1; echo $a;
             - $a = 2; echo $a;
             - $a = 3; echo $a;
@@ -29,7 +29,7 @@ commands:
     # Multilines form
     "my:multilines:script":
         type: php
-        script: |
+        run: |
             $a = 1;
             $b = 2;
             echo $a + $b;
@@ -42,14 +42,14 @@ commands:
     # Recursive form
     "my:recursive:script":
         type: php
-        script:
+        run:
             type: qq
             script: phpv
 
     # Another form of recursive mode
     "my:clone:script":
         type: php
-        script: { type: qq, script: phpv }
+        run: { type: qq, run: phpv }
 ```
 
 This command will simply execute the QQ command named 'phpv'.
@@ -65,10 +65,10 @@ Here is a complex example :
 ```yaml
 commands:
     "my:script": # by default, this command will use the 'shell' runner.
-        script:
+        run:
             - cd .. && ls -la # the ls command will be executed in the parent of the current directory.
             - php://echo "Hello world !!";
-            - { type: qq, script: phpv }
+            - { type: qq, run: phpv }
             -
                 - cd ~
                 - ls -la # the ls command will be executed in the current directory, not in your home directory.
@@ -79,7 +79,7 @@ commands:
                 - cd ~ && ls -la # the ls command will be executed in your home directory.
             - sleep 3 # Waiting for 3 seconds
             - ls -la # the ls command will be executed in the current directory.
-            - { script: ls -la, options: { workingDir: "~" } } # the ls command will be executed in your home directory.
+            - { run: ls -la, options: { workingDir: "~" } } # the ls command will be executed in your home directory.
 ```
 
 We've mixed shell commands, php commands and even a QQ command in the same script !!
@@ -100,11 +100,11 @@ So you can off and already use the tables to factorize the configuration they ha
 commands:
     "my:script":
         type: qq
-        script:
+        run:
             - phpv
             -
                 type: shell
-                script:
+                run:
                     - sleep 3
                     - ls -la
                 options:

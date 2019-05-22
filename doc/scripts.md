@@ -13,7 +13,7 @@ parameters:
 
 commands:
     phpv:
-        script: php -v
+        run: php -v
         shortDescription: Show the PHP version.
 ```
 
@@ -25,20 +25,20 @@ We will see later the sections 'imports' and 'parameters'.
 
 ```
 phpv:
-    script: php -v
+    run: php -v
     shortDescription: Show the PHP version.
 ```
 
 In this example, `phpv` is the name of the command.
 
-`script` is the code that will be executed in a console.
+`run` is the code that will be executed in a console.
 
 `shortDescription` is... a short description of the command.
 This text will be displayed each time you use the command.
 
 ### Minimalist shape
 
-Only the name and the `script` parameter are required for a command to be used.
+Only the name and the `run` parameter are required for a command to be used.
 
 So, a ultra-minimaliste config mode is available.
 
@@ -53,7 +53,7 @@ Nevertheless, keep in mind that adding documentation is never a waste of time.
 
 ### All options
 
-* script : [*Required*] This is the command, as you would type it in a command line.
+* run : [*Required*] This is the command, as you would type it in a command line.
 
 * type : [*Optional*] Set the type of Runner that will be used to execute the command. By default, the Runner 'bash' will be used. (We'll see what are the 'runners' later)
 
@@ -72,7 +72,7 @@ A script can be composed of several lines.
 ```
 commands:
     myscript:
-        script:
+        run:
             - ls 
             - sleep 5
             - ls
@@ -88,7 +88,7 @@ The script name is normaly a single string, but in fact, we can use `namespaces`
 ```
 commands:
     "php:version":
-        script: php -v
+        run: php -v
         shortDescription: Show the PHP version.
         aliases: [phpv]
 ```
