@@ -47,19 +47,23 @@ To get list of available Runners, use the QQ commands : `qq runner:list`
 ```
 > qq runner:list
 List of currently activated QQ Runners :
-+--------+----------+------------------------------------------------------+
-| Name   | Aliases  | Description                                          |
-+--------+----------+------------------------------------------------------+
-| shell  | sh, bash | Run script in CLI.                                   |
-| qq     | command  | Run QQ sub-command.                                  |
-| exec   |          | Run script in CLI with 'passthru' PHP function.      |
-| php    |          | Execute PHP code with 'eval' function.               |
-| inc    |          | Include target PHP file.                             |
-| file   | child    | Save script in file and run it.                      |
-| docker |          | Run script in target Docker container.               |
-| view   |          | Show script in a frame. Useful to display a message. |
-| null   |          | Do nothing. Displays only the script.                |
-+--------+----------+------------------------------------------------------+
++--------+---------+------------------------------------------------------+
+| Name   | Aliases | Description                                          |
++--------+---------+------------------------------------------------------+
+| shell  |         | Run script in CLI.                                   |
+| qq     | command | Run QQ sub-command.                                  |
+| exec   |         | Run script in CLI with 'exec' PHP function.          |
+| blob   |         | Run script in CLI with 'passthru' PHP function.      |
+| bool   |         | Run script in CLI with 'system' PHP function.        |
+| php    |         | Execute PHP code with 'eval' function.               |
+| inc    |         | Include target PHP file.                             |
+| file   |         | Save script in file and run it.                      |
+| docker |         | Run script in target Docker container.               |
+| view   |         | Show script in a frame. Useful to display a message. |
+| null   |         | Do nothing. Displays only the script.                |
+| pdo    |         | Use PDO to send request to target database.          |
+| json   |         | Parse JSON string.                                   |
++--------+---------+------------------------------------------------------+
 ```
 
 ## Runner options
