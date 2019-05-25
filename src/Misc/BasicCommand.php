@@ -223,9 +223,9 @@ class BasicCommand extends Command implements ContainerAwareInterface
                 "Remember to change your code to make it easier for you to upgrade to the higher version of QQ."
             ];
 
-            $this->output->writeln($formatter->formatBlock($message, 'fg=black;bg=yellow', TRUE));
-
             $this->output->write(PHP_EOL);
+
+            $this->output->writeln($formatter->formatBlock($message, 'fg=black;bg=yellow', TRUE));
 
             $deprecations = $deprecationHandler->getDeprecations();
 
@@ -239,6 +239,8 @@ class BasicCommand extends Command implements ContainerAwareInterface
                 ->setRows($deprecations)
             ;
             $table->render();
+
+            $this->output->write(PHP_EOL);
         }
     }
 }

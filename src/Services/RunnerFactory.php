@@ -90,13 +90,13 @@ class RunnerFactory
      */
     public function getRunner($name) : RunnerInterface
     {
+        $realName = $this->getRealRunnerName($name);
+
         if ($this->isDeprecated($name)) {
-            trigger_error("'$name' Runner alias is deprecated. Consider to use new Runner name.", E_USER_DEPRECATED);
+            trigger_error("'$name' Runner alias is deprecated. Consider using it's new name : '$realName'.", E_USER_DEPRECATED);
         }
 
-        $name = $this->getRealRunnerName($name);
-
-        $serviceName = $this->getRunnerServiceName($name);
+        $serviceName = $this->getRunnerServiceName($realName);
 
         /** @var RunnerInterface $runner */
         $runner = $this->container->get($serviceName);
