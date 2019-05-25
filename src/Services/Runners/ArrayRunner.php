@@ -7,7 +7,7 @@ use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class ArrayRunner extends AbstractRunner
 {
-    protected const SHORT_DESCRIPTION = "Run script in CLI with 'exec' PHP function.";
+    protected const SHORT_DESCRIPTION = "Run script in CLI with 'exec' PHP function and return Array of lines.";
 
     protected const LONG_DESCRIPTION = <<<EOT
 Run script using 'exec' PHP function.
@@ -15,7 +15,7 @@ This Runner is different from other PHP-based Runner system because it does not 
 In other words, you will only get a display once the command is complete.
 It is not suitable for long process.
 On the other hand, the output is cleaned and can more easily be recovered for subsequent treatments.
-It is always recommended to use the ShellRunner to execute a system command. This runner exists to mitigate any special cases.
+The result of this command is also in the form of an array of cleaned lines
 EOT;
 
     /**
