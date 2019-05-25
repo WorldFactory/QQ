@@ -38,7 +38,7 @@ commands:
     "docker:clean":
         script:
             - docker-compose down --remove-orphans
-            - exec://docker system prune -a --volumes
+            - array://docker system prune -a --volumes
         shortDescription: Cleaning unused Docker images and volumes.
         aliases: [clean]
 

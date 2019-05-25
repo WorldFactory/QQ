@@ -52,7 +52,7 @@ List of currently activated QQ Runners :
 +--------+---------+------------------------------------------------------+
 | shell  |         | Run script in CLI.                                   |
 | qq     | command | Run QQ sub-command.                                  |
-| exec   |         | Run script in CLI with 'exec' PHP function.          |
+| array  |         | Run script in CLI with 'exec' PHP function.          |
 | blob   |         | Run script in CLI with 'passthru' PHP function.      |
 | bool   |         | Run script in CLI with 'system' PHP function.        |
 | php    |         | Execute PHP code with 'eval' function.               |

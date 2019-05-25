@@ -5,7 +5,7 @@ namespace WorldFactory\QQ\Services\Runners;
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 
-class ExecRunner extends AbstractRunner
+class ArrayRunner extends AbstractRunner
 {
     protected const SHORT_DESCRIPTION = "Run script in CLI with 'exec' PHP function.";
 

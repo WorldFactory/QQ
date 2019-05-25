@@ -24,11 +24,11 @@ services:
         tags:
             - { name: qq.runner, type: qq, alias: command }
 
-    qq.runner.exec:
+    qq.runner.array:
         parent: qq.runner.abstract
-        class: WorldFactory\QQ\Services\Runners\ExecRunner
+        class: WorldFactory\QQ\Services\Runners\ArrayRunner
         tags:
-            - { name: qq.runner, type: exec }
+            - { name: qq.runner, type: array, alias: exec, deprecated: true }
 
     qq.runner.blob:
         parent: qq.runner.abstract
