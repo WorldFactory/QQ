@@ -92,3 +92,9 @@ services:
         class: WorldFactory\QQ\Services\Runners\JSONRunner
         tags:
             - { name: qq.runner, type: "json" }
+
+    qq.runner.expression:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\ExpressionRunner
+        tags:
+            - { name: qq.runner, type: "expr" }
