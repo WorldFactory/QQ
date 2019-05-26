@@ -26,7 +26,7 @@ class ConditionStep extends AbstractStep
     {
         parent::__construct($stepFactory, $config);
 
-        $this->if = $definition['if'];
+        $this->if = $stepFactory->buildStep($definition['if'], $this->buildIndividualOptionBag());
 
         if (array_key_exists('then', $definition)) {
             $this->then = $stepFactory->buildStep($definition['then'], $this->getOptionBag());
@@ -40,7 +40,7 @@ class ConditionStep extends AbstractStep
     }
 
     /**
-     * @return string
+     * @return AbstractStep
      */
     public function getIf()
     {
@@ -61,5 +61,26 @@ class ConditionStep extends AbstractStep
     public function getElse() :? AbstractStep
     {
         return $this->else;
+    }
+
+    /**
+     * @return OptionBag
+     * @throws Exception
+     */
+    protected function buildIndividualOptionBag() : OptionBag
+    {
+        $options = new OptionBag([
+            'type' => 'expr'
+        ]);
+
+        $options->addOptionDefinitions([
+            'type'     => [
+                'type' => 'string',
+                'required' => true,
+                'description' => "The default type to define which runner to be used."
+            ]
+        ]);
+
+        return $options;
     }
 }

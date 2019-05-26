@@ -16,17 +16,14 @@ The context is the 'execute' method of the ExpressionRunner class.
 You have at your disposal all parameters extracted in the current symbol table, as well as all the protected and private methods of the ExpressionRunner.
 EOT;
 
-    public function format(string $compiledScript): string
-    {
-        return "return ($compiledScript);";
-    }
-
     /**
      * @inheritdoc
      * @throws Exception
      */
     public function execute(string $script)
     {
+        $script = "return ($script);";
+
         $_parameters = $this->getContext()->getParameters();
 
         extract($_parameters);

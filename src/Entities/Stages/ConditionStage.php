@@ -4,7 +4,6 @@ namespace WorldFactory\QQ\Entities\Stages;
 
 use Exception;
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Steps\ConditionStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -18,22 +17,18 @@ use WorldFactory\QQ\Misc\StepWalker;
  */
 class ConditionStage extends AbstractStage
 {
-    /** @var Accreditor Entity used to define if runner should execute 'then' statement, or 'else' statement */
-    private $accreditor;
-
     /** @var OutputInterface */
     private $output;
 
     /**
      * ConditionStage constructor.
      * @param AbstractStep $step
-     * @param Accreditor $accreditor
+     * @param OutputInterface $output
      */
-    public function __construct(AbstractStep $step, Accreditor $accreditor, OutputInterface $output)
+    public function __construct(AbstractStep $step, OutputInterface $output)
     {
         parent::__construct($step);
 
-        $this->accreditor = $accreditor;
         $this->output = $output;
     }
 
@@ -43,20 +38,21 @@ class ConditionStage extends AbstractStage
      */
     public function execute(StepWalker $stepWalker)
     {
-        $test = $this->accreditor->test();
-
+        $if = $this->getStep()->getIf();
         $then = $this->getStep()->getThen();
         $else = $this->getStep()->getElse();
 
+        $this->output->writeln("-> Running test : ");
+
+        $test = (bool) $stepWalker->walk($if);
+
         $result = null;
 
-        $this->output->write("-> <fg=black;bg=cyan>{$this->accreditor->getCompiledCondition()}</> : ");
-
         if ($test) {
-            $this->output->writeln("<fg=white;bg=green>TRUE</>");
+            $this->output->writeln("-> Result : <fg=white;bg=green>TRUE</>");
             $result = $stepWalker->walk($then);
         } else {
-            $this->output->writeln("<fg=white;bg=red>FALSE</>");
+            $this->output->writeln("-> Result : <fg=white;bg=red>FALSE</>");
 
             if ($else !== null) {
                 $result = $stepWalker->walk($else);

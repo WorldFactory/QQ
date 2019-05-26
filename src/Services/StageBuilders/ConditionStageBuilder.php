@@ -25,12 +25,6 @@ class ConditionStageBuilder extends AbstractStageBuilder
      */
     public function buildStage($step, Context $context) : AbstractStage
     {
-        $formatter = new ContextualizedFormatter($context);
-
-        $accreditor = new Accreditor($step->getIf());
-
-        $accreditor->compile($formatter);
-
-        return new ConditionStage($step, $accreditor, $context->getOutput());
+        return new ConditionStage($step, $context->getOutput());
     }
 }
