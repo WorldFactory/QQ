@@ -7,7 +7,7 @@ use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
-class ConditionStep extends AbstractStep
+class IfThenElseStep extends AbstractStep
 {
     private $if;
 
@@ -16,7 +16,7 @@ class ConditionStep extends AbstractStep
     private $else = null;
 
     /**
-     * ConditionStep constructor.
+     * IfThenElseStep constructor.
      * @param StepFactory $stepFactory
      * @param OptionBag $config
      * @param array $definition

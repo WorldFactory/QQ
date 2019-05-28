@@ -31,7 +31,7 @@ services:
 
     qq.builder.stage.condition:
         parent: qq.builder.stage.abstract
-        class: WorldFactory\QQ\Services\StageBuilders\ConditionStageBuilder
+        class: WorldFactory\QQ\Services\StageBuilders\IfThenElseStageBuilder
         tags:
             - { name: qq.builder.stage, type: condition }
 

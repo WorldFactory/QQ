@@ -4,27 +4,27 @@ namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Entities\Accreditor;
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\Stages\ConditionStage;
-use WorldFactory\QQ\Entities\Steps\ConditionStep;
+use WorldFactory\QQ\Entities\Stages\IfThenElseStage;
+use WorldFactory\QQ\Entities\Steps\IfThenElseStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Misc\ContextualizedFormatter;
 
-class ConditionStageBuilder extends AbstractStageBuilder
+class IfThenElseStageBuilder extends AbstractStageBuilder
 {
     public function isValid(AbstractStep $step): bool
     {
-        return $step instanceof ConditionStep;
+        return $step instanceof IfThenElseStep;
     }
 
     /**
-     * @param ConditionStep $step
+     * @param IfThenElseStep $step
      * @param Context $context
      * @return AbstractStage
      */
     public function buildStage($step, Context $context) : AbstractStage
     {
-        return new ConditionStage($step, $context->getOutput());
+        return new IfThenElseStage($step, $context->getOutput());
     }
 }

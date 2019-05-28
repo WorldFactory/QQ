@@ -30,7 +30,7 @@ services:
 
     qq.builder.step.condition:
         parent: qq.builder.step.abstract
-        class: WorldFactory\QQ\Services\StepBuilders\ConditionStepBuilder
+        class: WorldFactory\QQ\Services\StepBuilders\IfThenElseStepBuilder
         tags:
             - { name: qq.builder.step, type: condition }
 

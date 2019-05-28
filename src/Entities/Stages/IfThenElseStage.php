@@ -4,24 +4,24 @@ namespace WorldFactory\QQ\Entities\Stages;
 
 use Exception;
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Entities\Steps\ConditionStep;
+use WorldFactory\QQ\Entities\Steps\IfThenElseStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
- * Class ConditionStage
+ * Class IfThenElseStage
  * @package WorldFactory\QQ\Entities\Stages
  *
- * @method ConditionStep getStep()
+ * @method IfThenElseStep getStep()
  */
-class ConditionStage extends AbstractStage
+class IfThenElseStage extends AbstractStage
 {
     /** @var OutputInterface */
     private $output;
 
     /**
-     * ConditionStage constructor.
+     * IfThenElseStage constructor.
      * @param AbstractStep $step
      * @param OutputInterface $output
      */
