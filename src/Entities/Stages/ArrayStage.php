@@ -21,30 +21,10 @@ class ArrayStage extends AbstractStage
      */
     public function execute(StepWalker $stepWalker)
     {
-        $result = [];
+        $result = null;
 
         foreach($this->getStep()->getChildren() as $step) {
-            $stepResult = $stepWalker->walk($step);
-
-            if(is_array($stepResult)) {
-                $result = array_merge($result, $stepResult);
-            } elseif (strpos($stepResult, PHP_EOL) !== false) {
-                $array = explode(PHP_EOL, $stepResult);
-
-                foreach($array as $line) {
-                    if (!empty($line)) {
-                        $result[] = $line;
-                    }
-                }
-            } else {
-                $array = preg_split('/[\s]+/', trim($stepResult));
-
-                foreach($array as $line) {
-                    if (!empty($line)) {
-                        $result[] = $line;
-                    }
-                }
-            }
+            $result = $stepWalker->walk($step);
         }
 
         return $result;
