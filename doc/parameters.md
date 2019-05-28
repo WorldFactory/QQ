@@ -2,7 +2,7 @@
 
 ## Basic principle
 
-You can save certain values in parameters so you can reuse them later in your orders.
+You can save certain values in parameters so you can reuse them later in your scripts.
 
 ```
 parameters:
