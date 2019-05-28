@@ -9,6 +9,8 @@ use WorldFactory\QQ\Services\StepFactory;
 
 class IfThenElseStep extends AbstractStep
 {
+    private $condition;
+
     private $if;
 
     private $then;
@@ -26,6 +28,8 @@ class IfThenElseStep extends AbstractStep
     {
         parent::__construct($stepFactory, $config);
 
+        $this->condition = $definition['if'];
+
         $this->if = $stepFactory->buildStep($definition['if'], $this->buildIndividualOptionBag());
 
         if (array_key_exists('then', $definition)) {
@@ -37,6 +41,14 @@ class IfThenElseStep extends AbstractStep
         if (array_key_exists('else', $definition)) {
             $this->else = $stepFactory->buildStep($definition['else'], $this->getOptionBag());
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCondition()
+    {
+        return $this->condition;
     }
 
     /**

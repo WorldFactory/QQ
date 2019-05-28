@@ -42,9 +42,15 @@ class IfThenElseStage extends AbstractStage
         $then = $this->getStep()->getThen();
         $else = $this->getStep()->getElse();
 
-        $this->output->writeln("-> Running test : ");
+        $condition = $this->getStep()->getCondition();
 
-        $test = (bool) $stepWalker->walk($if);
+        if (!is_string($condition)) {
+            $condition = "Composite test";
+        }
+
+        $this->output->writeln("-> Running test : <fg=white;bg=cyan>$condition</>");
+
+        $test = $stepWalker->walk($if);
 
         $result = null;
 
