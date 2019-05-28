@@ -4,19 +4,19 @@ namespace WorldFactory\QQ\Entities\Stages;
 
 use Exception;
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\Steps\LeafStep;
+use WorldFactory\QQ\Entities\Steps\StringStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
- * Class ArrayStage
+ * Class StringStage
  * @package WorldFactory\QQ\Entities\Stages
  *
- * @method LeafStep getStep()
+ * @method StringStep getStep()
  */
-class LeafStage extends AbstractStage
+class StringStage extends AbstractStage
 {
     /** @var string Final script to execute */
     private $compiledScript;
@@ -28,7 +28,7 @@ class LeafStage extends AbstractStage
     private $context;
 
     /**
-     * LeafStage constructor.
+     * StringStage constructor.
      * @param AbstractStep $step
      * @param string $compiledScript
      * @param RunnerInterface $runner

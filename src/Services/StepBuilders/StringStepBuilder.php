@@ -4,10 +4,10 @@ namespace WorldFactory\QQ\Services\StepBuilders;
 
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
-use WorldFactory\QQ\Entities\Steps\LeafStep;
+use WorldFactory\QQ\Entities\Steps\StringStep;
 use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
-class LeafStepBuilder extends  AbstractStepBuilder
+class StringStepBuilder extends  AbstractStepBuilder
 {
     public function isValid($definition) : bool
     {
@@ -16,6 +16,6 @@ class LeafStepBuilder extends  AbstractStepBuilder
 
     public function build($definition, OptionBag $config) : AbstractStep
     {
-        return new LeafStep($this->getStepFactory(), $config, $definition);
+        return new StringStep($this->getStepFactory(), $config, $definition);
     }
 }

@@ -5,8 +5,8 @@ namespace WorldFactory\QQ\Services\StageBuilders;
 use WorldFactory\QQ\Entities\Context;
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
-use WorldFactory\QQ\Entities\Stages\LeafStage;
-use WorldFactory\QQ\Entities\Steps\LeafStep;
+use WorldFactory\QQ\Entities\Stages\StringStage;
+use WorldFactory\QQ\Entities\Steps\StringStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;
@@ -15,7 +15,7 @@ use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Misc\ContextualizedFormatter;
 use WorldFactory\QQ\Services\RunnerFactory;
 
-class LeafStageBuilder extends AbstractStageBuilder
+class StringStageBuilder extends AbstractStageBuilder
 {
     /** @var RunnerFactory */
     private $runnerFactory;
@@ -27,11 +27,11 @@ class LeafStageBuilder extends AbstractStageBuilder
 
     public function isValid(AbstractStep $step): bool
     {
-        return $step instanceof LeafStep;
+        return $step instanceof StringStep;
     }
 
     /**
-     * @param LeafStep $step
+     * @param StringStep $step
      * @param Context $context
      * @return AbstractStage
      * @throws \Exception
@@ -44,7 +44,7 @@ class LeafStageBuilder extends AbstractStageBuilder
 
         $compiledScript = $this->compileScript($step, $formatter, $runner);
 
-        return new LeafStage($step, $compiledScript, $runner, $context);
+        return new StringStage($step, $compiledScript, $runner, $context);
     }
 
     /**
@@ -52,7 +52,7 @@ class LeafStageBuilder extends AbstractStageBuilder
      * @return RunnerInterface
      * @throws \Exception
      */
-    protected function buildRunner(LeafStep $leafStep, Context $context, ScriptFormatterInterface $formatter) : RunnerInterface
+    protected function buildRunner(StringStep $leafStep, Context $context, ScriptFormatterInterface $formatter) : RunnerInterface
     {
         /** @var OptionBag $config */
         $config = $leafStep->getOptionBag();
@@ -80,7 +80,7 @@ class LeafStageBuilder extends AbstractStageBuilder
         return $runner;
     }
 
-    protected function compileScript(LeafStep $step, ScriptFormatterInterface $formatter, RunnerInterface $runner) : string
+    protected function compileScript(StringStep $step, ScriptFormatterInterface $formatter, RunnerInterface $runner) : string
     {
         $compiledScript = $step->getScript();
 

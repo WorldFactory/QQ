@@ -24,7 +24,7 @@ services:
 
     qq.builder.stage.leaf:
         parent: qq.builder.stage.abstract
-        class: WorldFactory\QQ\Services\StageBuilders\LeafStageBuilder
+        class: WorldFactory\QQ\Services\StageBuilders\StringStageBuilder
         arguments: ["@qq.factory.runners"]
         tags:
             - { name: qq.builder.stage, type: leaf }

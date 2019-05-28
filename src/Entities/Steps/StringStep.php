@@ -6,12 +6,12 @@ use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
-class LeafStep extends AbstractStep
+class StringStep extends AbstractStep
 {
     protected $script;
 
     /**
-     * LeafStep constructor.
+     * StringStep constructor.
      * @param StepFactory $stepFactory
      * @param OptionBag $config
      * @param string $script

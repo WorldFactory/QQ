@@ -24,7 +24,7 @@ services:
 
     qq.builder.step.leaf:
         parent: qq.builder.step.abstract
-        class: WorldFactory\QQ\Services\StepBuilders\LeafStepBuilder
+        class: WorldFactory\QQ\Services\StepBuilders\StringStepBuilder
         tags:
             - { name: qq.builder.step, type: leaf }
 
