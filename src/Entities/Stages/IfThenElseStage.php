@@ -54,7 +54,7 @@ class IfThenElseStage extends AbstractStage
 
         $result = null;
 
-        if ($test) {
+        if ($test === true) {
             $this->output->writeln("-> Result : <fg=white;bg=green>TRUE</>");
             $result = $stepWalker->walk($then);
         } else {
