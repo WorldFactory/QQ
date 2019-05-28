@@ -14,7 +14,7 @@ class SetFromStep extends AbstractStep
     private $from;
 
     /**
-     * ConditionStep constructor.
+     * SetFromStep constructor.
      * @param StepFactory $stepFactory
      * @param OptionBag $config
      * @param array $definition

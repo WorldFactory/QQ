@@ -12,7 +12,7 @@ use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
- * Class ConditionStage
+ * Class SetFromStage
  * @package WorldFactory\QQ\Entities\Stages
  *
  * @method SetFromStep getStep()
@@ -26,9 +26,10 @@ class SetFromStage extends AbstractStage
     private $context;
 
     /**
-     * ConditionStage constructor.
+     * SetFromStage constructor.
      * @param AbstractStep $step
-     * @param Accreditor $accreditor
+     * @param Context $context
+     * @param OutputInterface $output
      */
     public function __construct(AbstractStep $step, Context $context, OutputInterface $output)
     {
