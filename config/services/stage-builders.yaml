@@ -18,7 +18,7 @@ services:
 
     qq.builder.stage.child:
         parent: qq.builder.stage.abstract
-        class: WorldFactory\QQ\Services\StageBuilders\ChildStageBuilder
+        class: WorldFactory\QQ\Services\StageBuilders\RunStageBuilder
         tags:
             - { name: qq.builder.stage, type: child }
 

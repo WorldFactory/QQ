@@ -3,17 +3,17 @@
 namespace WorldFactory\QQ\Entities\Stages;
 
 use Exception;
-use WorldFactory\QQ\Entities\Steps\ChildStep;
+use WorldFactory\QQ\Entities\Steps\RunStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
- * Class ChildStage
+ * Class RunStage
  * @package WorldFactory\QQ\Entities\Stages
  *
- * @method ChildStep getStep()
+ * @method RunStep getStep()
  */
-class ChildStage extends AbstractStage
+class RunStage extends AbstractStage
 {
     /**
      * @inheritdoc

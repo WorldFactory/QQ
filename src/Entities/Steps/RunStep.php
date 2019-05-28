@@ -7,12 +7,12 @@ use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
-class ChildStep extends AbstractStep
+class RunStep extends AbstractStep
 {
     protected $child;
 
     /**
-     * ChildStep constructor.
+     * RunStep constructor.
      * @param StepFactory $stepFactory
      * @param OptionBag $config
      * @param array $definition

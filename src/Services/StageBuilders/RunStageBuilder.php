@@ -3,21 +3,21 @@
 namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Entities\Context;
-use WorldFactory\QQ\Entities\Stages\ChildStage;
-use WorldFactory\QQ\Entities\Steps\ChildStep;
+use WorldFactory\QQ\Entities\Stages\RunStage;
+use WorldFactory\QQ\Entities\Steps\RunStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;
 
-class ChildStageBuilder extends AbstractStageBuilder
+class RunStageBuilder extends AbstractStageBuilder
 {
     public function isValid(AbstractStep $step): bool
     {
-        return $step instanceof ChildStep;
+        return $step instanceof RunStep;
     }
 
     public function buildStage($step, Context $context): AbstractStage
     {
-        return new ChildStage($step);
+        return new RunStage($step);
     }
 }
