@@ -9,6 +9,7 @@ commands:
         script: "%docker_shell%"
         options:
             target: "%1%"
+            wrap: false
         shortDescription: Open shell in target container.
         longDescription: Need a target environment name.
         aliases: [open]
