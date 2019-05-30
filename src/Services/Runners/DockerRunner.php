@@ -145,11 +145,7 @@ EOT;
         /** @var RunnerInterface $runner */
         $runner = null;
 
-        if ($this->isUnix()) {
-            $runner = $this->runnerFactory->getRunner('shell');
-        } else {
-            $runner = $this->runnerFactory->getRunner('array');
-        }
+        $runner = $this->runnerFactory->getRunner('shell');
 
         $runner
             ->setHeaderDisplayed(false)
