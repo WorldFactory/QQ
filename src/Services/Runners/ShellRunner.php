@@ -13,6 +13,11 @@ class ShellRunner extends AbstractRunner
         'workingDir' => [
             'type' => 'string',
             'description' => "The working directory for the executed script."
+        ],
+        'tty'      => [
+            'type' => 'bool',
+            'description' => "Use TTY to launch script.",
+            'default' => false
         ]
     ];
 
@@ -39,12 +44,14 @@ EOT;
 
     protected function getProcess(string $script)
     {
+        $options = $this->getOptions();
+
         $process = $this->createProcess($script);
 
         $process
             ->setTimeout(0)
             ->setIdleTimeout(0)
-            ->setTty(false)
+            ->setTty($options['tty'])
         ;
 
         if ($this->hasOption('workingDir')) {
