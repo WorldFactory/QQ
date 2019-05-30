@@ -26,6 +26,9 @@ abstract class AbstractRunner implements RunnerInterface
     /** @var Context */
     private $context;
 
+    /** @var bool */
+    private $headerDisplayed = true;
+
     public function getOptionDefinitions() : array
     {
         return static::OPTION_DEFINITIONS;
@@ -113,7 +116,17 @@ abstract class AbstractRunner implements RunnerInterface
 
     protected function isHeaderDisplayed() : bool
     {
-        return true;
+        return $this->headerDisplayed;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setHeaderDisplayed(bool $headerDisplayed) : RunnerInterface
+    {
+        $this->headerDisplayed = $headerDisplayed;
+
+        return $this;
     }
 
     /**

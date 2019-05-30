@@ -152,6 +152,7 @@ EOT;
         }
 
         $runner
+            ->setHeaderDisplayed(false)
             ->setInput($this->getInput())
             ->setOutput($this->getOutput())
         ;

@@ -27,4 +27,10 @@ interface RunnerInterface
     public function setOutput(OutputInterface $output) : RunnerInterface;
 
     public function getOutput() : OutputInterface;
+
+    /**
+     * @param bool $headerDisplayed
+     * @return self
+     */
+    public function setHeaderDisplayed(bool $headerDisplayed) : RunnerInterface;
 }
