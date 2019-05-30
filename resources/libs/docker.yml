@@ -1,7 +1,7 @@
 parameters:
     docker_images_prefix: ~
     docker_image_folder: ./docker/images/
-    docker_shell: bash
+    docker_shell: sh
 
 commands:
     "docker:open":
