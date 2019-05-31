@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Services\Runners;
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractRunner;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
+use WorldFactory\QQ\Misc\RunnerOptionBag;
 use WorldFactory\QQ\Services\RunnerFactory;
 
 class DockerRunner extends AbstractRunner
@@ -35,12 +36,17 @@ class DockerRunner extends AbstractRunner
         'tty'      => [
             'type' => 'bool',
             'description' => "Use TTY to launch script.",
+            'default' => true
+        ],
+        'subtty'      => [
+            'type' => 'bool',
+            'description' => "Use TTY in Shell sub-runner.",
             'default' => false
         ],
         'wrap'      => [
             'type' => 'bool',
             'description' => "Wrap script into interpreter.",
-            'default' => true
+            'default' => false
         ],
         'wrapper'      => [
             'type' => 'string',
@@ -109,7 +115,7 @@ EOT;
         }
 
         if ($options['tty']) {
-            $parameters[] = "-T";
+            $parameters[] = "-t";
         }
 
         if ($options['wrap']) {
@@ -133,7 +139,7 @@ EOT;
 
         $execArgs = join(' ', $parameters);
 
-        return "docker-compose exec $execArgs $target $compiledScript";
+        return "docker exec $execArgs `docker-compose ps -q $target` $compiledScript";
     }
 
     /**
@@ -142,10 +148,16 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         /** @var RunnerInterface $runner */
         $runner = null;
 
         $runner = $this->runnerFactory->getRunner('shell');
+
+        $runnerConfig = new RunnerOptionBag(['tty' => $options['subtty']]);
+
+        $runnerConfig->link($runner);
 
         $runner
             ->setHeaderDisplayed(false)
