@@ -17,7 +17,7 @@ class ShellRunner extends AbstractRunner
         'tty'      => [
             'type' => 'bool',
             'description' => "Use TTY to launch script.",
-            'default' => false
+            'default' => true
         ]
     ];
 
