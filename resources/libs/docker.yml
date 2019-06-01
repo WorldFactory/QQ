@@ -2,6 +2,7 @@ parameters:
     docker_images_prefix: ~
     docker_image_folder: ./docker/images/
     docker_shell: sh
+    docker_prompt: '[\e[93m\u\e[39m@\e[92m\h\e[39m] \e[96m\w\e[39m \$'
 
 commands:
     "docker:open":
@@ -9,6 +10,7 @@ commands:
         script: "%docker_shell%"
         options:
             target: "%1%"
+            env: PS1="%docker_prompt%"
             subtty: true
             flags: [interactive]
         shortDescription: Open shell in target container.
