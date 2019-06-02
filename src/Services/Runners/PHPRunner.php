@@ -8,6 +8,14 @@ use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class PHPRunner extends AbstractRunner
 {
+    protected const OPTION_DEFINITIONS = [
+        'eol'      => [
+            'type' => 'bool',
+            'description' => "Add EOL at end of script running.",
+            'default' => false
+        ]
+    ];
+
     protected const SHORT_DESCRIPTION = "Execute PHP code with 'eval' function.";
 
     protected const LONG_DESCRIPTION = <<<EOT
@@ -28,6 +36,8 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         $this->result = null;
         $this->script = $script;
 
@@ -35,7 +45,9 @@ EOT;
 
         $execution->execute();
 
-        $this->getOutput()->writeln('');
+        if ($options['eol']) {
+            $this->getOutput()->write(PHP_EOL);
+        }
 
         return $this->result;
     }
