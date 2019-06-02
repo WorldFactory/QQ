@@ -40,3 +40,21 @@ services:
         class: WorldFactory\QQ\Services\StageBuilders\SetFromStageBuilder
         tags:
             - { name: qq.builder.stage, type: setfrom }
+
+    qq.builder.stage.and:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\AndStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: and }
+
+    qq.builder.stage.or:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\OrStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: or }
+
+    qq.builder.stage.add:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\AddStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: add }

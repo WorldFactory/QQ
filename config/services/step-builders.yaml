@@ -39,3 +39,21 @@ services:
         class: WorldFactory\QQ\Services\StepBuilders\SetFromStepBuilder
         tags:
             - { name: qq.builder.step, type: setfrom }
+
+    qq.builder.step.and:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\AndStepBuilder
+        tags:
+            - { name: qq.builder.step, type: and }
+
+    qq.builder.step.or:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\OrStepBuilder
+        tags:
+            - { name: qq.builder.step, type: or }
+
+    qq.builder.step.add:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\AddStepBuilder
+        tags:
+            - { name: qq.builder.step, type: add }
