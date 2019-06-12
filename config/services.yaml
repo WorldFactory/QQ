@@ -54,3 +54,20 @@ services:
     qq.factory.stage:
         class: WorldFactory\QQ\Services\StageFactory
         arguments: ["@service_container"]
+
+    qq.command.add_host:
+        class: Local\Commands\AddHostCommand
+        calls:
+            - ["setHostsHandler", ["@qq.handler.hosts"]]
+        tags:
+            - { name: console.command }
+
+    qq.command.remove_host:
+        class: Local\Commands\RemoveHostCommand
+        calls:
+            - ["setHostsHandler", ["@qq.handler.hosts"]]
+        tags:
+            - { name: console.command }
+
+    qq.handler.hosts:
+        class: Local\Services\HostsHandler
