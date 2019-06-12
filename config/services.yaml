@@ -55,3 +55,20 @@ services:
     qq.iterator.script:
         class: WorldFactory\QQ\Services\ScriptIterator
         arguments: ["@service_container", "@qq.factory.runners"]
+
+    qq.command.add_host:
+        class: WorldFactory\QQ\Services\Commands\AddHostCommand
+        calls:
+            - ["setHostsHandler", ["@qq.handler.hosts"]]
+        tags:
+            - { name: console.command }
+
+    qq.command.remove_host:
+        class: WorldFactory\QQ\Services\Commands\RemoveHostCommand
+        calls:
+            - ["setHostsHandler", ["@qq.handler.hosts"]]
+        tags:
+            - { name: console.command }
+
+    qq.handler.hosts:
+        class: WorldFactory\QQ\Services\HostsHandler
