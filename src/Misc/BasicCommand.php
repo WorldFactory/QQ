@@ -247,12 +247,22 @@ class BasicCommand extends Command implements ContainerAwareInterface
         /** @var ConfigLoader $loaderConfig */
         $loaderConfig = $this->container->get('qq.loader.config');
 
-        return new Context(
+        $context = new Context(
             $loaderConfig->getParameters(),
             $this->input->getArgumentTokens(),
             $this->input,
             $this->output
         );
+
+        foreach ($this->userTokens as $name => $type) {
+            if ($type === 'arg') {
+                $context[$name] = $this->input->getArgument($name);
+            } elseif ($type === 'opt') {
+                $context[$name] = $this->input->getOption($name);
+            }
+        }
+
+        return $context;
     }
 
     /**
