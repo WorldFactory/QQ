@@ -14,6 +14,11 @@ class FileRunner extends AbstractRunner
             'type' => 'bool',
             'default' => false,
             'description' => "If set to True, display a message before continuing."
+        ],
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
         ]
     ];
 
@@ -29,6 +34,8 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         $filename = $this->getFilename();
 
         $this->writeScript($script, $filename);
@@ -44,7 +51,9 @@ EOT;
 
         $execution->execute();
 
-        return $execution->getBuffer()->get();
+        $result = $execution->getBuffer()->get();
+
+        return (is_string($result) && $options['trim']) ? trim($result) : $result;
     }
 
     protected function getFilename() : string

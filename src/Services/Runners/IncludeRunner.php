@@ -8,6 +8,14 @@ use WorldFactory\QQ\Misc\TemporizedExecution;
 
 class IncludeRunner extends AbstractRunner
 {
+    const OPTION_DEFINITIONS = [
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
+        ]
+    ];
+
     protected const SHORT_DESCRIPTION = "Include target PHP file.";
 
     protected const LONG_DESCRIPTION = <<<EOT
@@ -29,6 +37,8 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         $this->result = null;
         $this->script = $script;
 
@@ -38,7 +48,7 @@ EOT;
 
         $this->getOutput()->writeln('');
 
-        return $this->result;
+        return (is_string($this->result) && $options['trim']) ? trim($this->result) : $this->result;
     }
 
     public function executeTemporized()

@@ -7,6 +7,14 @@ use WorldFactory\QQ\Foundations\AbstractRunner;
 
 class JSONRunner extends AbstractRunner
 {
+    protected const OPTION_DEFINITIONS = [
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
+        ]
+    ];
+
     protected const SHORT_DESCRIPTION = "Parse JSON string.";
 
     protected const LONG_DESCRIPTION = <<<EOT
@@ -20,6 +28,8 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         $result = json_decode($script);
 
         $status = json_last_error();
@@ -62,6 +72,6 @@ EOT;
                 break;
         }
 
-        return $result;
+        return (is_string($result) && $options['trim']) ? trim($result) : $result;
     }
 }

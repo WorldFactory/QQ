@@ -35,6 +35,11 @@ class PDORunner extends AbstractRunner
         'options' => [
             'type' => 'array',
             'description' => "An array of options to be use with this DSN."
+        ],
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
         ]
     ];
 
@@ -79,7 +84,7 @@ EOT;
             $this->getOutput()->writeln("$result affected row(s).");
         }
 
-        return $result;
+        return (is_string($result) && $options['trim']) ? trim($result) : $result;
     }
 
     /**

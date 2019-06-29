@@ -67,7 +67,7 @@ EOT;
             throw new Exception("Unknown system error : '$returnCode' for command :  {$script}");
         }
 
-        return $result;
+        return trim($result);
     }
 
     protected function getReplicatedOutput()

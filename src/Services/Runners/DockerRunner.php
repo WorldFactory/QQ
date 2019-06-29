@@ -52,6 +52,11 @@ class DockerRunner extends AbstractRunner
             'type' => 'string',
             'description' => "Define interpreter wrapper. Only Bash, Sh and PHP are recognized a this time.",
             'default' => 'sh'
+        ],
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
         ]
     ];
 
@@ -155,7 +160,7 @@ EOT;
 
         $runner = $this->runnerFactory->getRunner('shell');
 
-        $runnerConfig = new RunnerOptionBag(['tty' => $options['subtty']]);
+        $runnerConfig = new RunnerOptionBag(['tty' => $options['subtty'], 'trim' => $options['trim']]);
 
         $runnerConfig->link($runner);
 

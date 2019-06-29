@@ -18,6 +18,11 @@ class ShellRunner extends AbstractRunner
             'type' => 'bool',
             'description' => "Use TTY to launch script.",
             'default' => false
+        ],
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
         ]
     ];
 
@@ -67,6 +72,8 @@ EOT;
      */
     public function execute(string $script)
     {
+        $options = $this->getOptions();
+
         $this->buffer->reset();
 
         /** @var Process $process */
@@ -78,7 +85,9 @@ EOT;
             throw new Exception("Unknown system error : '{$process->getExitCode()}' for command : {$script}");
         }
 
-        return $this->buffer->get();
+        $result = $this->buffer->get();
+
+        return (is_string($result) && $options['trim']) ? trim($result) : $result;
     }
 
     public function displayCallback ($type, $buffer)

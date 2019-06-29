@@ -12,6 +12,7 @@ class ExpressionRunner extends PHPRunner
     protected const LONG_DESCRIPTION = <<<EOT
 This Runner allows you to execute PHP code with the 'eval' function.
 Before it runs, your code is encapsulated as follows: "return (<your_code>);"
+After in runs, the result is transtyped as boolean.
 The context is the 'execute' method of the ExpressionRunner class.
 You have at your disposal all parameters extracted in the current symbol table, as well as all the protected and private methods of the ExpressionRunner.
 EOT;
@@ -22,13 +23,13 @@ EOT;
      */
     public function execute(string $script)
     {
-        $script = "return ($script);";
+        $script = "return (bool) ($script);";
 
         $_parameters = $this->getContext()->getParameters();
 
         extract($_parameters);
 
-        $result = eval($script);
+        $result = (bool) eval($script);
 
         return $result;
     }

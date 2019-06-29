@@ -9,10 +9,15 @@ use WorldFactory\QQ\Misc\TemporizedExecution;
 class PHPRunner extends AbstractRunner
 {
     protected const OPTION_DEFINITIONS = [
-        'eol'      => [
+        'eol' => [
             'type' => 'bool',
-            'description' => "Add EOL at end of script running.",
+            'description' => "Write EOL at end of script running.",
             'default' => false
+        ],
+        'trim' => [
+            'type' => 'bool',
+            'description' => "Trim result if it's a string.",
+            'default' => true
         ]
     ];
 
@@ -49,7 +54,7 @@ EOT;
             $this->getOutput()->write(PHP_EOL);
         }
 
-        return $this->result;
+        return (is_string($this->result) && $options['trim']) ? trim($this->result) : $this->result;
     }
 
     public function executeTemporized()
