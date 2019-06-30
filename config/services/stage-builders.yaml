@@ -58,3 +58,9 @@ services:
         class: WorldFactory\QQ\Services\StageBuilders\AddStageBuilder
         tags:
             - { name: qq.builder.stage, type: add }
+
+    qq.builder.stage.trycatch:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\TryCatchStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: trycatch }
