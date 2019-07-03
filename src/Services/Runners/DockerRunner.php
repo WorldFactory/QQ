@@ -147,7 +147,7 @@ EOT;
         $runner = null;
 
         if ($this->isUnix()) {
-            $runner = $this->runnerFactory->getRunner('bash');
+            $runner = $this->runnerFactory->getRunner('shell');
         } else {
             $runner = $this->runnerFactory->getRunner('exec');
         }
