@@ -63,3 +63,9 @@ services:
         class: WorldFactory\QQ\Services\StepBuilders\TryCatchStepBuilder
         tags:
             - { name: qq.builder.step, type: trycatch }
+
+    qq.builder.step.whiledo:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\WhileDoStepBuilder
+        tags:
+            - { name: qq.builder.step, type: whiledo }
