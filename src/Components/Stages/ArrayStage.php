@@ -1,15 +1,15 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractStage;
-use WorldFactory\QQ\Entities\Steps\ArrayStep;
+use WorldFactory\QQ\Components\Steps\ArrayStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class ArrayStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method ArrayStep getStep()
  */

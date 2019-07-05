@@ -1,10 +1,10 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
 use WorldFactory\QQ\Components\Context;
-use WorldFactory\QQ\Entities\Steps\StringStep;
+use WorldFactory\QQ\Components\Steps\StringStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
@@ -12,7 +12,7 @@ use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class StringStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method StringStep getStep()
  */

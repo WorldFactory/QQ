@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Steps;
+namespace WorldFactory\QQ\Components\Steps;
 
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;

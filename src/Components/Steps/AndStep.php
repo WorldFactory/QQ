@@ -1,13 +1,13 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Steps;
+namespace WorldFactory\QQ\Components\Steps;
 
 use Exception;
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StepFactory;
 
-class AddStep extends AbstractStep
+class AndStep extends AbstractStep
 {
     private $children = [];
 
@@ -22,11 +22,11 @@ class AddStep extends AbstractStep
     {
         parent::__construct($stepFactory, $config);
 
-        if(!is_array($definition['add'])) {
-            throw new Exception("The 'add' key must be an Array.");
+        if(!is_array($definition['and'])) {
+            throw new Exception("The 'and' key must be an Array.");
         }
 
-        foreach($definition['add'] as $line) {
+        foreach($definition['and'] as $line) {
             $this->children[] = $stepFactory->buildStep($line, $this->getOptionBag());
         }
     }

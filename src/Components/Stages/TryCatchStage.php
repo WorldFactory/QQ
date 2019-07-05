@@ -1,17 +1,17 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Entities\Steps\TryCatchStep;
+use WorldFactory\QQ\Components\Steps\TryCatchStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class TryCatchStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method TryCatchStep getStep()
  */

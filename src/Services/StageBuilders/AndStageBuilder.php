@@ -3,8 +3,8 @@
 namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Components\Context;
-use WorldFactory\QQ\Entities\Stages\AndStage;
-use WorldFactory\QQ\Entities\Steps\AndStep;
+use WorldFactory\QQ\Components\Stages\AndStage;
+use WorldFactory\QQ\Components\Steps\AndStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;

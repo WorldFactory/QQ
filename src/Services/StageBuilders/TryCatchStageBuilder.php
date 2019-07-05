@@ -3,8 +3,8 @@
 namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Components\Context;
-use WorldFactory\QQ\Entities\Stages\TryCatchStage;
-use WorldFactory\QQ\Entities\Steps\TryCatchStep;
+use WorldFactory\QQ\Components\Stages\TryCatchStage;
+use WorldFactory\QQ\Components\Steps\TryCatchStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;

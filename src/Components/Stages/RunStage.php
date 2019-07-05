@@ -1,15 +1,15 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
-use WorldFactory\QQ\Entities\Steps\RunStep;
+use WorldFactory\QQ\Components\Steps\RunStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class RunStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method RunStep getStep()
  */

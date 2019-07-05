@@ -3,8 +3,8 @@
 namespace WorldFactory\QQ\Services\StageBuilders;
 
 use WorldFactory\QQ\Components\Context;
-use WorldFactory\QQ\Entities\Stages\IfThenElseStage;
-use WorldFactory\QQ\Entities\Steps\IfThenElseStep;
+use WorldFactory\QQ\Components\Stages\IfThenElseStage;
+use WorldFactory\QQ\Components\Steps\IfThenElseStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;

@@ -1,18 +1,18 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Components\Context;
-use WorldFactory\QQ\Entities\Steps\SetFromStep;
+use WorldFactory\QQ\Components\Steps\SetFromStep;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class SetFromStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method SetFromStep getStep()
  */

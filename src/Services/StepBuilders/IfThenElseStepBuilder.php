@@ -4,7 +4,7 @@ namespace WorldFactory\QQ\Services\StepBuilders;
 
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Foundations\AbstractStep;
-use WorldFactory\QQ\Entities\Steps\IfThenElseStep;
+use WorldFactory\QQ\Components\Steps\IfThenElseStep;
 use WorldFactory\QQ\Foundations\AbstractStepBuilder;
 
 class IfThenElseStepBuilder extends AbstractStepBuilder

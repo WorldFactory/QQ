@@ -1,15 +1,15 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Stages;
+namespace WorldFactory\QQ\Components\Stages;
 
 use Exception;
 use WorldFactory\QQ\Foundations\AbstractStage;
-use WorldFactory\QQ\Entities\Steps\OrStep;
+use WorldFactory\QQ\Components\Steps\OrStep;
 use WorldFactory\QQ\Misc\StepWalker;
 
 /**
  * Class OrStage
- * @package WorldFactory\QQ\Entities\Stages
+ * @package WorldFactory\QQ\Components\Stages
  *
  * @method OrStep getStep()
  */

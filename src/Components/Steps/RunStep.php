@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldFactory\QQ\Entities\Steps;
+namespace WorldFactory\QQ\Components\Steps;
 
 use Exception;
 use WorldFactory\QQ\Misc\OptionBag;
