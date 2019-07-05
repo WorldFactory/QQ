@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Misc;
 
 use Exception;
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStep;
 use WorldFactory\QQ\Services\StageFactory;

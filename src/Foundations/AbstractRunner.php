@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
 use WorldFactory\QQ\Interfaces\RunnerInterface;
 use WorldFactory\QQ\Misc\RunnerOptionBag;

@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Services\StageBuilders;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Entities\Stages\OrStage;
 use WorldFactory\QQ\Entities\Steps\OrStep;
 use WorldFactory\QQ\Foundations\AbstractStage;

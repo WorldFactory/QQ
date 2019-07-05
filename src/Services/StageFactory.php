@@ -4,7 +4,7 @@ namespace WorldFactory\QQ\Services;
 
 use Exception;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Foundations\AbstractStage;
 use WorldFactory\QQ\Foundations\AbstractStageBuilder;
 use WorldFactory\QQ\Foundations\AbstractStep;

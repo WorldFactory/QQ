@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Services\StageBuilders;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Entities\Stages\AndStage;
 use WorldFactory\QQ\Entities\Steps\AndStep;
 use WorldFactory\QQ\Foundations\AbstractStage;

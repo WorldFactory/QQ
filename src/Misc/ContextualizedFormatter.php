@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Misc;
 
 use Exception;
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Interfaces\ScriptFormatterInterface;
 use WorldFactory\QQ\Services\RunnerFactory;
 

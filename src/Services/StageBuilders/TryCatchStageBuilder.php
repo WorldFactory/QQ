@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Services\StageBuilders;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Entities\Stages\TryCatchStage;
 use WorldFactory\QQ\Entities\Steps\TryCatchStep;
 use WorldFactory\QQ\Foundations\AbstractStage;

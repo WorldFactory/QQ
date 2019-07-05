@@ -3,7 +3,7 @@
 namespace WorldFactory\QQ\Interfaces;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
 
 interface RunnerInterface

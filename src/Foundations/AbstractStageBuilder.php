@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Foundations;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 
 abstract class AbstractStageBuilder
 {

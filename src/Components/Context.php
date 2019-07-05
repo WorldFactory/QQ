@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldFactory\QQ\Entities;
+namespace WorldFactory\QQ\Components;
 
 use ArrayAccess;
 use Symfony\Component\Console\Output\OutputInterface;

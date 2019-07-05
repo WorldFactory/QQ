@@ -2,7 +2,7 @@
 
 namespace WorldFactory\QQ\Services\StageBuilders;
 
-use WorldFactory\QQ\Entities\Context;
+use WorldFactory\QQ\Components\Context;
 use WorldFactory\QQ\Misc\OptionBag;
 use WorldFactory\QQ\Misc\RunnerOptionBag;
 use WorldFactory\QQ\Entities\Stages\StringStage;
