@@ -15,6 +15,8 @@ class Hosts
 
     private $target;
 
+    private $cachedContent;
+
     public function __construct(string $target)
     {
         $this->target = $target;
@@ -22,11 +24,19 @@ class Hosts
         $this->loadTarget();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCachedContent()
+    {
+        return $this->cachedContent;
+    }
+
     private function loadTarget()
     {
-        $content = file_get_contents($this->target);
+        $this->cachedContent = file_get_contents($this->target);
 
-        $tokens = explode(self::SEPARATOR, $content);
+        $tokens = explode(self::SEPARATOR, $this->cachedContent);
         $count = count($tokens);
 
         if ($count > 3) {
@@ -77,6 +87,9 @@ class Hosts
         $this->removeHost($host);
 
         $this->mapping[$ip][] = $host;
+
+        asort($this->mapping[$ip]);
+        asort($this->mapping);
     }
 
     public function removeHost(string $host)

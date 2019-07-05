@@ -11,10 +11,15 @@ class HostsHandler
     {
         $target = $hosts->getTarget();
         $filename = $this->getFilename();
+        $content = $hosts->buildContent();
 
-        file_put_contents($filename, $hosts->buildContent());
+        if ($content !== $hosts->getCachedContent()) {
+            file_put_contents($filename, $hosts->buildContent());
 
-        system("sudo cp -f $filename $target && rm $filename", $result);
+            system("sudo cp -f $filename $target && rm $filename", $result);
+        } else {
+            $result = 0;
+        }
 
         return ($result === 0);
     }
