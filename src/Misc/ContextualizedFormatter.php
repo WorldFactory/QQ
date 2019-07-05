@@ -17,6 +17,10 @@ class ContextualizedFormatter implements ScriptFormatterInterface
     const REGEX_ENV_VAR_REPLACE = '/(^|[^\\\\])(\$\{%s\})/';
     const REGEX_ENV_VAR_CLEANING = '/(\\\\)(\$\{[a-zA-Z0-9_]+\})/';
 
+    const REGEX_PARAMETER_MATCH = '/(^|[^\\\\])(?<match>\%\{(?<key>[a-zA-Z0-9_-]+)\})/';
+    const REGEX_PARAMETER_REPLACE = '/(^|[^\\\\])(%%\{%s\})/';
+    const REGEX_PARAMETER_CLEANING = '/(\\\\)(\%\{[a-zA-Z0-9_-]+\})/';
+
     /** @var Context */
     private $context;
 
@@ -105,8 +109,25 @@ class ContextualizedFormatter implements ScriptFormatterInterface
         foreach ($parameters as $key => $val) {
             if (preg_match("/%$key%/", $var)) {
                 $var = str_replace('%' . $key . '%', $val, $var);
+
+                trigger_error('Parameter format \'%' . $key . '%\' is deprecated. Consider using new format : \'%{' . $key . '}\'. In the future, only \'%my_param\' will be needed for simple cases.', E_USER_DEPRECATED);
             }
         }
+
+        if (preg_match_all(self::REGEX_PARAMETER_MATCH, $var, $matches)) {
+            $combined = array_combine($matches['key'], $matches['match']);
+
+            foreach ($combined as $key => $match) {
+                if (!array_key_exists($key, $parameters)) {
+                    throw new Exception("Target parameter '$key' is not defined.");
+                }
+
+                $pattern = sprintf(self::REGEX_PARAMETER_REPLACE, $key);
+                $var = preg_replace($pattern, '${1}' . $parameters[$key], $var);
+            }
+        }
+
+        $var = preg_replace(self::REGEX_PARAMETER_CLEANING, '$2', $var);
 
         return $var;
     }
