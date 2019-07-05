@@ -114,7 +114,7 @@ class Hosts
             $content .= PHP_EOL;
         }
 
-        if (substr_count($content, PHP_EOL, -1, 2) !== 2) {
+        if (substr($content, -1, 2) !== str_repeat(PHP_EOL, 2)) {
             $content .= PHP_EOL;
         }
 
