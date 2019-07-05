@@ -118,12 +118,22 @@ class ContextualizedFormatter implements ScriptFormatterInterface
             $combined = array_combine($matches['key'], $matches['match']);
 
             foreach ($combined as $key => $match) {
-                if (!array_key_exists($key, $parameters)) {
-                    throw new Exception("Target parameter '$key' is not defined.");
+                if (preg_match('/^[0-9]+$/', $key)) {
+                    if (!isset($this->tokens[$key - 1])) {
+                        throw new Exception("Target token '$key' is not defined.");
+                    }
+
+                    $value = $this->tokens[$key - 1];
+                } else {
+                    if (!array_key_exists($key, $parameters)) {
+                        throw new Exception("Target parameter '$key' is not defined.");
+                    }
+
+                    $value = $parameters[$key];
                 }
 
                 $pattern = sprintf(self::REGEX_PARAMETER_REPLACE, $key);
-                $var = preg_replace($pattern, '${1}' . $parameters[$key], $var);
+                $var = preg_replace($pattern, '${1}' . $value, $var);
             }
         }
 
