@@ -19,8 +19,9 @@ Its purpose is to be the keystone of your development environment.
 * [Using environment variables](./doc/envvars.md)
 * [Recursive script configuration form](./doc/recursive-form.md)
 * [How to use parameters ?](./doc/parameters.md)
-* [Set/From statement documentation](./doc/set-from.md)
-* [Statements And, Or and Add](./doc/and-or-add.md)
+* Statements
+    * [Set/From](doc/statements/set-from.md)
+    * [And, Or and Add](doc/statements/and-or-add.md)
 
 ## Installation
 
