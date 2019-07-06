@@ -69,3 +69,9 @@ services:
         class: WorldFactory\QQ\Services\StepBuilders\WhileDoStepBuilder
         tags:
             - { name: qq.builder.step, type: whiledo }
+
+    qq.builder.step.forindo:
+        parent: qq.builder.step.abstract
+        class: WorldFactory\QQ\Services\StepBuilders\ForInDoStepBuilder
+        tags:
+            - { name: qq.builder.step, type: forindo }

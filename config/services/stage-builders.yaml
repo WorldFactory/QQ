@@ -70,3 +70,9 @@ services:
         class: WorldFactory\QQ\Services\StageBuilders\WhileDoStageBuilder
         tags:
             - { name: qq.builder.stage, type: whiledo }
+
+    qq.builder.stage.forindo:
+        parent: qq.builder.stage.abstract
+        class: WorldFactory\QQ\Services\StageBuilders\ForInDoStageBuilder
+        tags:
+            - { name: qq.builder.stage, type: forindo }
