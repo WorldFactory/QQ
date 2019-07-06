@@ -23,6 +23,7 @@ Its purpose is to be the keystone of your development environment.
     * [Set/From](doc/statements/set-from.md)
     * [And, Or and Add](doc/statements/and-or-add.md)
     * [While/Do](doc/statements/while-do.md)
+    * [Try/Catch](doc/statements/try-catch.md)
 
 ## Installation
 
