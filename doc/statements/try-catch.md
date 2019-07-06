@@ -22,6 +22,8 @@ The second time, we display the list of files in the / tmp directory (on a Linux
 
 ## Without catching errors
 
+The 'catch' key is optional.
+
 ```
 commands:
     test-try:
