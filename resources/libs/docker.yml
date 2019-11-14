@@ -80,6 +80,8 @@ commands:
 
     "docker:wait":
         script: ./vendor/worldfactory/qq/resources/bin/docker-waiting-logs.sh "%_all%"
+        options:
+            tty: true
         shortDescription: Displays docker logs until you find a match, then hands over to the user.
         longDescription: |
             Usage : qq docker:wait <pattern>
