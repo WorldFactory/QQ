@@ -47,7 +47,7 @@ imports:
 
 commands:
     phpv:
-        script: php -v
+        run: php -v
         shortDescription: Display PHP version.
 ```
 

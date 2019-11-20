@@ -44,7 +44,7 @@ commands:
         type: php
         run:
             type: qq
-            script: phpv
+            run: phpv
 
     # Another form of recursive mode
     "my:clone:script":

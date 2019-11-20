@@ -5,7 +5,7 @@ parameters:
 commands:
     "composer:run":
         type: docker
-        script: composer %_all%
+        run: composer %_all%
         options:
             target: "%composer_container%"
             user: "%composer_user%"
@@ -14,7 +14,7 @@ commands:
 
     "composer:clear":
         type: docker
-        script: rm -rf vendor
+        run: rm -rf vendor
         options:
             target: "%composer_container%"
             user: "%composer_user%"
