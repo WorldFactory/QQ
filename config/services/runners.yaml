@@ -98,3 +98,9 @@ services:
         class: WorldFactory\QQ\Services\Runners\ExpressionRunner
         tags:
             - { name: qq.runner, type: "expr" }
+
+    qq.runner.curl:
+        parent: qq.runner.abstract
+        class: WorldFactory\QQ\Services\Runners\CurlRunner
+        tags:
+            - { name: qq.runner, type: "curl" }
