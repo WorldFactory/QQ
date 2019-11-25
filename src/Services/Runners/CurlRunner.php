@@ -49,6 +49,11 @@ class CurlRunner extends AbstractRunner
             'type' => 'bool',
             'description' => "Increase CURL verbosity.",
             'default' => false
+        ],
+        'encoding' => [
+            'type' => 'string',
+            'description' => "Data encoding. Accept 'json', 'url' or 'none'.",
+            'default' => 'none'
         ]
     ];
 
@@ -177,7 +182,21 @@ EOT;
         }
 
         if (!empty($data)) {
-            curl_setopt($request, CURLOPT_POSTFIELDS, json_encode($data));
+            switch ($options['encoding']) {
+                case 'json':
+                    $data = json_encode($data);
+                    break;
+                case 'url':
+                    $data = urlencode($data);
+                    break;
+                case 'none':
+                    break;
+                default:
+                    throw new Exception("Unknown data encoding : '{$options['encoding']}'.");
+                    break;
+            }
+
+            curl_setopt($request, CURLOPT_POSTFIELDS, $data);
 
             if ($method === 'GET') {
                 $method = 'POST';
