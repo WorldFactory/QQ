@@ -44,6 +44,11 @@ class CurlRunner extends AbstractRunner
             'type' => 'string',
             'description' => "File to upload. You can use relative path.",
             'default' => ''
+        ],
+        'debug' => [
+            'type' => 'bool',
+            'description' => "Increase CURL verbosity.",
+            'default' => false
         ]
     ];
 
@@ -177,6 +182,7 @@ EOT;
             }
         }
 
+        curl_setopt($request, CURLOPT_VERBOSE, $options['debug']);
         curl_setopt($request, CURLOPT_TIMEOUT, $options['timeout']);
         curl_setopt($request, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($request, CURLOPT_HTTPHEADER, $this->aggregateHeaders($options['headers']));
