@@ -202,7 +202,7 @@ EOT;
 
     protected function getCookieFilename(string $url) : string
     {
-        $varDir = getcwd() . '/var/tmp';
+        $varDir = getcwd() . '/var/tmp/cookie';
 
         if (!is_dir($varDir)) {
             mkdir($varDir, 0777, true);
@@ -214,7 +214,7 @@ EOT;
             throw new Exception("Unable to retrieve host in target url : $url");
         }
 
-        return "$varDir/cookie.$host";
+        return "$varDir/$host";
     }
 
     protected function aggregateHeaders(array $headers)
