@@ -54,7 +54,7 @@ Execute Curl request and get result.
 Throw error if HTTP response code is not 200.
 EOT;
 
-    const HTTP_CODES = array(
+    private const HTTP_CODES = array(
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing', // WebDAV; RFC 2518
