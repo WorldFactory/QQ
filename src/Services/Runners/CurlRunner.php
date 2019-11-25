@@ -159,6 +159,8 @@ EOT;
         if ($options['persist']) {
             $cookieFileName = $this->getCookieFilename($url);
 
+            echo "Cookie file : $cookieFileName" . PHP_EOL;
+
             curl_setopt($request, CURLOPT_COOKIEJAR, $cookieFileName);
             curl_setopt($request, CURLOPT_COOKIEFILE, $cookieFileName);
         }
@@ -196,6 +198,9 @@ EOT;
         if ($code !== 200) {
             throw new Exception("HTTP code #{$code} : " . self::HTTP_CODES[$code] );
         }
+
+        $length = strlen($output);
+        echo "Response length : $length octets." . PHP_EOL;
 
         return $output;
     }
