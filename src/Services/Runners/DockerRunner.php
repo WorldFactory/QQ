@@ -21,8 +21,9 @@ class DockerRunner extends AbstractRunner
             'description' => "The user with whom the script is to be executed."
         ],
         'env'        => [
-            'type' => 'string',
-            'description' => "Environment variables that must be injected."
+            'type' => 'array',
+            'description' => "Environment variables that must be injected.",
+            'default' => []
         ],
         'workingDir' => [
             'type' => 'string',
@@ -97,8 +98,10 @@ EOT;
             $parameters[] = "--user=" . $options['user'];
         }
 
-        if (isset($options['env'])) {
-            $parameters[] = "--env=" . $options['env'];
+        if (!empty($options['env'])) {
+            foreach ($options['env'] as $key => $val) {
+                $parameters[] = "--env=$key=$val";
+            }
         }
 
         if (isset($options['workingDir'])) {
@@ -120,7 +123,7 @@ EOT;
         }
 
         if ($options['tty']) {
-            $parameters[] = "-t";
+            $parameters[] = "-tty";
         }
 
         if ($options['wrap']) {
