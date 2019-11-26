@@ -48,7 +48,7 @@ EOT;
         if ($command instanceof BasicCommand) {
             $command->setDisplayHeader(false);
 
-            $input = new StringTokenizedInput($script);
+            $input = new StringTokenizedInput(addcslashes($script, '\\\'"'));
 
             $returnCode = $command->run($input, $this->getOutput());
 
