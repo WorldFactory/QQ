@@ -12,8 +12,13 @@ class DeprecationHandler extends AbstractProcessingHandler
     protected function write(array $record) : void
     {
         if (preg_match("/^User Deprecated: (?<text>.*)$/", $record['message'], $matches)) {
-            $this->deprecations[] = $matches['text'];
+            $this->insert($matches['text']);
         }
+    }
+
+    public function insert($text)
+    {
+        $this->deprecations[] = $text;
     }
 
     /**
