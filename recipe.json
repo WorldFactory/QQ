@@ -26,8 +26,8 @@
     },
     {
       "type": "copy-file",
-      "source": "resources/recipe/config/commands.yml",
-      "target": "config/commands.yml"
+      "source": "resources/recipe/config/qq.yml",
+      "target": "config/qq.yml"
     },
     {
       "type": "copy-file",
