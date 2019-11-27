@@ -7,8 +7,6 @@ use WorldFactory\QQ\Misc\ConfigLoader;
 use WorldFactory\QQ\Misc\Inputs\ArgvTokenizedInput;
 use Symfony\Component\Debug\Debug;
 
-const QQ_FILE_SRC = 'config/commands.yml';
-
 set_time_limit(0);
 
 require 'vendor/autoload.php';
@@ -39,6 +37,5 @@ if ($_SERVER['APP_DEBUG']) {
 }
 
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
-(new Application($kernel))
-    ->setConfigLoader(new ConfigLoader(QQ_FILE_SRC))
-    ->run($input);
+
+(new Application($kernel))->run($input);

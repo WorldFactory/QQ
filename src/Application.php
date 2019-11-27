@@ -2,6 +2,7 @@
 
 namespace WorldFactory\QQ;
 
+use Exception;
 use WorldFactory\QQ\Misc\ConfigLoader;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Services\Commands\AboutCommand;
@@ -10,12 +11,13 @@ use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-
 class Application extends SymfonyConsoleApplication
 {
     const VERSION = 'v2.0.0-alpha';
     const MAINTAINER_NAME = 'Raphaël Aurières';
     const MAINTAINER_MAIL = 'raphael.aurieres@gmail.com';
+
+    const FILE_SRC = 'config/commands.yml';
 
     /** @var ConfigLoader Chargeur de configuration QQ. */
     private $configLoader;
@@ -43,26 +45,47 @@ class Application extends SymfonyConsoleApplication
         $kernel->setApplication($this);
     }
 
-    public function setConfigLoader(ConfigLoader $configLoader)
+    /**
+     * @return ConfigLoader
+     * @throws Exception
+     */
+    private function buildConfigLoader()
     {
-        $this->configLoader = $configLoader;
+        $configLoader = new ConfigLoader();
 
-        return $this;
+        $src = self::FILE_SRC;
+
+        if (file_exists($src)) {
+            $configLoader->loadConfigFile($src);
+        } else {
+            throw new Exception("Configuration file not found. Location : '$src'.");
+        }
+
+        return $configLoader;
     }
 
+    /**
+     * @return ConfigLoader
+     * @throws Exception
+     */
     public function getConfigLoader() : ConfigLoader
     {
+        if ($this->configLoader === null) {
+            $this->configLoader = $this->buildConfigLoader();
+        }
+
         return $this->configLoader;
     }
 
     /**
      * Initializes all the composer commands.
+     * @throws Exception
      */
     protected function getDefaultCommands()
     {
         $dynamiqueCommands = [];
 
-        foreach ($this->configLoader->getCommands() as $commandDefinition) {
+        foreach ($this->getConfigLoader()->getCommands() as $commandDefinition) {
             /** @var BasicCommand $command */
             $command = new BasicCommand($commandDefinition);
 

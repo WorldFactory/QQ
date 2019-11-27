@@ -10,12 +10,7 @@ class ConfigLoader
 
     private $parameters = [];
 
-    public function __construct($src)
-    {
-        $this->loadConfigFile($src);
-    }
-
-    private function loadConfigFile($src)
+    public function loadConfigFile($src)
     {
         $config = Yaml::parse(file_get_contents($src));
 
