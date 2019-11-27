@@ -123,7 +123,7 @@ EOT;
         }
 
         if ($options['tty']) {
-            $parameters[] = "-tty";
+            $parameters[] = "--tty";
         }
 
         if ($options['wrap']) {
