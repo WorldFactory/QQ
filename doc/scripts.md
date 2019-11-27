@@ -1,6 +1,6 @@
 # How to create a script ?
 
-The most important file for managing your scripts is the 'commands.yml' file located in the 'config' directory.
+The most important file for managing your scripts is the 'qq.yml' file located in the 'config' directory.
 
 This file include three sections : `imports`, `parameters` and `commands`.
 

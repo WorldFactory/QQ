@@ -18,7 +18,7 @@ class CommandRunner extends AbstractRunner
 
     protected const LONG_DESCRIPTION = <<<EOT
 The command is executed directly in the current execution context.
-Feel free to compose your scripts with other subcommands to factorize your 'commands.yml' file.
+Feel free to compose your scripts with other subcommands to factorize your 'qq.yml' file.
 EOT;
 
     /** @var Application */

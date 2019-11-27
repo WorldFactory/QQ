@@ -37,7 +37,7 @@ However, on *Linux*, you will need to add the command `alias qq=./qq.sh` in your
 
 ## Basic use
 
-You will find at the root of your project a directory 'config' containing several files, including the file 'commands.yml' :
+You will find at the root of your project a directory 'config' containing several files, including the file 'qq.yml' :
 
 ```
 imports:

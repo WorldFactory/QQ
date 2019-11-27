@@ -17,7 +17,8 @@ class Application extends SymfonyConsoleApplication
     const MAINTAINER_NAME = 'Raphaël Aurières';
     const MAINTAINER_MAIL = 'raphael.aurieres@gmail.com';
 
-    const FILE_SRC = 'config/commands.yml';
+    const FILE_SRC = 'config/qq.yml';
+    const FILE_OLD = 'config/commands.yml';
 
     /** @var ConfigLoader Chargeur de configuration QQ. */
     private $configLoader;
@@ -54,9 +55,16 @@ class Application extends SymfonyConsoleApplication
         $configLoader = new ConfigLoader();
 
         $src = self::FILE_SRC;
+        $old = self::FILE_OLD;
 
         if (file_exists($src)) {
             $configLoader->loadConfigFile($src);
+        } elseif (file_exists($old)) {
+            $configLoader->loadConfigFile($old);
+
+            $deprecationHandler = $this->getKernel()->getContainer()->get('qq.handler.deprecation');
+
+            $deprecationHandler->insert("Config file '$old' is deprecated. Consider using location : '$src'.");
         } else {
             throw new Exception("Configuration file not found. Location : '$src'.");
         }
