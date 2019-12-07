@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends SymfonyConsoleApplication
 {
-    const VERSION = 'v1.6.9';
+    const VERSION = 'v1.6.10';
     const MAINTAINER_NAME = 'Raphaël Aurières';
     const MAINTAINER_MAIL = 'raphael.aurieres@gmail.com';
 
