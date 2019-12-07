@@ -3,6 +3,8 @@
 namespace WorldFactory\QQ;
 
 use Exception;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use WorldFactory\QQ\Misc\ConfigLoader;
 use WorldFactory\QQ\Misc\BasicCommand;
 use WorldFactory\QQ\Services\Commands\AboutCommand;
@@ -19,6 +21,7 @@ class Application extends SymfonyConsoleApplication
 
     const FILE_SRC = 'config/qq.yml';
     const FILE_OLD = 'config/commands.yml';
+    const CONFIG_PATH = './config/commands';
 
     /** @var ConfigLoader Chargeur de configuration QQ. */
     private $configLoader;
@@ -67,6 +70,15 @@ class Application extends SymfonyConsoleApplication
             $deprecationHandler->insert("Config file '$old' is deprecated. Consider using location : '$src'.");
         } else {
             throw new Exception("Configuration file not found. Location : '$src'.");
+        }
+
+        $finder = new Finder();
+
+        $finder->files()->in(self::CONFIG_PATH)->name(['*.yml', '*.yaml'])->sortByName();
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $configLoader->loadConfigFile($file->getRealPath());
         }
 
         return $configLoader;
