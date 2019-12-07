@@ -100,7 +100,7 @@ EOT;
 
         if (!empty($options['env'])) {
             foreach ($options['env'] as $key => $val) {
-                $parameters[] = "--env=$key=$val";
+                $parameters[] = "--env $key=\"$val\"";
             }
         }
 
