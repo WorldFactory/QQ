@@ -10,7 +10,8 @@ commands:
         run: "%docker_shell%"
         options:
             target: "%1%"
-            env: PS1="%docker_prompt%"
+            env:
+                PS1: "%docker_prompt%"
             subtty: true
             flags: [interactive]
         shortDescription: Open shell in target container.
