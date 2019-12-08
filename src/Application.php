@@ -74,11 +74,13 @@ class Application extends SymfonyConsoleApplication
 
         $finder = new Finder();
 
-        $finder->files()->in(self::CONFIG_PATH)->name(['*.yml', '*.yaml'])->sortByName();
+        if (is_dir(self::CONFIG_PATH)) {
+            $finder->files()->in(self::CONFIG_PATH)->name(['*.yml', '*.yaml'])->sortByName();
 
-        /** @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $configLoader->loadConfigFile($file->getRealPath());
+            /** @var SplFileInfo $file */
+            foreach ($finder as $file) {
+                $configLoader->loadConfigFile($file->getRealPath());
+            }
         }
 
         return $configLoader;
