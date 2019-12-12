@@ -3,12 +3,21 @@
 namespace WorldFactory\QQ\Misc;
 
 use Symfony\Component\Yaml\Yaml;
+use WorldFactory\QQ\Services\DeprecationHandler;
 
 class ConfigLoader
 {
     private $commands = [];
 
     private $parameters = [];
+
+    /** @var DeprecationHandler */
+    private $deprecationHandler;
+
+    public function __construct(DeprecationHandler $deprecationHandler)
+    {
+        $this->deprecationHandler = $deprecationHandler;
+    }
 
     public function loadImportFile($src)
     {

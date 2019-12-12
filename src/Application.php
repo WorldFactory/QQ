@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application as SymfonyConsoleApplicat
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use WorldFactory\QQ\Services\DeprecationHandler;
 
 class Application extends SymfonyConsoleApplication
 {
@@ -56,7 +57,10 @@ class Application extends SymfonyConsoleApplication
      */
     private function buildConfigLoader()
     {
-        $configLoader = new ConfigLoader();
+        /** @var DeprecationHandler $deprecationHandler */
+        $deprecationHandler = $this->getKernel()->getContainer()->get('qq.handler.deprecation');
+
+        $configLoader = new ConfigLoader($deprecationHandler);
 
         if (file_exists(self::IMPORTS_FILE)) {
             $configLoader->loadImportFile(self::IMPORTS_FILE);
