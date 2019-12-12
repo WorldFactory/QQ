@@ -21,6 +21,7 @@ class Application extends SymfonyConsoleApplication
 
     const FILE_SRC = 'config/qq.yml';
     const FILE_OLD = 'config/commands.yml';
+    const IMPORTS_FILE = 'config/imports.json';
     const CONFIG_PATH = './config/commands';
 
     /** @var ConfigLoader Chargeur de configuration QQ. */
@@ -56,6 +57,10 @@ class Application extends SymfonyConsoleApplication
     private function buildConfigLoader()
     {
         $configLoader = new ConfigLoader();
+
+        if (file_exists(self::IMPORTS_FILE)) {
+            $configLoader->loadImportFile(self::IMPORTS_FILE);
+        }
 
         $src = self::FILE_SRC;
         $old = self::FILE_OLD;

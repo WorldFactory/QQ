@@ -10,6 +10,15 @@ class ConfigLoader
 
     private $parameters = [];
 
+    public function loadImportFile($src)
+    {
+        $imports = json_decode(file_get_contents($src));
+
+        foreach ($imports as $import) {
+            $this->loadConfigFile($import);
+        }
+    }
+
     public function loadConfigFile($src)
     {
         $config = Yaml::parse(file_get_contents($src));
