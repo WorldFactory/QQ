@@ -116,7 +116,10 @@ class Application extends SymfonyConsoleApplication
     {
         $dynamiqueCommands = [];
 
-        foreach ($this->getConfigLoader()->getCommands() as $commandDefinition) {
+        /** @var ConfigLoader $configLoader */
+        $configLoader = $this->getKernel()->getContainer()->get('qq.loader.config');
+
+        foreach ($configLoader->getCommands() as $commandDefinition) {
             /** @var BasicCommand $command */
             $command = new BasicCommand($commandDefinition);
 
