@@ -36,6 +36,8 @@ class ConfigLoader
             foreach ($config['imports'] as $import) {
                 $this->loadConfigFile($import['resource']);
             }
+
+            $this->deprecationHandler->insert("Import lib from qq.yml file is deprecated. Use imports.json file instead.");
         }
 
         if (array_key_exists('parameters', $config)) {
