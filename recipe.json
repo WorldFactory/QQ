@@ -12,12 +12,14 @@
     {
       "type": "copy-file",
       "source": "resources/recipe/qq.bat",
-      "target": "qq.bat"
+      "target": "qq.bat",
+      "force": true
     },
     {
       "type": "copy-file",
       "source": "resources/recipe/qq.sh",
-      "target": "qq.sh"
+      "target": "qq.sh",
+      "force": true
     },
     {
       "type": "chmod-file",
