@@ -44,6 +44,18 @@
       "type": "copy-file",
       "source": "resources/recipe/config/services.yaml",
       "target": "config/services.yaml"
+    },
+    {
+      "type": "import-qq",
+      "source": "resources/libs/docker.yml"
+    },
+    {
+      "type": "import-qq",
+      "source": "resources/libs/composer.yml"
+    },
+    {
+      "type": "import-qq",
+      "source": "resources/libs/symfony.yml"
     }
   ]
 }
