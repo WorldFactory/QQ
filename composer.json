@@ -10,7 +10,7 @@
         "symfony/yaml": "^4.1",
         "symfony/framework-bundle": "^4.1",
         "symfony/process": "^4.2",
-        "worldfactory/cookbook": "^0.1.0",
+        "worldfactory/cookbook": "*",
         "symfony/monolog-bundle": "^3.3"
     },
     "autoload": {

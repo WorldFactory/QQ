@@ -1,4 +1,8 @@
 {
+  "recipe":  {
+    "type": "cookbook",
+    "version": "1"
+  },
   "actions": [
     {
       "type": "copy-file",
