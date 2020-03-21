@@ -23,6 +23,11 @@ class ShellRunner extends AbstractRunner
             'type' => 'bool',
             'description' => "Trim result if it's a string.",
             'default' => true
+        ],
+        'env'        => [
+            'type' => 'array',
+            'description' => "Environment variables that must be injected.",
+            'default' => []
         ]
     ];
 
@@ -44,7 +49,11 @@ EOT;
 
     protected function createProcess(string $script)
     {
-        return Process::fromShellCommandline($script, null, $_ENV, $this->getInput()->getStream());
+        $options = $this->getOptions();
+
+        $env = array_merge($_ENV, $options['env']);
+
+        return Process::fromShellCommandline($script, null, $env, $this->getInput()->getStream());
     }
 
     protected function getProcess(string $script)
