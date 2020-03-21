@@ -7,11 +7,11 @@ parameters:
 commands:
     "docker:open":
         type: docker
-        run: "%docker_shell%"
+        run: "%{docker_shell}"
         options:
             target: "%1%"
             env:
-                PS1: "%docker_prompt%"
+                PS1: "%{docker_prompt}"
             subtty: true
             flags: [interactive]
         shortDescription: Open shell in target container.

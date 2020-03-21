@@ -7,16 +7,16 @@ commands:
         type: docker
         run: composer %_all%
         options:
-            target: "%composer_container%"
-            user: "%composer_user%"
-        shortDescription: Run Composer into %composer_container% with provided parameters.
+            target: "%{composer_container}"
+            user: "%{composer_user}"
+        shortDescription: Run Composer into %{composer_container} with provided parameters.
         aliases: ["composer"]
 
     "composer:clear":
         type: docker
         run: rm -rf vendor
         options:
-            target: "%composer_container%"
-            user: "%composer_user%"
-        shortDescription: Delete vendor folder into %composer_container%.
+            target: "%{composer_container}"
+            user: "%{composer_user}"
+        shortDescription: Delete vendor folder into %{composer_container}.
         aliases: ["vendor:clear"]
