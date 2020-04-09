@@ -1,0 +1,8 @@
+commands:
+
+    confirm:
+        type: php
+        run:
+            - set: response
+              from: return readline("%_all% [y/N]");
+            - return (bool) preg_match('/^[yY]$/', $response);

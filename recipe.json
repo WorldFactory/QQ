@@ -56,6 +56,10 @@
     {
       "type": "import-qq",
       "source": "resources/libs/symfony.yml"
+    },
+    {
+      "type": "import-qq",
+      "source": "resources/libs/tools.yml"
     }
   ]
 }
