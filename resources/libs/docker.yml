@@ -53,7 +53,10 @@ commands:
     aliases: [down]
 
   "docker:restart":
-    run: docker stop %1% && docker start %1%
+    run:
+      - set: name
+        from: docker-compose ps -q %1%
+      - docker stop %{name} && docker start %{name}
     shortDescription: Restart target container.
     aliases: [restart]
 
