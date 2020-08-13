@@ -61,7 +61,10 @@ commands:
     aliases: [restart]
 
   "docker-compose:in":
-    run: docker cp %2% `docker-compose ps -q %1%`:%3%
+    run:
+      - set: name
+        from: docker-compose ps -q %1%
+      - docker cp %2% %{name}:%3%
     shortDescription: Copy a file or directory from outside to a container.
     longDescription: |
       Usage : qq cpin <container> <source> <target>
@@ -72,7 +75,10 @@ commands:
     aliases: [cpin]
 
   "docker-compose:out":
-    run: docker cp `docker-compose ps -q %1%`:%2% %3%
+    run:
+      - set: name
+        from: docker-compose ps -q %1%
+      - docker cp %{name}:%2% %3%
     shortDescription: Copy a file or directory from a container to the outside.
     longDescription: |
       Usage : qq cpout <container> <source> <target>
