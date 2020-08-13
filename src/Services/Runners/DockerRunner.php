@@ -147,7 +147,9 @@ EOT;
 
         $execArgs = join(' ', $parameters);
 
-        return "docker exec $execArgs `docker-compose ps -q $target` $compiledScript";
+        $targetContainer = $this->getTargetContainer($target);
+
+        return "docker exec $execArgs $targetContainer $compiledScript";
     }
 
     /**
@@ -174,6 +176,17 @@ EOT;
         ;
 
         return $runner->run($script, $this->getContext());
+    }
+
+    protected function getTargetContainer($target)
+    {
+        if ($this->isUnix()) {
+            $targetContainer = "`docker-compose ps -q $target`";
+        } else {
+            $targetContainer = trim(shell_exec("docker-compose ps -q $target"));
+        }
+
+        return $targetContainer;
     }
 
     /**
