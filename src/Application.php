@@ -16,7 +16,7 @@ use WorldFactory\QQ\Services\DeprecationHandler;
 
 class Application extends SymfonyConsoleApplication
 {
-    const VERSION = 'v2.1.3';
+    const VERSION = 'v2.1.4';
     const MAINTAINER_NAME = 'Raphaël Aurières';
     const MAINTAINER_MAIL = 'raphael.aurieres@gmail.com';
 
