@@ -85,7 +85,7 @@ class ContextualizedFormatter implements ScriptFormatterInterface
      * @param string $var
      * @return string
      */
-    protected function injectTokens(string $var) : string
+    public function injectTokens(string $var) : string
     {
         foreach ($this->tokens as $i => $arg) {
             $index = $i + 1;
@@ -102,7 +102,7 @@ class ContextualizedFormatter implements ScriptFormatterInterface
      * @param string $var
      * @return string
      */
-    protected function injectParameters(string $var) : string
+    public function injectParameters(string $var) : string
     {
         $parameters = $this->context->getParameters();
 
@@ -147,7 +147,7 @@ class ContextualizedFormatter implements ScriptFormatterInterface
      * @return string
      * @throws Exception
      */
-    protected function injectEnvVars(string $var) : string
+    public function injectEnvVars(string $var) : string
     {
         if (preg_match_all(self::REGEX_ENV_VAR_MATCH, $var, $matches)) {
             $combined = array_combine($matches['key'], $matches['match']);
