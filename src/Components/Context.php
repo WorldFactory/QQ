@@ -5,6 +5,7 @@ namespace WorldFactory\QQ\Components;
 use ArrayAccess;
 use Symfony\Component\Console\Output\OutputInterface;
 use WorldFactory\QQ\Interfaces\TokenizedInputInterface;
+use WorldFactory\QQ\Misc\ContextualizedFormatter;
 
 class Context implements ArrayAccess
 {
@@ -20,7 +21,9 @@ class Context implements ArrayAccess
 
     public function __construct(array $parameters, array $tokens, TokenizedInputInterface $input, OutputInterface $output)
     {
-        $this->parameters = $parameters;
+        $formatter = new ContextualizedFormatter($this);
+
+        $this->parameters = $formatter->injectEnvVarsRecursively($parameters);
         $this->tokens = $tokens;
         $this->input = $input;
         $this->output = $output;
