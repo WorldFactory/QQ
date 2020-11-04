@@ -167,6 +167,23 @@ class ContextualizedFormatter implements ScriptFormatterInterface
         return $var;
     }
 
+    public function injectEnvVarsRecursively(array $parameters)
+    {
+        $formattedParameters = [];
+
+        foreach($parameters as $key => $val) {
+            if (is_array($val)) {
+                $formattedParameters[$key] = $this->injectEnvVarsRecursively($val);
+            } elseif (is_string($val)) {
+                $formattedParameters[$key] = $this->injectEnvVars((string) $val);
+            } else {
+                $formattedParameters[$key] = $val;
+            }
+        }
+
+        return $formattedParameters;
+    }
+
     /**
      * @param string $var
      * @return string
